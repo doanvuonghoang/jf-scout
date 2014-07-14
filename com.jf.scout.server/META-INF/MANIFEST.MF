@@ -6,7 +6,9 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: com.jf.scout.server.Activator
 Export-Package: com.jf.scout.server,
- com.jf.scout.server.services.common.security
+ com.jf.scout.server.services.common.security,
+ com.jf.scout.server.services.common.sql,
+ com.jf.scout.server.ui.wizards
 Require-Bundle: org.eclipse.core.runtime,
  com.jf.scout.shared,
  org.eclipse.scout.rt.server,

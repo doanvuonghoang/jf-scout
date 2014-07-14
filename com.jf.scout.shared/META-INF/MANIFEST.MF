@@ -5,7 +5,8 @@ Bundle-SymbolicName: com.jf.scout.shared;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.jf.scout.shared.Activator
 Export-Package: com.jf.scout.shared,
- com.jf.scout.shared.services.common.text
+ com.jf.scout.shared.services.common.text,
+ com.jf.scout.shared.ui.wizards
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.shared;visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

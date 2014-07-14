@@ -29,7 +29,9 @@
 
    <plugins>
       <plugin id="com.jf.scout.server"/>
+      <plugin id="com.jf.scout.server.administration"/>
       <plugin id="com.jf.scout.shared"/>
+      <plugin id="com.jf.scout.shared.administration"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.xml"/>
       <plugin id="org.apache.derby.jdbc_1091.fragment" fragment="true"/>
