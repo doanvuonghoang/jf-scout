@@ -3,13 +3,12 @@ Bundle-ManifestVersion: 2
 Bundle-Name: My Application
 Bundle-SymbolicName: com.jf.scout.ui.swing;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: .
 Bundle-Activator: com.jf.scout.ui.swing.Activator
-Export-Package: com.jf.scout.ui.swing;uses:="org.eclipse.scout.rt.ui.swing,org.eclipse.scout.rt.client.session,org.osgi.framework"
+Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.scout.rt.ui.swing,
  com.jf.scout.client;visibility:=reexport,
  com.jf.scout.shared,
- org.eclipse.scout.net,
- com.bsiag.scout.rt.ui.swing.rayo
+ org.eclipse.scout.net
+Export-Package: com.jf.scout.ui.swing;uses:="org.eclipse.scout.rt.ui.swing,org.eclipse.scout.rt.client.session,org.osgi.framework"
+Bundle-ClassPath: .
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-ActivationPolicy: lazy
