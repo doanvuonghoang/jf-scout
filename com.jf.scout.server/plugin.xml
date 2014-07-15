@@ -19,6 +19,16 @@
             class="com.jf.scout.server.services.common.security.AccessControlService"
             session="com.jf.scout.server.ServerSession">
       </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="com.jf.scout.server.services.common.sql.DerbySqlService"
+            session="com.jf.scout.server.ServerSession">
+      </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="com.jf.scout.server.ui.wizards.DatabaseSetupService"
+            session="com.jf.scout.server.ServerSession">
+      </service>
    </extension>
    <extension
          name=""

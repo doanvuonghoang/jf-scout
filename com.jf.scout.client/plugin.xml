@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-  <extension point="org.eclipse.scout.service.services">
-  </extension>
+
+   <extension
+         name=""
+         point="org.eclipse.scout.service.services">
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="com.jf.scout.shared.ui.wizards.IDatabaseSetupService">
+      </proxy>
+   </extension>
+
 </plugin>
