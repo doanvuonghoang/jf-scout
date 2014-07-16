@@ -19,6 +19,11 @@
             class="com.jf.scout.server.core.services.common.security.AccessControlService"
             session="com.jf.scout.server.core.ServerSession">
       </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="com.jf.scout.server.core.services.ConfigurationService"
+            session="com.jf.scout.server.core.ServerSession">
+      </service>
    </extension>
    <extension
          name=""
@@ -89,8 +94,8 @@
          name=""
          point="org.eclipse.core.runtime.products">
       <product
-            name="scoutCore Server"
-            application="com.jf.scout.server.core.app">
+            application="com.jf.scout.server.core.app"
+            name="scoutCore Server">
          <property
                name="appName"
                value="scoutCore Server">
