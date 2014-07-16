@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.jf.scout.shared.core
+Bundle-SymbolicName: com.jf.scout.shared.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.jf.scout.shared.core.Activator
+Export-Package: com.jf.scout.shared.core,
+ com.jf.scout.shared.core.services.common.text
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.scout.rt.shared;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy

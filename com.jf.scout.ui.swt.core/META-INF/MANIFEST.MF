@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: My Application
+Bundle-SymbolicName: com.jf.scout.ui.swt.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: com.jf.scout.ui.swt.core.Activator
+Export-Package: com.jf.scout.ui.swt.core;uses:="org.eclipse.scout.rt.ui.swt,org.eclipse.scout.rt.client.session,org.osgi.framework",
+ com.jf.scout.ui.swt.core.application,
+ com.jf.scout.ui.swt.core.application.menu,
+ com.jf.scout.ui.swt.core.editor,
+ com.jf.scout.ui.swt.core.perspective,
+ com.jf.scout.ui.swt.core.views
+Require-Bundle: com.jf.scout.client.core;visibility:=reexport,
+ com.jf.scout.shared.core,
+ org.eclipse.scout.rt.ui.swt,
+ org.eclipse.scout.net,
+ org.eclipse.equinox.app,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.views
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
