@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.jf.scout.client.installer
+Bundle-SymbolicName: com.jf.scout.client.installer;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.jf.scout.client.installer.Activator
+Export-Package: com.jf.scout.client.installer,
+ com.jf.scout.client.installer.ui.desktop
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.scout.rt.client;visibility:=reexport,
+ org.eclipse.scout.rt.extension.client;visibility:=reexport,
+ com.jf.scout.shared.installer,
+ org.eclipse.scout.svg.client,
+ com.jf.scout.client.core;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: org.w3c.dom.svg;version="[1.1.0,2.0.0)"
+Bundle-ActivationPolicy: lazy
