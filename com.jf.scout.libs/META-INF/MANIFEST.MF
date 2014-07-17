@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-SymbolicName: requiredlibs
+Bundle-SymbolicName: com.jf.scout.libs
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: lib/commons-beanutils-1.9.2.jar,
  lib/commons-collections-3.2.1-javadoc.jar,
