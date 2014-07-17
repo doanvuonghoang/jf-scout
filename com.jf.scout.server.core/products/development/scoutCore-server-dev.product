@@ -28,6 +28,7 @@
    </vm>
 
    <plugins>
+      <plugin id="com.jf.scout.commons.libs"/>
       <plugin id="com.jf.scout.server.administration"/>
       <plugin id="com.jf.scout.server.core"/>
       <plugin id="com.jf.scout.server.core.requiredlibs"/>

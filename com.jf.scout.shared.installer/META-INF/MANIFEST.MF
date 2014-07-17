@@ -6,7 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.jf.scout.shared.installer.Activator
 Export-Package: com.jf.scout.shared.installer,
  com.jf.scout.shared.installer.services,
- com.jf.scout.shared.installer.services.common.text
+ com.jf.scout.shared.installer.services.common.text,
+ com.jf.scout.shared.installer.ui.desktop.forms
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.shared;visibility:=reexport,
  com.jf.scout.shared.core;visibility:=reexport

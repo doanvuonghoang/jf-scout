@@ -36,6 +36,7 @@
       <plugin id="com.jf.scout.client.administration"/>
       <plugin id="com.jf.scout.client.core"/>
       <plugin id="com.jf.scout.client.installer"/>
+      <plugin id="com.jf.scout.commons.libs"/>
       <plugin id="com.jf.scout.shared.administration"/>
       <plugin id="com.jf.scout.shared.core"/>
       <plugin id="com.jf.scout.shared.installer"/>

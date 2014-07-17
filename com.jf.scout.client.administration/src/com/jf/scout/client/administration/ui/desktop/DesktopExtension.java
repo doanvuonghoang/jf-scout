@@ -7,6 +7,7 @@ import org.eclipse.scout.rt.shared.TEXTS;
 
 public class DesktopExtension extends AbstractDesktopExtension {
   public DesktopExtension() {
+
   }
 
   @Order(10.0)

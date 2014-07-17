@@ -22,9 +22,6 @@ import com.jf.scout.shared.core.services.IConfigurationService;
  */
 public class ConfigurationService extends AbstractService implements IConfigurationService {
 
-  public static final String JF_SCOUT_HOME = "JF_SCOUT_HOME";
-  public static final String JF_FIRST_RUN = "first_run";
-
   private Configuration cfg;
 
   /* (non-Javadoc)
@@ -115,5 +112,23 @@ public class ConfigurationService extends AbstractService implements IConfigurat
   public Configuration getConfiguration() throws ProcessingException {
     //TODO [Hoàng] business logic here.
     return cfg;
+  }
+
+  @Override
+  public boolean readBoolean(String key, boolean _default) throws ProcessingException {
+    //TODO [Hoàng] business logic here.
+    return cfg.getBoolean(key, _default);
+  }
+
+  @Override
+  public void writeString(String key, String val) throws ProcessingException {
+    //TODO [Hoàng] business logic here.
+    cfg.setProperty(key, val);
+  }
+
+  @Override
+  public String readString(String key, String _default) throws ProcessingException {
+    //TODO [Hoàng] business logic here.
+    return null;
   }
 }

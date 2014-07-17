@@ -24,6 +24,16 @@
             class="com.jf.scout.server.core.services.ConfigurationService"
             session="com.jf.scout.server.core.ServerSession">
       </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="com.jf.scout.server.core.services.common.sql.DBSqlService"
+            session="com.jf.scout.server.core.ServerSession">
+      </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="com.jf.scout.server.core.services.HelperService"
+            session="com.jf.scout.server.core.ServerSession">
+      </service>
    </extension>
    <extension
          name=""

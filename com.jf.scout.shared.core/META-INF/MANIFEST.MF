@@ -8,6 +8,7 @@ Export-Package: com.jf.scout.shared.core,
  com.jf.scout.shared.core.services,
  com.jf.scout.shared.core.services.common.text
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.scout.rt.shared;visibility:=reexport
+ org.eclipse.scout.rt.shared;visibility:=reexport,
+ com.jf.scout.commons.libs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
