@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-SymbolicName: requiredlibs
+Bundle-SymbolicName: libs
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: lib/commons-beanutils-1.9.2.jar,
  lib/commons-collections-3.2.1-javadoc.jar,
@@ -21,6 +21,7 @@ Bundle-ClassPath: lib/commons-beanutils-1.9.2.jar,
  lib/ormlite-jdbc-4.48.jar,
  lib/slf4j-api-1.7.7.jar,
  lib/slf4j-nop-1.7.7.jar
+Fragment-Host: system.bundle
 Export-Package: com.j256.ormlite.core,
  com.j256.ormlite.dao,
  com.j256.ormlite.db,

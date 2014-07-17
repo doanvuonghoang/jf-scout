@@ -2,20 +2,10 @@ package com.jf.scout.server.installer;
 
 import javax.security.auth.Subject;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.scout.commons.logger.ScoutLogManager;
 import org.eclipse.scout.commons.security.SimplePrincipal;
-import org.eclipse.scout.rt.server.ServerJob;
 import org.eclipse.scout.rt.server.scheduler.Scheduler;
-import org.eclipse.scout.rt.server.services.common.session.IServerSessionRegistryService;
-import org.eclipse.scout.service.SERVICES;
 import org.osgi.framework.BundleContext;
-
-import com.jf.scout.server.core.ServerSession;
-import com.jf.scout.shared.installer.services.IInstallerService;
 
 public class Activator extends Plugin {
 
@@ -55,27 +45,6 @@ public class Activator extends Plugin {
     //create the backend subject
     m_subject = new Subject();
     m_subject.getPrincipals().add(new SimplePrincipal("server"));
-
-    // call install service
-    ServerSession serverSession =
-        SERVICES.getService(IServerSessionRegistryService.class)
-            .newServerSession(ServerSession.class, m_subject);
-
-    ServerJob installJob =
-        new ServerJob("Install core database for jf-scout application", serverSession) {
-
-          @Override
-          protected IStatus runTransaction(IProgressMonitor monitor) throws Exception {
-            // TODO Auto-generated method stub
-            SERVICES.getService(IInstallerService.class).install();
-            ScoutLogManager.getLogger(getClass()).info("Core database schema successfully created");
-
-            return Status.OK_STATUS;
-          }
-        };
-    installJob.schedule();
-    installJob.join(20000);
-
   }
 
   /*

@@ -30,6 +30,7 @@
    <plugins>
       <plugin id="com.jf.scout.server.administration"/>
       <plugin id="com.jf.scout.server.core"/>
+      <plugin id="com.jf.scout.server.core.requiredlibs"/>
       <plugin id="com.jf.scout.server.installer"/>
       <plugin id="com.jf.scout.shared.administration"/>
       <plugin id="com.jf.scout.shared.core"/>
@@ -68,6 +69,8 @@
       <plugin id="org.eclipse.scout.rt.shared"/>
       <plugin id="org.eclipse.scout.service"/>
       <plugin id="org.eclipse.update.configurator"/>
+      <plugin id="required.libs"/>
+      <plugin id="requiredlibs"/>
    </plugins>
 
 
