@@ -1,5 +1,7 @@
 package com.jf.scout.client.core.ui.desktop;
 
+import java.util.List;
+
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.logger.IScoutLogger;
@@ -8,18 +10,43 @@ import org.eclipse.scout.rt.client.ClientSyncJob;
 import org.eclipse.scout.rt.client.ui.action.keystroke.AbstractKeyStroke;
 import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
 import org.eclipse.scout.rt.client.ui.desktop.IDesktop;
+import org.eclipse.scout.rt.client.ui.desktop.IDesktopExtension;
 import org.eclipse.scout.rt.client.ui.desktop.bookmark.menu.AbstractBookmarkMenu;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
 import org.eclipse.scout.rt.client.ui.form.ScoutInfoForm;
+import org.eclipse.scout.rt.extension.client.Activator;
 import org.eclipse.scout.rt.extension.client.ui.desktop.AbstractExtensibleDesktop;
 import org.eclipse.scout.rt.shared.TEXTS;
+import org.eclipse.scout.service.SERVICES;
 
 import com.jf.scout.client.core.ClientSession;
+import com.jf.scout.commons.IInstallable;
+import com.jf.scout.shared.core.services.IExtensionReposService;
 
 public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
   private static IScoutLogger logger = ScoutLogManager.getLogger(Desktop.class);
 
   public Desktop() {
+  }
+
+  @Override
+  protected void injectDesktopExtensions(List<IDesktopExtension> desktopExtensions) {
+    super.injectDesktopExtensions(desktopExtensions);
+    List<IDesktopExtension> extensions = Activator.getDefault().getDesktopExtensionManager().getDesktopExtensions();
+    for (IDesktopExtension e : extensions) {
+      if (e instanceof IInstallable) {
+        try {
+          SERVICES.getService(IExtensionReposService.class).install((IInstallable) e);
+        }
+        catch (ProcessingException e1) {
+          // TODO Auto-generated catch block
+          logger.info(e1.getMessage(), e1);
+        }
+      }
+
+      e.setCoreDesktop(this);
+    }
+    desktopExtensions.addAll(extensions);
   }
 
   @Override

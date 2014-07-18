@@ -3,35 +3,33 @@
  */
 package com.jf.scout.shared.core.services;
 
+import javax.sql.DataSource;
+
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.rt.shared.validate.IValidationStrategy;
 import org.eclipse.scout.rt.shared.validate.InputValidation;
 import org.eclipse.scout.service.IService;
 
-import com.jf.scout.commons.IInstallable;
+import com.j256.ormlite.dao.Dao;
 
 /**
  * @author Hoàng
  */
 @InputValidation(IValidationStrategy.PROCESS.class)
-public interface IExtensionReposService extends IService {
+public interface IDatabaseHelperService extends IService {
 
   /**
-   * @param extName
+   * @param cls
    * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  boolean isInstalled(String extName) throws ProcessingException;
+  <U, V> Dao<U, V> createDao(Class<U> cls) throws ProcessingException;
 
   /**
-   * @param ext
+   * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  void install(IInstallable ext) throws ProcessingException;
+  DataSource getDataSource() throws ProcessingException;
 
-  /**
-   * @param extName
-   * @throws org.eclipse.scout.commons.exception.ProcessingException
-   */
-  void uninstall(String extName) throws ProcessingException;
+  public String getDatabaseUri() throws ProcessingException;
 }

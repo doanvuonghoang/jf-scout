@@ -4,5 +4,5 @@ public @interface Author {
 	/**
 	 * name of author
 	 */
-	String name = "";
+	public String name() default "";
 }

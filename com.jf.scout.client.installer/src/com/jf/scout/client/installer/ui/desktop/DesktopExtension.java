@@ -9,9 +9,10 @@ import org.eclipse.scout.rt.client.ui.desktop.ContributionCommand;
 import org.eclipse.scout.service.SERVICES;
 
 import com.jf.scout.client.installer.ui.wizards.SetupWizard;
+import com.jf.scout.commons.IInstallable;
 import com.jf.scout.shared.core.services.IConfigurationService;
 
-public class DesktopExtension extends AbstractDesktopExtension {
+public class DesktopExtension extends AbstractDesktopExtension implements IInstallable {
   private IScoutLogger logger = ScoutLogManager.getLogger(getClass());
 
   public DesktopExtension() {
@@ -33,5 +34,23 @@ public class DesktopExtension extends AbstractDesktopExtension {
     }
 
     return super.execOpened();
+  }
+
+  /* (non-Javadoc)
+   * @see com.jf.scout.commons.IInstallable#doInstall()
+   */
+  @Override
+  public void doInstall() throws Exception {
+    // TODO Auto-generated method stub
+
+  }
+
+  /* (non-Javadoc)
+   * @see com.jf.scout.commons.IInstallable#doUnInstall()
+   */
+  @Override
+  public void doUnInstall() throws Exception {
+    // TODO Auto-generated method stub
+
   }
 }

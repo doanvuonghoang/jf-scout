@@ -34,6 +34,11 @@
             class="com.jf.scout.server.core.services.ExtensionReposService"
             session="com.jf.scout.server.core.ServerSession">
       </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="com.jf.scout.server.core.services.DatabaseHelperService"
+            session="com.jf.scout.server.core.ServerSession">
+      </service>
    </extension>
    <extension
          name=""
@@ -104,8 +109,8 @@
          name=""
          point="org.eclipse.core.runtime.products">
       <product
-            application="com.jf.scout.server.core.app"
-            name="scoutCore Server">
+            name="scoutCore Server"
+            application="com.jf.scout.server.core.app">
          <property
                name="appName"
                value="scoutCore Server">

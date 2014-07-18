@@ -10,6 +10,7 @@ Export-Package: com.jf.scout.shared.installer,
  com.jf.scout.shared.installer.ui.desktop.forms
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.shared;visibility:=reexport,
- com.jf.scout.shared.core;visibility:=reexport
+ com.jf.scout.shared.core;visibility:=reexport,
+ com.jf.scout.commons.libs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

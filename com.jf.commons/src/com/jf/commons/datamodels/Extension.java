@@ -17,11 +17,7 @@
 
 package com.jf.commons.datamodels;
 
-import java.util.Date;
-
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -29,44 +25,23 @@ import com.j256.ormlite.table.DatabaseTable;
  * @author Hoàng Doãn
  */
 @DatabaseTable(tableName = "Extensions")
-public class Extension {
-    public static final String FIELD_PLUGIN_CLASS_NAME = "extClassName";
+public class Extension extends TrackableEntity {
+    public static final String FIELD_EXT_CLASS_NAME = "extClassName";
     public static final String FIELD_RECORD_STATUS = "recordStatus";
     public static final String FIELD_DEBUG = "debug";
     
-    @DatabaseField(generatedId = true)
-    public long id;
-    
-    @DatabaseField(unique = true, canBeNull = false, columnName = FIELD_PLUGIN_CLASS_NAME)
+    @DatabaseField(unique = true, canBeNull = false, columnName = FIELD_EXT_CLASS_NAME)
     public String extClassName;
     
     @DatabaseField
     public String author;
     
     @DatabaseField
-    public int version;
-
-    @DatabaseField(width = 4000)
-    public String resourcesInString;
+    public String version;
     
-    @DatabaseField(defaultValue = "true", columnName = FIELD_DEBUG)
+    @DatabaseField(defaultValue = "false", columnName = FIELD_DEBUG)
     public boolean debug;
     
     @DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
     public RecordStatus recordStatus;
-    
-    @DatabaseField(canBeNull = false)
-    public Date createdTime;
-    
-    @DatabaseField(canBeNull = false)
-    public String creator;
-    
-    @DatabaseField
-    public Date lastModifiedTime;
-    
-    @DatabaseField
-    public String lastModifier;
-    
-    @ForeignCollectionField
-    public ForeignCollection<Resource> resources;
 }
