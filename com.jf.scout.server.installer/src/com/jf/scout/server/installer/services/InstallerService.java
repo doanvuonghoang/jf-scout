@@ -3,6 +3,9 @@
  */
 package com.jf.scout.server.installer.services;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.exception.VetoException;
 import org.eclipse.scout.service.AbstractService;
@@ -30,6 +33,23 @@ public class InstallerService extends AbstractService implements IInstallerServi
     if (isFirstRun) {
       System.out.println("Install here");
       System.out.println(System.getProperty("user.dir"));
+    }
+  }
+
+  @Override
+  public boolean testConnection(String driver, String uri, String user, String password) throws ProcessingException {
+    //TODO [Hoàng] business logic here.
+    try {
+      Class.forName(driver);
+
+      Connection conn = DriverManager.getConnection(uri, user, password);
+      conn.close();
+
+      return true;
+    }
+    catch (Exception e) {
+      // TODO Auto-generated catch block
+      throw new VetoException(e.getMessage(), e);
     }
   }
 }

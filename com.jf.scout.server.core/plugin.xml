@@ -31,7 +31,7 @@
       </service>
       <service
             factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
-            class="com.jf.scout.server.core.services.HelperService"
+            class="com.jf.scout.server.core.services.ExtensionReposService"
             session="com.jf.scout.server.core.ServerSession">
       </service>
    </extension>

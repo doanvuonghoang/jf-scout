@@ -26,7 +26,7 @@ import com.jf.scout.client.installer.ui.desktop.forms.DatabaseSetupForm.MainBox.
 import com.jf.scout.client.installer.ui.desktop.forms.DatabaseSetupForm.MainBox.TestDatabaseConnectionBox;
 import com.jf.scout.client.installer.ui.desktop.forms.DatabaseSetupForm.MainBox.TestDatabaseConnectionBox.ConnectionStatusField;
 import com.jf.scout.client.installer.ui.desktop.forms.DatabaseSetupForm.MainBox.TestDatabaseConnectionBox.TryToConnectionButton;
-import com.jf.scout.shared.core.services.IHelperService;
+import com.jf.scout.shared.installer.services.IInstallerService;
 import com.jf.scout.shared.installer.ui.desktop.forms.DatabaseSetupFormData;
 
 /**
@@ -314,20 +314,6 @@ public class DatabaseSetupForm extends AbstractForm {
           return TEXTS.get("TryToConnection");
         }
 
-        @Override
-        protected void execClickAction() throws ProcessingException {
-          //TODO [Hoàng] Auto-generated method stub.
-          IHelperService s = SERVICES.getService(IHelperService.class);
-
-          getConnectionStatusField().setValue(
-              s.testConnection(
-                  getDatabaseDriverField().getValue(),
-                  getDatabaseUriField().getValue(),
-                  getDatabaseUserField().getValue(),
-                  getDatabasePasswordField().getValue()));
-
-          super.execClickAction();
-        }
       }
     }
   }
@@ -336,6 +322,18 @@ public class DatabaseSetupForm extends AbstractForm {
    * @author Hoàng
    */
   public class EmptyHandler extends AbstractFormHandler {
+
+    @Override
+    protected void execStore() throws ProcessingException {
+      //TODO [Hoàng] Auto-generated method stub.
+      SERVICES.getService(IInstallerService.class).testConnection(
+          getDatabaseDriverField().getValue(),
+          getDatabaseUriField().getValue(),
+          getDatabaseUserField().getValue(),
+          getDatabasePasswordField().getValue());
+
+      super.execStore();
+    }
   }
 
 }
