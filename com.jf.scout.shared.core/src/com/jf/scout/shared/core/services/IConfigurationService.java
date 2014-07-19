@@ -73,4 +73,9 @@ public interface IConfigurationService extends IService {
    */
   String readString(String key, String _default) throws ProcessingException;
 
+  /**
+   * @throws org.eclipse.scout.commons.exception.ProcessingException
+   */
+  void commit() throws ProcessingException;
+
 }

@@ -36,7 +36,17 @@
       </service>
       <service
             factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
-            class="com.jf.scout.server.core.services.DatabaseHelperService"
+            class="com.jf.scout.server.core.services.DatabaseService"
+            session="com.jf.scout.server.core.ServerSession">
+      </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="com.jf.scout.server.core.ui.desktop.forms.DatabaseSetupService"
+            session="com.jf.scout.server.core.ServerSession">
+      </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="com.jf.scout.server.core.services.CoreService"
             session="com.jf.scout.server.core.ServerSession">
       </service>
    </extension>

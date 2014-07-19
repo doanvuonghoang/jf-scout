@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Commons
+Bundle-SymbolicName: com.jf.commons
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: commons.jar,
+ libs/ormlite-core-4.48.jar,
+ libs/ormlite-jdbc-4.48.jar
+Export-Package: com.jf.commons.annotations,
+ com.jf.commons.datamodels,
+ com.jf.scout.commons

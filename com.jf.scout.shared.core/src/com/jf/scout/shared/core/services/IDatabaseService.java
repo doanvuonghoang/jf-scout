@@ -8,30 +8,29 @@ import org.eclipse.scout.rt.shared.validate.IValidationStrategy;
 import org.eclipse.scout.rt.shared.validate.InputValidation;
 import org.eclipse.scout.service.IService;
 
-import com.jf.commons.datamodels.Extension;
+import com.j256.ormlite.dao.Dao;
 
 /**
  * @author Hoàng
  */
 @InputValidation(IValidationStrategy.PROCESS.class)
-public interface IExtensionReposService extends IService {
+public interface IDatabaseService extends IService {
 
   /**
-   * @param extName
+   * @param cls
    * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  boolean isInstalled(String extName) throws ProcessingException;
+  <U, V> Dao<U, V> createDao(Class<U> cls) throws ProcessingException;
 
   /**
-   * @param ext
-   * @throws org.eclipse.scout.commons.exception.ProcessingException
+   * @return
+   * @throws ProcessingException
    */
-  void install(Extension ext) throws ProcessingException;
+  public String getDatabaseUri() throws ProcessingException;
 
   /**
-   * @param extName
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  void uninstall(String extName) throws ProcessingException;
+  void refreshSource() throws ProcessingException;
 }

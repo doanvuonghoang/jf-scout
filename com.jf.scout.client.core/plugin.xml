@@ -12,6 +12,14 @@
             factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
             class="com.jf.scout.shared.core.services.IExtensionReposService">
       </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="com.jf.scout.shared.core.ui.desktop.forms.IDatabaseSetupService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="com.jf.scout.shared.core.services.ICoreService">
+      </proxy>
    </extension>
 
 </plugin>

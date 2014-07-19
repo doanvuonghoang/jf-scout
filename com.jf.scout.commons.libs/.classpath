@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path=""/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-beanutils-1.9.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-collections-3.2.1-javadoc.jar"/>
@@ -22,5 +22,12 @@
 	<classpathentry exported="true" kind="lib" path="lib/ormlite-jdbc-4.48.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-api-1.7.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-nop-1.7.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jfscout-commons.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/derby.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/derbyclient.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/derbynet.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/derbyrun.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/derbytools.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hsqldb.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

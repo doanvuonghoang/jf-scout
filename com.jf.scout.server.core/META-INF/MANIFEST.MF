@@ -8,7 +8,8 @@ Bundle-Activator: com.jf.scout.server.core.Activator
 Export-Package: com.jf.scout.server.core,
  com.jf.scout.server.core.services,
  com.jf.scout.server.core.services.common.security,
- com.jf.scout.server.core.services.common.sql
+ com.jf.scout.server.core.services.common.sql,
+ com.jf.scout.server.core.ui.desktop.forms
 Require-Bundle: org.eclipse.core.runtime,
  com.jf.scout.shared.core,
  org.eclipse.scout.rt.server,

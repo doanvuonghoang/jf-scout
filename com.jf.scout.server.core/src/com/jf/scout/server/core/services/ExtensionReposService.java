@@ -21,12 +21,14 @@ import com.jf.commons.annotations.Version;
 import com.jf.commons.datamodels.Extension;
 import com.jf.commons.datamodels.RecordStatus;
 import com.jf.scout.commons.IInstallable;
-import com.jf.scout.shared.core.services.IDatabaseHelperService;
+import com.jf.scout.shared.core.services.IDatabaseService;
 import com.jf.scout.shared.core.services.IExtensionReposService;
 
 /**
  * @author Hoàng
  */
+@Author(name = "Hoang Doan")
+@Version(version = "1.0.0")
 public class ExtensionReposService extends AbstractService implements IExtensionReposService, IInstallable {
   private Dao<Extension, Long> dao;
   private IScoutLogger logger = ScoutLogManager.getLogger(getClass());
@@ -41,21 +43,31 @@ public class ExtensionReposService extends AbstractService implements IExtension
 
     // install service it-self
     try {
-      // init dao for sql helper
-      dao = SERVICES.getService(IDatabaseHelperService.class).createDao(Extension.class);
-
-      if (!isInstalled(getClass().getName())) install(this);
+      if (!isInstalled(getClass().getName())) doInstall();
     }
     catch (Exception e) {
       logger.info(e.getMessage(), e);
     }
   }
 
+  private Dao<Extension, Long> getDao() {
+    if (dao == null) {
+      try {
+        dao = SERVICES.getService(IDatabaseService.class).createDao(Extension.class);
+      }
+      catch (Exception e) {
+        logger.info(e.getMessage(), e);
+      }
+    }
+
+    return dao;
+  }
+
   @Override
   public boolean isInstalled(String extName) throws ProcessingException {
     //TODO [Hoàng] business logic here.
     try {
-      return !dao.queryBuilder().where()
+      return !getDao().queryBuilder().where()
           .eq(Extension.FIELD_EXT_CLASS_NAME, extName)
           .and().ne(Extension.FIELD_RECORD_STATUS, RecordStatus.DELETE)
           .and().eq(Extension.FIELD_DEBUG, false).query().isEmpty();
@@ -68,22 +80,10 @@ public class ExtensionReposService extends AbstractService implements IExtension
   }
 
   @Override
-  public void install(IInstallable ext) throws ProcessingException {
+  public void install(Extension ext) throws ProcessingException {
     //TODO [Hoàng] business logic here.
-    Extension model = createExtensionModel(ext);
-
     try {
-      if (model.debug) {
-        executeInternalUninstall(ext);
-        removeExtension(ext.getClass().getName());
-      }
-      else if (isInstalled(ext.getClass().getName())) return;
-
-      executeInternalInstall(ext);
-
-      dao.create(model);
-
-      ext.doInstall();
+      getDao().create(ext);
     }
     catch (Exception e) {
       // TODO Auto-generated catch block
@@ -92,24 +92,11 @@ public class ExtensionReposService extends AbstractService implements IExtension
   }
 
   /**
-   * @param ext
-   */
-  private void executeInternalInstall(IInstallable ext) {
-    // TODO Auto-generated method stub
-    try {
-      ext.doInstall();
-    }
-    catch (Exception ex) {
-      logger.info(ex.getMessage(), ex);
-    }
-  }
-
-  /**
    * @param name
    */
-  private void removeExtension(String name) throws Exception {
+  public void removeExtension(String name) throws Exception {
     // TODO Auto-generated method stub
-    dao.queryForEq(Extension.FIELD_EXT_CLASS_NAME, name).forEach((m) -> {
+    getDao().queryForEq(Extension.FIELD_EXT_CLASS_NAME, name).forEach((m) -> {
 
       try {
         dao.delete(m);
@@ -120,17 +107,15 @@ public class ExtensionReposService extends AbstractService implements IExtension
     });
   }
 
-  /**
-   * @param ext
+  /* (non-Javadoc)
+   * @see com.jf.scout.commons.IInstallable#doInstall()
    */
-  private void executeInternalUninstall(IInstallable ext) {
+  @Override
+  public void doInstall() throws Exception {
     // TODO Auto-generated method stub
-    try {
-      ext.doUnInstall();
-    }
-    catch (Exception ex) {
-      logger.info(ex.getMessage(), ex);
-    }
+    TableUtils.createTable(getDao().getConnectionSource(), Extension.class);
+
+    getDao().create(createExtensionModel(this));
   }
 
   /**
@@ -150,28 +135,19 @@ public class ExtensionReposService extends AbstractService implements IExtension
   }
 
   /* (non-Javadoc)
-   * @see com.jf.scout.commons.IInstallable#doInstall()
-   */
-  @Override
-  public void doInstall() throws Exception {
-    // TODO Auto-generated method stub
-    TableUtils.createTable(dao.getConnectionSource(), Extension.class);
-  }
-
-  /* (non-Javadoc)
    * @see com.jf.scout.commons.IInstallable#doUnInstall()
    */
   @Override
   public void doUnInstall() throws Exception {
     // TODO Auto-generated method stub
-    TableUtils.dropTable(dao.getConnectionSource(), Extension.class, true);
+    TableUtils.dropTable(getDao().getConnectionSource(), Extension.class, true);
   }
 
   @Override
   public void uninstall(String extName) throws ProcessingException {
     //TODO [Hoàng] business logic here.
     try {
-      dao.updateBuilder().updateColumnValue(Extension.FIELD_RECORD_STATUS, RecordStatus.DELETE);
+      getDao().updateBuilder().updateColumnValue(Extension.FIELD_RECORD_STATUS, RecordStatus.DELETE);
     }
     catch (SQLException e) {
       // TODO Auto-generated catch block

@@ -9,6 +9,8 @@ import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.eclipse.scout.commons.exception.ProcessingException;
+import org.eclipse.scout.commons.exception.VetoException;
+import org.eclipse.scout.commons.logger.IScoutLogger;
 import org.eclipse.scout.commons.logger.ScoutLogManager;
 import org.eclipse.scout.rt.server.services.common.file.RemoteFileService;
 import org.eclipse.scout.service.AbstractService;
@@ -21,7 +23,7 @@ import com.jf.scout.shared.core.services.IConfigurationService;
  * @author Ho�ng
  */
 public class ConfigurationService extends AbstractService implements IConfigurationService {
-
+  private IScoutLogger logger = ScoutLogManager.getLogger(getClass());
   private Configuration cfg;
 
   /* (non-Javadoc)
@@ -42,11 +44,11 @@ public class ConfigurationService extends AbstractService implements IConfigurat
   public void disposeServices() {
     // TODO Auto-generated method stub
     try {
-      ((XMLConfiguration) cfg).save();
+      commit();
     }
-    catch (ConfigurationException e) {
+    catch (ProcessingException e) {
       // TODO Auto-generated catch block
-      ScoutLogManager.getLogger(getClass()).info(e.getMessage());
+      logger.info(e.getMessage(), e);
     }
 
     super.disposeServices();
@@ -58,16 +60,24 @@ public class ConfigurationService extends AbstractService implements IConfigurat
   private void _initConfiguration() {
     // TODO Auto-generated method stub
     File f = new File(_getConfigFile());
+
     if (f.exists()) {
       try {
         cfg = new XMLConfiguration(f);
       }
       catch (ConfigurationException ex) {
-        ScoutLogManager.getLogger(getClass()).info(ex.getMessage(), ex);
+        logger.info(ex.getMessage(), ex);
       }
     }
     else {
       cfg = new XMLConfiguration();
+//      try {
+//        f.createNewFile();
+//      }
+//      catch (IOException e) {
+//        // TODO Auto-generated catch block
+//        logger.info(e.getMessage(), e);
+//      }
       ((XMLConfiguration) cfg).setFileName(_getConfigFile());
     }
   }
@@ -129,6 +139,19 @@ public class ConfigurationService extends AbstractService implements IConfigurat
   @Override
   public String readString(String key, String _default) throws ProcessingException {
     //TODO [Hoàng] business logic here.
-    return null;
+    return cfg.getString(key, _default);
+  }
+
+  @Override
+  public void commit() throws ProcessingException {
+    //TODO [Hoàng] business logic here.
+    logger.info("Storing config");
+    try {
+      ((XMLConfiguration) cfg).save();
+    }
+    catch (ConfigurationException e) {
+      // TODO Auto-generated catch block
+      throw new VetoException(e.getMessage(), e);
+    }
   }
 }

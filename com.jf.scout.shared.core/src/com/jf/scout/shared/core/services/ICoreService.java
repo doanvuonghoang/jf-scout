@@ -3,35 +3,35 @@
  */
 package com.jf.scout.shared.core.services;
 
+import java.util.Locale;
+
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.rt.shared.validate.IValidationStrategy;
 import org.eclipse.scout.rt.shared.validate.InputValidation;
 import org.eclipse.scout.service.IService;
 
-import com.jf.commons.datamodels.Extension;
-
 /**
  * @author Hoàng
  */
 @InputValidation(IValidationStrategy.PROCESS.class)
-public interface IExtensionReposService extends IService {
+public interface ICoreService extends IService {
 
   /**
-   * @param extName
    * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  boolean isInstalled(String extName) throws ProcessingException;
+  boolean isFirstRun() throws ProcessingException;
 
   /**
-   * @param ext
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  void install(Extension ext) throws ProcessingException;
+  void makeNotFirstRun() throws ProcessingException;
 
   /**
-   * @param extName
+   * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  void uninstall(String extName) throws ProcessingException;
+  Locale[] getAvailableLocales() throws ProcessingException;
+
+  void setLocale(Locale defaultLocale) throws ProcessingException;
 }

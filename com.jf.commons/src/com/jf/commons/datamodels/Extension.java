@@ -17,6 +17,8 @@
 
 package com.jf.commons.datamodels;
 
+import java.io.Serializable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -25,7 +27,9 @@ import com.j256.ormlite.table.DatabaseTable;
  * @author Hoàng Doãn
  */
 @DatabaseTable(tableName = "Extensions")
-public class Extension extends TrackableEntity {
+public class Extension extends TrackableEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
     public static final String FIELD_EXT_CLASS_NAME = "extClassName";
     public static final String FIELD_RECORD_STATUS = "recordStatus";
     public static final String FIELD_DEBUG = "debug";

@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.jf.commons"/>
+	<classpathentry kind="lib" path="/com.jf.scout.commons.libs/lib/hsqldb.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
