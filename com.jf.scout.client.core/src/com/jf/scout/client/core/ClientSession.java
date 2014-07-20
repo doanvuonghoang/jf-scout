@@ -46,7 +46,7 @@ public class ClientSession extends AbstractClientSession {
    */
   @Override
   public void setDesktop(IDesktop a) throws ProcessingException {
-    // TODO Auto-generated method stub
+    // add restart feature
     if (a instanceof Desktop) {
       ((Desktop) a).addPropertyChangeListener("needRestart", (PropertyChangeEvent evt) -> {
         if (evt.getNewValue().equals(true)) {
@@ -54,7 +54,7 @@ public class ClientSession extends AbstractClientSession {
           Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-              // TODO Auto-generated method stub
+              // wait for current desktop opened
               while (!a.isOpened()) {
                 try {
                   Thread.sleep(1000);
@@ -68,7 +68,6 @@ public class ClientSession extends AbstractClientSession {
                 stopSession(org.eclipse.equinox.app.IApplication.EXIT_RESTART);
               }
               catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
               }
             }

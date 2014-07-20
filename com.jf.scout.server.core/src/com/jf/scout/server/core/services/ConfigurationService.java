@@ -121,6 +121,8 @@ public class ConfigurationService extends AbstractService implements IConfigurat
   @Override
   public Configuration getConfiguration() throws ProcessingException {
     //TODO [Hoàng] business logic here.
+    if (cfg == null) _initConfiguration();
+
     return cfg;
   }
 

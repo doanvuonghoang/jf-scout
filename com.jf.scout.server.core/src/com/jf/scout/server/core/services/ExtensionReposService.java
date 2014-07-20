@@ -21,6 +21,7 @@ import com.jf.commons.annotations.Version;
 import com.jf.commons.datamodels.Extension;
 import com.jf.commons.datamodels.RecordStatus;
 import com.jf.scout.commons.IInstallable;
+import com.jf.scout.server.core.ServerSession;
 import com.jf.scout.shared.core.services.IDatabaseService;
 import com.jf.scout.shared.core.services.IExtensionReposService;
 
@@ -53,7 +54,7 @@ public class ExtensionReposService extends AbstractService implements IExtension
   private Dao<Extension, Long> getDao() {
     if (dao == null) {
       try {
-        dao = SERVICES.getService(IDatabaseService.class).createDao(Extension.class);
+        dao = SERVICES.getService(IDatabaseService.class).getDao(Extension.class);
       }
       catch (Exception e) {
         logger.info(e.getMessage(), e);
@@ -128,7 +129,7 @@ public class ExtensionReposService extends AbstractService implements IExtension
     model.extClassName = ext.getClass().getName();
     model.author = ext.getClass().getAnnotation(Author.class).name();
     model.version = ext.getClass().getAnnotation(Version.class).version();
-    model.setCreator(this.getClass().getName());
+    model.setCreator(ServerSession.get().getUserId());
     model.setCreatedTime(Calendar.getInstance().getTime());
 
     return model;

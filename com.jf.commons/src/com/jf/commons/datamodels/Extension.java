@@ -34,7 +34,7 @@ public class Extension extends TrackableEntity implements Serializable {
     public static final String FIELD_RECORD_STATUS = "recordStatus";
     public static final String FIELD_DEBUG = "debug";
     
-    @DatabaseField(unique = true, canBeNull = false, columnName = FIELD_EXT_CLASS_NAME)
+    @DatabaseField(uniqueCombo = true, canBeNull = false, columnName = FIELD_EXT_CLASS_NAME)
     public String extClassName;
     
     @DatabaseField
@@ -46,6 +46,6 @@ public class Extension extends TrackableEntity implements Serializable {
     @DatabaseField(defaultValue = "false", columnName = FIELD_DEBUG)
     public boolean debug;
     
-    @DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
+    @DatabaseField(defaultValue = "CREATE", uniqueCombo = true, columnName = FIELD_RECORD_STATUS)
     public RecordStatus recordStatus;
 }

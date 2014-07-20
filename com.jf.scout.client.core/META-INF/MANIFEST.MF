@@ -7,6 +7,7 @@ Bundle-Activator: com.jf.scout.client.core.Activator
 Export-Package: com.jf.scout.client.core,
  com.jf.scout.client.core.ui.desktop,
  com.jf.scout.client.core.ui.desktop.forms,
+ com.jf.scout.client.core.ui.desktop.outlines,
  com.jf.scout.client.core.ui.wizards
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.client;visibility:=reexport,

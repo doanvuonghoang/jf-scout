@@ -23,6 +23,7 @@ import com.j256.ormlite.field.DatabaseField;
  * @author Hoàng Doãn
  */
 public class GeneratedIdEntity {
+	private boolean isNew = false;
 
     /**
      * Id of entity
@@ -46,4 +47,19 @@ public class GeneratedIdEntity {
         this.id = id;
     }
 
+	/**
+	 * @return the isNew
+	 */
+	public boolean isNew() {
+		return isNew;
+	}
+
+	/**
+	 * @param isNew the isNew to set
+	 */
+	public void setNew(boolean isNew) {
+		this.isNew = isNew;
+	}
+
+    
 }

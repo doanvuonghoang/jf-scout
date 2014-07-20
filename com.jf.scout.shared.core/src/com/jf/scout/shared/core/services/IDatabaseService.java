@@ -3,6 +3,9 @@
  */
 package com.jf.scout.shared.core.services;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.rt.shared.validate.IValidationStrategy;
 import org.eclipse.scout.rt.shared.validate.InputValidation;
@@ -21,7 +24,7 @@ public interface IDatabaseService extends IService {
    * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  <U, V> Dao<U, V> createDao(Class<U> cls) throws ProcessingException;
+  <U, V> Dao<U, V> getDao(Class<U> cls) throws ProcessingException;
 
   /**
    * @return
@@ -33,4 +36,11 @@ public interface IDatabaseService extends IService {
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
   void refreshSource() throws ProcessingException;
+
+  /**
+   * @return
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   */
+  Connection getJdbcConnection() throws ClassNotFoundException, SQLException;
 }

@@ -17,6 +17,10 @@
 package com.jf.commons.datamodels;
 
 import com.j256.ormlite.field.DatabaseField;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,7 +28,7 @@ import java.util.Date;
  *
  * @author Hoàng Doãn
  */
-public class TrackableEntity extends GeneratedIdEntity {
+public class TrackableEntity extends GeneratedIdEntity implements PropertyChangeListener {
 
     @DatabaseField
     protected String creator;
@@ -37,6 +41,54 @@ public class TrackableEntity extends GeneratedIdEntity {
 
     @DatabaseField
     protected Date lastModifiedTime;
+    
+    protected PropertyChangeSupport propertyChange = new PropertyChangeSupport(this);
+    
+    public TrackableEntity() {
+    	super();
+    	
+    	addPropertyChangeListener(this);
+	}
+    
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+    	// TODO Auto-generated method stub
+    	if(!isNew()) setLastModifiedTime(Calendar.getInstance().getTime());
+    }
+    
+    /**
+     * Add property change listener
+     * @param l
+     */
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+    	propertyChange.addPropertyChangeListener(l);
+    }
+    
+    /**
+     * Add property change listener
+     * @param propertyName
+     * @param l
+     */
+    public void addPropertyChangeListener(String propertyName, PropertyChangeListener l) {
+    	propertyChange.addPropertyChangeListener(propertyName, l);
+    }
+    
+    /**
+     * Remove listener
+     * @param l
+     */
+    public void removePropertyChangeListener(PropertyChangeListener l) {
+    	propertyChange.removePropertyChangeListener(l);
+    }
+    
+    /**
+     * Remove listener
+     * @param propertyName
+     * @param l
+     */
+    public void removePropertyChangeListener(String propertyName, PropertyChangeListener l) {
+    	propertyChange.removePropertyChangeListener(propertyName, l);
+    }
 
     /**
      * @return the creator

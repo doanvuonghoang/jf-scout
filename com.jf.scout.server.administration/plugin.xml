@@ -4,6 +4,21 @@
    <extension
          name=""
          point="org.eclipse.scout.service.services">
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="com.jf.scout.server.administration.services.ExtensionService"
+            session="com.jf.scout.server.core.ServerSession">
+      </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="com.jf.scout.server.administration.lookup.RoleLookupService"
+            session="com.jf.scout.server.core.ServerSession">
+      </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="com.jf.scout.server.administration.ui.desktop.forms.UserService"
+            session="com.jf.scout.server.core.ServerSession">
+      </service>
    </extension>
 
 </plugin>

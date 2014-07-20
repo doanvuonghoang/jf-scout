@@ -1,5 +1,6 @@
 package com.jf.scout.client.core.ui.desktop;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -13,19 +14,25 @@ import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
 import org.eclipse.scout.rt.client.ui.desktop.IDesktop;
 import org.eclipse.scout.rt.client.ui.desktop.IDesktopExtension;
 import org.eclipse.scout.rt.client.ui.desktop.bookmark.menu.AbstractBookmarkMenu;
+import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractOutlineViewButton;
+import org.eclipse.scout.rt.client.ui.desktop.outline.IOutline;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
 import org.eclipse.scout.rt.client.ui.form.ScoutInfoForm;
-import org.eclipse.scout.rt.extension.client.Activator;
+import org.eclipse.scout.rt.client.ui.form.outline.DefaultOutlineTableForm;
+import org.eclipse.scout.rt.client.ui.form.outline.DefaultOutlineTreeForm;
 import org.eclipse.scout.rt.extension.client.ui.desktop.AbstractExtensibleDesktop;
 import org.eclipse.scout.rt.shared.TEXTS;
+import org.eclipse.scout.rt.shared.ui.UserAgentUtility;
 import org.eclipse.scout.service.SERVICES;
 
 import com.jf.commons.annotations.Author;
 import com.jf.commons.annotations.Version;
 import com.jf.commons.datamodels.Extension;
 import com.jf.scout.client.core.ClientSession;
+import com.jf.scout.client.core.ui.desktop.outlines.HomePageOutline;
 import com.jf.scout.client.core.ui.wizards.SetupWizard;
 import com.jf.scout.commons.IInstallable;
+import com.jf.scout.shared.core.Icons;
 import com.jf.scout.shared.core.services.ICoreService;
 import com.jf.scout.shared.core.services.IExtensionReposService;
 
@@ -51,6 +58,27 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
 
       propertySupport.firePropertyChange("needRestart", needRestart, true);
     }
+
+    //If it is a mobile or tablet device, the DesktopExtension in the mobile plugin takes care of starting the correct forms.
+    if (!UserAgentUtility.isDesktopDevice()) {
+      return;
+    }
+
+    // outline tree
+    DefaultOutlineTreeForm treeForm = new DefaultOutlineTreeForm();
+    treeForm.setIconId(Icons.EclipseScout);
+    treeForm.startView();
+
+    //outline table
+    DefaultOutlineTableForm tableForm = new DefaultOutlineTableForm();
+    tableForm.setIconId(Icons.EclipseScout);
+    tableForm.startView();
+
+    if (getAvailableOutlines().size() > 0) {
+      setOutline(getAvailableOutlines().get(0));
+    }
+
+    super.execOpened();
   }
 
   @Override
@@ -64,8 +92,8 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
     }
 
     if (!isFirstRun) {
-      List<IDesktopExtension> extensions = Activator.getDefault().getDesktopExtensionManager().getDesktopExtensions();
-      for (IDesktopExtension e : extensions) {
+      super.injectDesktopExtensions(desktopExtensions);
+      for (IDesktopExtension e : desktopExtensions) {
         if (e instanceof IInstallable) {
           IExtensionReposService svc = SERVICES.getService(IExtensionReposService.class);
           IInstallable ext = (IInstallable) e;
@@ -87,11 +115,9 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
             logger.info(e1.getMessage(), e1);
           }
         }
-
-        e.setCoreDesktop(this);
       }
-      desktopExtensions.addAll(extensions);
     }
+
   }
 
   /**
@@ -134,6 +160,13 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
     catch (Exception ex) {
       logger.info(ex.getMessage(), ex);
     }
+  }
+
+  @Override
+  protected List<Class<? extends IOutline>> getConfiguredOutlines() {
+    List<Class<? extends IOutline>> outlines = new ArrayList<Class<? extends IOutline>>();
+    outlines.add(HomePageOutline.class);
+    return outlines;
   }
 
   @Override
@@ -220,6 +253,17 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
           page.reloadPage();
         }
       }
+    }
+  }
+
+  @Order(10.0)
+  public class HomePageOutlineViewButton extends AbstractOutlineViewButton {
+
+    /**
+     *
+     */
+    public HomePageOutlineViewButton() {
+      super(Desktop.this, HomePageOutline.class);
     }
   }
 }

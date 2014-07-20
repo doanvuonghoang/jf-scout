@@ -3,6 +3,8 @@
  */
 package com.jf.scout.server.core.services;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import org.eclipse.scout.commons.exception.ProcessingException;
@@ -25,7 +27,7 @@ public class DatabaseService extends AbstractService implements IDatabaseService
   private ConnectionSource cs;
 
   @Override
-  public <U, V> Dao<U, V> createDao(Class<U> cls) throws ProcessingException {
+  public <U, V> Dao<U, V> getDao(Class<U> cls) throws ProcessingException {
     //TODO [Hoàng] business logic here.
     try {
       Dao<U, V> dao = DaoManager.lookupDao(getConnectionSource(false), cls);
@@ -82,5 +84,26 @@ public class DatabaseService extends AbstractService implements IDatabaseService
   public void refreshSource() throws ProcessingException {
     //TODO [Hoàng] business logic here.
     getConnectionSource(true);
+  }
+
+  @Override
+  public Connection getJdbcConnection() throws ClassNotFoundException, SQLException {
+    //TODO [Hoàng] business logic here.
+    String driver = "", uri = "", user = "", password = "";
+    try {
+      driver = getDatabaseDriver();
+      uri = getDatabaseUri();
+      user = getDatabaseUser();
+      password = getDatabasePassword();
+    }
+    catch (ProcessingException e) {
+
+    }
+
+    Class.forName(driver);
+
+    Connection conn = DriverManager.getConnection(uri, user, password);
+
+    return conn;
   }
 }

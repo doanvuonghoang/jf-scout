@@ -5,7 +5,10 @@ Bundle-SymbolicName: com.jf.scout.client.administration;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.jf.scout.client.administration.Activator
 Export-Package: com.jf.scout.client.administration,
- com.jf.scout.client.administration.ui.desktop
+ com.jf.scout.client.administration.ui.desktop,
+ com.jf.scout.client.administration.ui.desktop.forms,
+ com.jf.scout.client.administration.ui.desktop.outlines,
+ com.jf.scout.client.administration.ui.desktop.pages
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.client;visibility:=reexport,
  org.eclipse.scout.rt.extension.client;visibility:=reexport,

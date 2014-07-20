@@ -4,8 +4,21 @@
    <extension
          name=""
          point="org.eclipse.scout.service.services">
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="com.jf.scout.shared.administration.services.IExtensionService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="com.jf.scout.shared.administration.lookup.IRoleLookupService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="com.jf.scout.shared.administration.ui.desktop.forms.IUserService">
+      </proxy>
    </extension>
    <extension
+         name=""
          point="org.eclipse.scout.rt.extension.client.desktopExtensions">
       <desktopExtension
             class="com.jf.scout.client.administration.ui.desktop.DesktopExtension"

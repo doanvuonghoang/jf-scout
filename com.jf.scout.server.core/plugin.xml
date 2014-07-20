@@ -103,6 +103,11 @@
             class="org.eclipse.scout.rt.server.commons.servletfilter.security.AnonymousSecurityFilter"
             ranking="30">
       </filter>
+      <filter
+            aliases="/process /remotefiles /updatesite"
+            class="com.jf.scout.server.core.security.DataSourceSecurityFilter"
+            ranking="40">
+      </filter>
    </extension>
    <extension
          id="app"
