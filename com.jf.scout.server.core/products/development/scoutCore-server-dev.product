@@ -28,20 +28,19 @@
    </vm>
 
    <plugins>
-      <plugin id="com.jf.scout.commons.libs"/>
       <plugin id="com.jf.scout.server.administration"/>
       <plugin id="com.jf.scout.server.core"/>
-      <plugin id="com.jf.scout.server.core.requiredlibs"/>
-      <plugin id="com.jf.scout.server.installer"/>
       <plugin id="com.jf.scout.shared.administration"/>
       <plugin id="com.jf.scout.shared.core"/>
-      <plugin id="com.jf.scout.shared.installer"/>
+      <plugin id="hsqldb" fragment="true"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.xml"/>
+      <plugin id="libs"/>
       <plugin id="org.apache.derby.jdbc_1091.fragment" fragment="true"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
       <plugin id="org.eclipse.equinox.app"/>
       <plugin id="org.eclipse.equinox.common"/>
       <plugin id="org.eclipse.equinox.http.jetty"/>
@@ -61,6 +60,7 @@
       <plugin id="org.eclipse.jetty.servlet"/>
       <plugin id="org.eclipse.jetty.util"/>
       <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.scout.commons"/>
       <plugin id="org.eclipse.scout.jaxws216"/>
@@ -70,8 +70,6 @@
       <plugin id="org.eclipse.scout.rt.shared"/>
       <plugin id="org.eclipse.scout.service"/>
       <plugin id="org.eclipse.update.configurator"/>
-      <plugin id="required.libs"/>
-      <plugin id="requiredlibs"/>
    </plugins>
 
 

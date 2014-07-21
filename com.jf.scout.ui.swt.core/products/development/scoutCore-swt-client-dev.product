@@ -35,15 +35,14 @@
       <plugin id="com.ibm.icu"/>
       <plugin id="com.jf.scout.client.administration"/>
       <plugin id="com.jf.scout.client.core"/>
-      <plugin id="com.jf.scout.client.installer"/>
       <plugin id="com.jf.scout.commons.libs"/>
       <plugin id="com.jf.scout.shared.administration"/>
       <plugin id="com.jf.scout.shared.core"/>
-      <plugin id="com.jf.scout.shared.installer"/>
       <plugin id="com.jf.scout.ui.swt.core"/>
       <plugin id="javax.annotation"/>
       <plugin id="javax.inject"/>
       <plugin id="javax.xml"/>
+      <plugin id="libs"/>
       <plugin id="org.apache.batik.bridge"/>
       <plugin id="org.apache.batik.css"/>
       <plugin id="org.apache.batik.dom"/>

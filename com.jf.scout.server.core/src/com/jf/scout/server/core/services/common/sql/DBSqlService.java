@@ -14,7 +14,15 @@ import com.jf.scout.shared.core.services.IConfigurationService;
  * @author Hoàng
  */
 public class DBSqlService extends AbstractSqlService {
-  IConfigurationService cfg = SERVICES.getService(IConfigurationService.class);
+  private IConfigurationService cfg;
+
+  private IConfigurationService getCfg() throws ProcessingException {
+    if (cfg == null) {
+      cfg = SERVICES.getService(IConfigurationService.class);
+    }
+
+    return cfg;
+  }
 
   /* (non-Javadoc)
    * @see org.eclipse.scout.rt.server.services.common.jdbc.AbstractSqlService#getConfiguredJdbcDriverName()
@@ -23,7 +31,7 @@ public class DBSqlService extends AbstractSqlService {
   protected String getConfiguredJdbcDriverName() {
     // TODO Auto-generated method stub
     try {
-      return cfg.readString(IConfigurationService.DATABASE_DRIVER, "");
+      return getCfg().readString(IConfigurationService.DATABASE_DRIVER, "");
     }
     catch (ProcessingException e) {
       // TODO Auto-generated catch block
@@ -40,7 +48,7 @@ public class DBSqlService extends AbstractSqlService {
   protected String getConfiguredJdbcMappingName() {
     // TODO Auto-generated method stub
     try {
-      return cfg.readString(IConfigurationService.DATABASE_URI, "");
+      return getCfg().readString(IConfigurationService.DATABASE_URI, "");
     }
     catch (ProcessingException e) {
       // TODO Auto-generated catch block
@@ -57,7 +65,7 @@ public class DBSqlService extends AbstractSqlService {
   protected String getConfiguredUsername() {
     // TODO Auto-generated method stub
     try {
-      return cfg.readString(IConfigurationService.DATABASE_USER, "");
+      return getCfg().readString(IConfigurationService.DATABASE_USER, "");
     }
     catch (ProcessingException e) {
       // TODO Auto-generated catch block
@@ -74,7 +82,7 @@ public class DBSqlService extends AbstractSqlService {
   protected String getConfiguredPassword() {
     // TODO Auto-generated method stub
     try {
-      return cfg.readString(IConfigurationService.DATABASE_PASSWORD, "");
+      return getCfg().readString(IConfigurationService.DATABASE_PASSWORD, "");
     }
     catch (ProcessingException e) {
       // TODO Auto-generated catch block

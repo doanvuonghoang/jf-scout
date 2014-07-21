@@ -1,32 +1,22 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-SymbolicName: com.jf.scout.commons.libs
+Bundle-SymbolicName: libs
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: lib/commons-beanutils-1.9.2.jar,
- lib/commons-collections-3.2.1-javadoc.jar,
  lib/commons-collections-3.2.1.jar,
- lib/commons-configuration-1.10-javadoc.jar,
  lib/commons-configuration-1.10.jar,
- lib/commons-dbcp2-2.0.1-javadoc.jar,
  lib/commons-dbcp2-2.0.1.jar,
- lib/commons-lang-2.6-javadoc.jar,
  lib/commons-lang-2.6.jar,
- lib/commons-logging-1.1.1-javadoc.jar,
  lib/commons-logging-1.1.1.jar,
- lib/commons-pool2-2.2-javadoc.jar,
  lib/commons-pool2-2.2.jar,
- lib/ormlite-core-4.48-javadoc.jar,
  lib/ormlite-core-4.48.jar,
- lib/ormlite-jdbc-4.48-javadoc.jar,
  lib/ormlite-jdbc-4.48.jar,
- lib/slf4j-api-1.7.7.jar,
- lib/slf4j-nop-1.7.7.jar,
  lib/jfscout-commons.jar,
- lib/derby.jar,
  lib/hsqldb.jar,
  lib/joda-time-2.3.jar
-Export-Package: com.j256.ormlite.core,
- com.j256.ormlite.dao,
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-RegisterBuddy: org.eclipse.scout.rt.server
+Export-Package: com.j256.ormlite.dao,
  com.j256.ormlite.db,
  com.j256.ormlite.field,
  com.j256.ormlite.field.types,
@@ -115,10 +105,4 @@ Export-Package: com.j256.ormlite.core,
  org.joda.time.convert,
  org.joda.time.field,
  org.joda.time.format,
- org.joda.time.tz,
- org.slf4j,
- org.slf4j.helpers,
- org.slf4j.impl,
- org.slf4j.spi,
- resources
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+ org.joda.time.tz
