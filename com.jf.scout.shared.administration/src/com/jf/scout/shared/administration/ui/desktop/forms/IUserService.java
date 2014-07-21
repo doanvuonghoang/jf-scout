@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.jf.scout.shared.administration.ui.desktop.forms;
 
@@ -47,4 +47,22 @@ public interface IUserService extends IService {
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
   Object[][] getAllUsers() throws ProcessingException;
+
+  /**
+   * @param ids
+   * @throws org.eclipse.scout.commons.exception.ProcessingException
+   */
+  void deleteUsers(Long[] ids) throws ProcessingException;
+
+  /**
+   * @param ids
+   * @throws org.eclipse.scout.commons.exception.ProcessingException
+   */
+  void deleteUsersPermantly(Long[] ids) throws ProcessingException;
+
+  /**
+   * @param ids
+   * @throws org.eclipse.scout.commons.exception.ProcessingException
+   */
+  void restoreUsers(Long[] ids) throws ProcessingException;
 }

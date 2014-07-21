@@ -5,6 +5,7 @@ package com.jf.scout.server.administration.ui.desktop.forms;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.exception.VetoException;
@@ -14,6 +15,8 @@ import org.eclipse.scout.service.AbstractService;
 import org.eclipse.scout.service.SERVICES;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.misc.TransactionManager;
+import com.jf.commons.datamodels.RecordStatus;
 import com.jf.commons.datamodels.User;
 import com.jf.scout.server.core.ServerSession;
 import com.jf.scout.shared.administration.ui.desktop.forms.CreateUserPermission;
@@ -38,12 +41,12 @@ public class UserService extends AbstractService implements IUserService {
     u.setNew(true);
     u.setUserName(formData.getUserName().getValue());
     u.setPassword(formData.getUserPassword().getValue());
+    u.setValid(formData.getValid().getValue());
     u.setCreator(ServerSession.get().getUserId());
     try {
       SERVICES.getService(IDatabaseService.class).getDao(User.class).create(u);
     }
     catch (SQLException e) {
-      // TODO Auto-generated catch block
       throw new VetoException(e.getMessage(), e);
     }
 
@@ -56,6 +59,18 @@ public class UserService extends AbstractService implements IUserService {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     //TODO [Hoàng] business logic here.
+    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+    try {
+      User u = dao.queryForId(formData.getUserNr().longValue());
+
+      formData.getUserName().setValue(u.getUserName());
+      formData.getUserPassword().setValue(u.getPassword());
+      formData.getValid().setValue(u.isValid());
+    }
+    catch (SQLException e) {
+      throw new VetoException(e.getMessage(), e);
+    }
+
     return formData;
   }
 
@@ -74,6 +89,23 @@ public class UserService extends AbstractService implements IUserService {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     //TODO [Hoàng] business logic here.
+    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+
+    try {
+      User u = new User();
+      u.setId(formData.getUserNr().longValue());
+      dao.refresh(u);
+
+      u.setPassword(formData.getUserPassword().getValue());
+      u.setValid(formData.getValid().getValue());
+      u.setLastModifier(ServerSession.get().getUserId());
+
+      dao.update(u);
+    }
+    catch (SQLException e) {
+      throw new VetoException(e.getMessage(), e);
+    }
+
     return formData;
   }
 
@@ -110,5 +142,89 @@ public class UserService extends AbstractService implements IUserService {
     }
 
     return null;
+  }
+
+  @Override
+  public void deleteUsers(Long[] ids) throws ProcessingException {
+    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+
+    try {
+      TransactionManager.callInTransaction(
+          dao.getConnectionSource(),
+          new Callable<Void>() {
+            /* (non-Javadoc)
+             * @see java.util.concurrent.Callable#call()
+             */
+            @Override
+            public Void call() throws Exception {
+              for (long id : ids) {
+                User u = dao.queryForId(id);
+                u.setRecordStatus(RecordStatus.DELETE);
+                u.setLastModifier(ServerSession.get().getUserId());
+
+                dao.update(u);
+              }
+              return null;
+            }
+          });
+    }
+    catch (SQLException e) {
+      throw new VetoException(e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteUsersPermantly(Long[] ids) throws ProcessingException {
+    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+
+    try {
+      TransactionManager.callInTransaction(
+          dao.getConnectionSource(),
+          new Callable<Void>() {
+            /* (non-Javadoc)
+             * @see java.util.concurrent.Callable#call()
+             */
+            @Override
+            public Void call() throws Exception {
+              for (long id : ids) {
+                dao.deleteById(id);
+              }
+              return null;
+            }
+          });
+    }
+    catch (SQLException e) {
+      throw new VetoException(e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void restoreUsers(Long[] ids) throws ProcessingException {
+    //TODO [Hoàng] business logic here.
+    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+
+    try {
+      TransactionManager.callInTransaction(
+          dao.getConnectionSource(),
+          new Callable<Void>() {
+            /* (non-Javadoc)
+             * @see java.util.concurrent.Callable#call()
+             */
+            @Override
+            public Void call() throws Exception {
+              for (long id : ids) {
+                User u = dao.queryForId(id);
+                u.setRecordStatus(RecordStatus.UPDATE);
+                u.setLastModifier(ServerSession.get().getUserId());
+
+                dao.update(u);
+              }
+              return null;
+            }
+          });
+    }
+    catch (SQLException e) {
+      throw new VetoException(e.getMessage(), e);
+    }
   }
 }

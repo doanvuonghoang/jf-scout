@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.jf.scout.client.administration.ui.desktop.forms;
 
@@ -106,35 +106,35 @@ public class UserForm extends AbstractForm {
   /**
    * @return the RolesField
    */
-  public RolesField getRolesField(){
+  public RolesField getRolesField() {
     return getFieldByClass(RolesField.class);
   }
 
   /**
    * @return the UserBasicInformationBox
    */
-  public UserBasicInformationBox getUserBasicInformationBox(){
+  public UserBasicInformationBox getUserBasicInformationBox() {
     return getFieldByClass(UserBasicInformationBox.class);
   }
 
   /**
    * @return the UserNameField
    */
-  public UserNameField getUserNameField(){
+  public UserNameField getUserNameField() {
     return getFieldByClass(UserNameField.class);
   }
 
   /**
    * @return the UserPasswordField
    */
-  public UserPasswordField getUserPasswordField(){
+  public UserPasswordField getUserPasswordField() {
     return getFieldByClass(UserPasswordField.class);
   }
 
   /**
    * @return the ValidField
    */
-  public ValidField getValidField(){
+  public ValidField getValidField() {
     return getFieldByClass(ValidField.class);
   }
 
@@ -170,6 +170,11 @@ public class UserForm extends AbstractForm {
 
       @Order(20.0)
       public class UserPasswordField extends AbstractStringField {
+
+        @Override
+        protected boolean getConfiguredInputMasked() {
+          return true;
+        }
 
         @Override
         protected String getConfiguredLabel() {
@@ -230,6 +235,7 @@ public class UserForm extends AbstractForm {
       formData = service.load(formData);
       importFormData(formData);
       setEnabledPermission(new UpdateUserPermission());
+      getUserNameField().setEnabled(false);
 
     }
 
@@ -239,6 +245,7 @@ public class UserForm extends AbstractForm {
       UserFormData formData = new UserFormData();
       exportFormData(formData);
       formData = service.store(formData);
+      getUserNameField().setEnabled(true);
 
     }
   }

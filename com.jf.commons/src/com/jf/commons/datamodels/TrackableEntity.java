@@ -16,13 +16,13 @@
  */
 package com.jf.commons.datamodels;
 
-import com.j256.ormlite.field.DatabaseField;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
 import java.util.Date;
+
+import com.j256.ormlite.field.DatabaseField;
 
 /**
  *

@@ -19,12 +19,9 @@ package com.jf.commons.datamodels;
 
 import java.beans.PropertyChangeEvent;
 import java.io.Serializable;
-
-
 import java.util.Calendar;
 import java.util.Date;
 
-import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -46,7 +43,7 @@ public class Role extends TrackableEntity implements Serializable {
     @DatabaseField(canBeNull = false, defaultValue = "true", columnName = FIELD_VALID)
     private Boolean valid;
     
-    @DatabaseField(dataType = DataType.DATE_TIME)
+    @DatabaseField
     private Date validChangedTime;
     
     @DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
@@ -57,10 +54,11 @@ public class Role extends TrackableEntity implements Serializable {
     	// TODO Auto-generated method stub
     	if(isNew()) return;
     	
+    	super.propertyChange(evt);
+    	
     	if(evt.getPropertyName().equals("valid")) {
     		setValidChangedTime(Calendar.getInstance().getTime());
     	}
-    	else super.propertyChange(evt);
     	
     	setRecordStatus(RecordStatus.UPDATE);
     }

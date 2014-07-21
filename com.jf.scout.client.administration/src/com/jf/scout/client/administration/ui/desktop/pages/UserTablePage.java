@@ -3,7 +3,9 @@
  */
 package com.jf.scout.client.administration.ui.desktop.pages;
 
+import java.util.ArrayList;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import org.eclipse.scout.commons.CollectionUtility;
 import org.eclipse.scout.commons.annotations.Order;
@@ -11,11 +13,13 @@ import org.eclipse.scout.commons.annotations.PageData;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.rt.client.ui.action.menu.IMenuType;
 import org.eclipse.scout.rt.client.ui.action.menu.TableMenuType;
+import org.eclipse.scout.rt.client.ui.basic.table.ITableRow;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractBooleanColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractDateTimeColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractLongColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.AbstractPageWithTable;
+import org.eclipse.scout.rt.client.ui.messagebox.MessageBox;
 import org.eclipse.scout.rt.extension.client.ui.action.menu.AbstractExtensibleMenu;
 import org.eclipse.scout.rt.extension.client.ui.basic.table.AbstractExtensibleTable;
 import org.eclipse.scout.rt.shared.TEXTS;
@@ -262,20 +266,133 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
     }
 
     @Order(20.0)
-    public class MakeValidMenu extends AbstractExtensibleMenu {
+    public class EditUserMenu extends AbstractExtensibleMenu {
 
       @Override
       protected String getConfiguredText() {
-        return TEXTS.get("MakeValid");
+        return TEXTS.get("EditUser");
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        UserForm form = new UserForm();
+        form.setUserNr(Long.valueOf(getSelectedRow().getCell(0).getValue().toString()));
+        form.startModify();
+        form.waitFor();
+        if (form.isFormStored()) {
+          reloadPage();
+        }
       }
     }
 
     @Order(30.0)
-    public class MakeInvalidMenu extends AbstractExtensibleMenu {
+    public class DeleteUserMenu extends AbstractExtensibleMenu {
 
       @Override
       protected String getConfiguredText() {
-        return TEXTS.get("MakeInvalid");
+        return TEXTS.get("DeleteUser");
+      }
+
+      /* (non-Javadoc)
+       * @see org.eclipse.scout.rt.client.ui.action.AbstractAction#execAction()
+       */
+      @Override
+      protected void execAction() throws ProcessingException {
+        // show message box
+        int ans = MessageBox.showYesNoMessage(
+            TEXTS.get("ApplicationTitle"),
+            TEXTS.get("MsgBox.DeleteHeader"),
+            TEXTS.get("MsgBox.DeleteMessage"));
+
+        if (ans != MessageBox.YES_OPTION) return;
+
+        // if yes go to delete
+        ArrayList<Long> ids = new ArrayList<Long>();
+
+        getSelectedRows().forEach(new Consumer<ITableRow>() {
+          @Override
+          public void accept(ITableRow t) {
+            ids.add(Long.valueOf(t.getCell(0).getValue().toString()));
+          }
+        });
+
+        SERVICES.getService(IUserService.class).deleteUsers(ids.toArray(new Long[]{}));
+
+        reloadPage();
+      }
+    }
+
+    @Order(40.0)
+    public class DeletePermantlyUserMenu extends AbstractExtensibleMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return TEXTS.get("DeletePermantlyUser");
+      }
+
+      /* (non-Javadoc)
+       * @see org.eclipse.scout.rt.client.ui.action.AbstractAction#execAction()
+       */
+      @Override
+      protected void execAction() throws ProcessingException {
+        // show message box
+        int ans = MessageBox.showYesNoMessage(
+            TEXTS.get("ApplicationTitle"),
+            TEXTS.get("MsgBox.DeletePermantlyHeader"),
+            TEXTS.get("MsgBox.DeletePermantlyMessage"));
+
+        if (ans != MessageBox.YES_OPTION) return;
+
+        // if yes go to delete
+        ArrayList<Long> ids = new ArrayList<Long>();
+
+        getSelectedRows().forEach(new Consumer<ITableRow>() {
+          @Override
+          public void accept(ITableRow t) {
+            ids.add(Long.valueOf(t.getCell(0).getValue().toString()));
+          }
+        });
+
+        SERVICES.getService(IUserService.class).deleteUsersPermantly(ids.toArray(new Long[]{}));
+
+        reloadPage();
+      }
+    }
+
+    @Order(50.0)
+    public class RestoreUserMenu extends AbstractExtensibleMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return TEXTS.get("RestoreUser");
+      }
+
+      /* (non-Javadoc)
+       * @see org.eclipse.scout.rt.client.ui.action.AbstractAction#execAction()
+       */
+      @Override
+      protected void execAction() throws ProcessingException {
+        // show message box
+        int ans = MessageBox.showYesNoMessage(
+            TEXTS.get("ApplicationTitle"),
+            TEXTS.get("MsgBox.RestoreUserHeader"),
+            TEXTS.get("MsgBox.RestoreUserMessage"));
+
+        if (ans != MessageBox.YES_OPTION) return;
+
+        // if yes go to delete
+        ArrayList<Long> ids = new ArrayList<Long>();
+
+        getSelectedRows().forEach(new Consumer<ITableRow>() {
+          @Override
+          public void accept(ITableRow t) {
+            ids.add(Long.valueOf(t.getCell(0).getValue().toString()));
+          }
+        });
+
+        SERVICES.getService(IUserService.class).restoreUsers(ids.toArray(new Long[]{}));
+
+        reloadPage();
       }
     }
   }
