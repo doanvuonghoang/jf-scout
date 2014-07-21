@@ -29,7 +29,7 @@ public class RoleLookupService extends AbstractSqlLookupService<Long> implements
       String result = qb.prepareStatementString();
       result += " " +
           "<key>   AND \"id\" = :key </key> " +
-          "<text>  AND UPPER(\"" + Role.FIELD_NAME + "\") LIKE UPPER('%'||:text||'%') </text> " +
+          "<text>  AND UPPER(\"" + Role.FIELD_NAME + "\") LIKE UPPER(:text||'%') </text> " +
           "<all>   </all> ";
 
       return result;
