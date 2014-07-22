@@ -41,7 +41,6 @@
       <plugin id="com.jf.scout.shared.core"/>
       <plugin id="com.jf.scout.shared.installer"/>
       <plugin id="javax.xml"/>
-      <plugin id="org.apache.derby.jdbc_1091.fragment" fragment="true"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.runtime"/>
@@ -59,7 +58,6 @@
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.scout.commons"/>
       <plugin id="org.eclipse.scout.jaxws216"/>
-      <plugin id="org.eclipse.scout.rt.jdbc.derby10"/>
       <plugin id="org.eclipse.scout.rt.server"/>
       <plugin id="org.eclipse.scout.rt.server.commons"/>
       <plugin id="org.eclipse.scout.rt.shared"/>

@@ -28,14 +28,13 @@
    </vm>
 
    <plugins>
+      <plugin id="com.jf.commons"/>
       <plugin id="com.jf.scout.server.administration"/>
       <plugin id="com.jf.scout.server.core"/>
       <plugin id="com.jf.scout.shared.administration"/>
       <plugin id="com.jf.scout.shared.core"/>
-      <plugin id="hsqldb" fragment="true"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.xml"/>
-      <plugin id="libs"/>
       <plugin id="org.apache.derby.jdbc_1091.fragment" fragment="true"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.jobs"/>
@@ -66,7 +65,6 @@
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.scout.commons"/>
       <plugin id="org.eclipse.scout.jaxws216"/>
-      <plugin id="org.eclipse.scout.rt.jdbc.derby10"/>
       <plugin id="org.eclipse.scout.rt.server"/>
       <plugin id="org.eclipse.scout.rt.server.commons"/>
       <plugin id="org.eclipse.scout.rt.shared"/>
@@ -74,5 +72,8 @@
       <plugin id="org.eclipse.update.configurator"/>
    </plugins>
 
+   <configurations>
+      <plugin id="com.jf.commons" autoStart="false" startLevel="0" />
+   </configurations>
 
 </product>

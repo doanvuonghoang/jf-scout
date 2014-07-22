@@ -4,17 +4,32 @@ Bundle-Name: com.jf.scout.client.core
 Bundle-SymbolicName: com.jf.scout.client.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.jf.scout.client.core.Activator
-Export-Package: com.jf.scout.client.core,
- com.jf.scout.client.core.ui.desktop,
- com.jf.scout.client.core.ui.desktop.forms,
- com.jf.scout.client.core.ui.desktop.outlines,
- com.jf.scout.client.core.ui.wizards
+Export-Package: com.jf.scout.client.core;
+  uses:="org.osgi.framework,
+   org.eclipse.core.runtime,
+   org.eclipse.scout.rt.client.ui.desktop,
+   org.eclipse.scout.rt.client",
+ com.jf.scout.client.core.ui.desktop;
+  uses:="org.eclipse.scout.rt.client.ui.action.menu,
+   org.eclipse.scout.rt.client.ui.desktop,
+   org.eclipse.scout.rt.client.ui.desktop.bookmark.menu,
+   org.eclipse.scout.rt.client.ui.desktop.outline,
+   org.eclipse.scout.rt.client.ui.action.keystroke,
+   org.eclipse.scout.rt.extension.client.ui.desktop",
+ com.jf.scout.client.core.ui.desktop.forms;
+  uses:="org.eclipse.scout.rt.client.ui.form.fields.button,
+   org.eclipse.scout.rt.client.ui.form.fields.groupbox,
+   org.eclipse.scout.rt.client.ui.form,
+   org.eclipse.scout.rt.client.ui.form.fields.htmlfield,
+   org.eclipse.scout.rt.client.ui.form.fields.stringfield",
+ com.jf.scout.client.core.ui.desktop.outlines;uses:="org.eclipse.scout.rt.extension.client.ui.desktop.outline",
+ com.jf.scout.client.core.ui.wizards;uses:="org.eclipse.scout.rt.client.ui.wizard"
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.client;visibility:=reexport,
  org.eclipse.scout.rt.extension.client;visibility:=reexport,
  com.jf.scout.shared.core,
  org.eclipse.scout.svg.client,
- libs;bundle-version="1.0.0"
+ com.jf.commons;bundle-version="1.0.0";visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.w3c.dom.svg;version="[1.1.0,2.0.0)"
 Bundle-ActivationPolicy: lazy

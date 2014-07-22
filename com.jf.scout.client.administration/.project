@@ -3,6 +3,7 @@
 	<name>com.jf.scout.client.administration</name>
 	<comment></comment>
 	<projects>
+		<project>com.jf.commons</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -3,6 +3,8 @@
  */
 package com.jf.scout.server.core.services.common.sql;
 
+import java.sql.Connection;
+
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.logger.ScoutLogManager;
 import org.eclipse.scout.rt.server.services.common.jdbc.AbstractSqlService;
@@ -11,6 +13,7 @@ import org.eclipse.scout.service.SERVICES;
 
 import com.jf.scout.commons.jdbc.style.SQLStyle;
 import com.jf.scout.shared.core.services.IConfigurationService;
+import com.jf.scout.shared.core.services.IDatabaseService;
 
 /**
  * @author Hoàng
@@ -23,17 +26,18 @@ public class DBSqlService extends AbstractSqlService {
     return SQLStyle.class;
   }
 
+  @Override
+  protected Connection execCreateConnection() throws Throwable {
+    //TODO [Hoàng] Use my database service to get connection
+    return SERVICES.getService(IDatabaseService.class).getJdbcConnection();
+  }
+
   private IConfigurationService getCfg() throws ProcessingException {
     if (cfg == null) {
       cfg = SERVICES.getService(IConfigurationService.class);
     }
 
     return cfg;
-  }
-
-  @Override
-  protected boolean getConfiguredDirectJdbcConnection() {
-    return false;
   }
 
   /* (non-Javadoc)
