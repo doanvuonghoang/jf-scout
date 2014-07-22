@@ -3,12 +3,17 @@
  */
 package com.jf.scout.server.administration.ui.desktop.forms;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import org.eclipse.scout.commons.Base64Utility;
+import org.eclipse.scout.commons.EncryptionUtility;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.exception.VetoException;
+import org.eclipse.scout.commons.logger.IScoutLogger;
+import org.eclipse.scout.commons.logger.ScoutLogManager;
 import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.security.ACCESS;
 import org.eclipse.scout.service.AbstractService;
@@ -31,6 +36,7 @@ import com.jf.scout.shared.core.services.IDatabaseService;
  * @author Hoàng
  */
 public class UserService extends AbstractService implements IUserService {
+  private IScoutLogger logger = ScoutLogManager.getLogger(getClass());
 
   @Override
   public UserFormData create(UserFormData formData) throws ProcessingException {
@@ -41,7 +47,12 @@ public class UserService extends AbstractService implements IUserService {
     User u = new User();
     u.setNew(true);
     u.setUserName(formData.getUserName().getValue());
-    u.setPassword(formData.getUserPassword().getValue());
+    try {
+      u.setPassword(Base64Utility.encode(EncryptionUtility.signMD5(formData.getUserPassword().getValue().getBytes())));
+    }
+    catch (NoSuchAlgorithmException e1) {
+      logger.info(e1.getMessage(), e1);
+    }
     u.setValid(formData.getValid().getValue());
     u.setCreator(ServerSession.get().getUserId());
     try {
@@ -67,6 +78,10 @@ public class UserService extends AbstractService implements IUserService {
       formData.getUserName().setValue(u.getUserName());
       formData.getUserPassword().setValue(u.getPassword());
       formData.getValid().setValue(u.isValid());
+
+      for (Long id : getRoleIdsOfUser(u.getId())) {
+        formData.getRoles().getFieldById(id.toString()).setValueSet(true);
+      }
     }
     catch (SQLException e) {
       throw new VetoException(e.getMessage(), e);
@@ -93,15 +108,23 @@ public class UserService extends AbstractService implements IUserService {
     Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
 
     try {
-      User u = new User();
-      u.setId(formData.getUserNr().longValue());
-      dao.refresh(u);
+      User u = dao.queryForId(formData.getUserNr().longValue());
 
-      u.setPassword(formData.getUserPassword().getValue());
+      if (u.getPassword() != formData.getUserPassword().getValue()) {
+        try {
+          u.setPassword(Base64Utility.encode(EncryptionUtility.signMD5(formData.getUserPassword().getValue().getBytes())));
+        }
+        catch (NoSuchAlgorithmException e) {
+          logger.info(e.getMessage(), e);
+        }
+      }
       u.setValid(formData.getValid().getValue());
       u.setLastModifier(ServerSession.get().getUserId());
 
       dao.update(u);
+
+      // create or update role ids of user
+//      addRoleIdsOfUser(u.getId(), formData.getRoles().)
     }
     catch (SQLException e) {
       throw new VetoException(e.getMessage(), e);
@@ -239,6 +262,12 @@ public class UserService extends AbstractService implements IUserService {
     catch (SQLException e) {
       throw new VetoException(e.getMessage(), e);
     }
+  }
+
+  @Override
+  public void addRoleIdsOfUser(Long uid, Long[] rids) throws ProcessingException {
+    //TODO [Hoàng] business logic here.
+
   }
 
 }

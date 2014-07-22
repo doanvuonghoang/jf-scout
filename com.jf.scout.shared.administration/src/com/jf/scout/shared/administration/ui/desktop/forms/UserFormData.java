@@ -77,6 +77,8 @@ public class UserFormData extends AbstractFormData {
     protected void initValidationRules(Map<String, Object> ruleMap) {
       super.initValidationRules(ruleMap);
       ruleMap.put(ValidationRule.LOOKUP_CALL, RoleLookupCall.class);
+      ruleMap.put(ValidationRule.MASTER_VALUE_FIELD, Valid.class);
+      ruleMap.put(ValidationRule.MASTER_VALUE_REQUIRED, true);
     }
   }
 

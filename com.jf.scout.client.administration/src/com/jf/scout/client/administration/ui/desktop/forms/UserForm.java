@@ -30,6 +30,7 @@ import com.jf.scout.shared.administration.ui.desktop.forms.IUserService;
 import com.jf.scout.shared.administration.ui.desktop.forms.UpdateUserPermission;
 import com.jf.scout.shared.administration.ui.desktop.forms.UserFormData;
 import com.jf.scout.shared.core.Icons;
+import org.eclipse.scout.rt.client.ui.form.fields.IValueField;
 
 /**
  * @author Hoàng
@@ -200,11 +201,6 @@ public class UserForm extends AbstractForm {
       public class RolesField extends AbstractListBox<Long> {
 
         @Override
-        protected String getConfiguredIconId() {
-          return Icons.Role;
-        }
-
-        @Override
         protected String getConfiguredLabel() {
           return TEXTS.get("Roles");
         }
@@ -212,6 +208,16 @@ public class UserForm extends AbstractForm {
         @Override
         protected Class<? extends ILookupCall<Long>> getConfiguredLookupCall() {
           return RoleLookupCall.class;
+        }
+
+        @Override
+        protected Class<? extends IValueField> getConfiguredMasterField() {
+          return UserForm.MainBox.UserBasicInformationBox.ValidField.class;
+        }
+
+        @Override
+        protected boolean getConfiguredMasterRequired() {
+          return true;
         }
       }
     }

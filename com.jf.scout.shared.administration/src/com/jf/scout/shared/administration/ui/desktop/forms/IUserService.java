@@ -72,4 +72,11 @@ public interface IUserService extends IService {
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
   Long[] getRoleIdsOfUser(Long rid) throws ProcessingException;
+
+  /**
+   * @param uid
+   * @param rids
+   * @throws org.eclipse.scout.commons.exception.ProcessingException
+   */
+  void addRoleIdsOfUser(Long uid, Long[] rids) throws ProcessingException;
 }
