@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import org.eclipse.scout.commons.CollectionUtility;
-import org.eclipse.scout.commons.annotations.FormData;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.annotations.PageData;
 import org.eclipse.scout.commons.exception.ProcessingException;
@@ -19,97 +18,58 @@ import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractBooleanColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractDateTimeColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractLongColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
-import org.eclipse.scout.rt.client.ui.desktop.outline.pages.AbstractPageWithTable;
+import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
 import org.eclipse.scout.rt.client.ui.messagebox.MessageBox;
 import org.eclipse.scout.rt.extension.client.ui.action.menu.AbstractExtensibleMenu;
 import org.eclipse.scout.rt.extension.client.ui.basic.table.AbstractExtensibleTable;
+import org.eclipse.scout.rt.extension.client.ui.desktop.outline.pages.AbstractExtensiblePageWithTable;
 import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 import org.eclipse.scout.service.SERVICES;
 
-import com.jf.scout.client.administration.ui.desktop.forms.UserForm;
-import com.jf.scout.client.administration.ui.desktop.pages.UserTablePage.Table;
-import com.jf.scout.shared.administration.ui.desktop.forms.IUserService;
-import com.jf.scout.shared.administration.ui.desktop.pages.UserTablePageData;
-import com.jf.scout.shared.core.Icons;
+import com.jf.scout.client.administration.ui.desktop.forms.RoleForm;
+import com.jf.scout.client.administration.ui.desktop.pages.RoleTablePage.Table;
+import com.jf.scout.shared.administration.ui.desktop.forms.IRoleService;
+import com.jf.scout.shared.administration.ui.desktop.pages.RoleTablePageData;
 
 /**
  * @author Hoàng
  */
-@PageData(UserTablePageData.class)
-public class UserTablePage extends AbstractPageWithTable<Table> {
-
-  private Long m_roleNr;
-
-  @Override
-  protected String getConfiguredIconId() {
-    return Icons.UserManagement;
-  }
+@PageData(RoleTablePageData.class)
+public class RoleTablePage extends AbstractExtensiblePageWithTable<Table> {
 
   @Override
   protected String getConfiguredTitle() {
-    return TEXTS.get("User");
+    return TEXTS.get("Role");
+  }
+
+  @Override
+  protected IPage execCreateChildPage(ITableRow row) throws ProcessingException {
+    RoleDetailsNodePage childPage = new RoleDetailsNodePage();
+    childPage.setRoleNr(getTable().getRoleIdColumn().getValue(row));
+    return childPage;
   }
 
   @Override
   protected Object[][] execLoadTableData(SearchFilter filter) throws ProcessingException {
-    // get data from service
-    if (getRoleNr() != null) {
-      return SERVICES.getService(IUserService.class).getAllUsers();
-    }
-    else return SERVICES.getService(IUserService.class).getAllUsers();
+    return SERVICES.getService(IRoleService.class).getAllRoles();
   }
 
   @Order(10.0)
   public class Table extends AbstractExtensibleTable {
 
     /**
+     * @return the RoleNameColumn
+     */
+    public RoleNameColumn getRoleNameColumn() {
+      return getColumnSet().getColumnByClass(RoleNameColumn.class);
+    }
+
+    /**
      * @return the ValidColumn
      */
     public ValidColumn getValidColumn() {
       return getColumnSet().getColumnByClass(ValidColumn.class);
-    }
-
-    /**
-     * @return the UserIdColumn
-     */
-    public UserIdColumn getUserIdColumn() {
-      return getColumnSet().getColumnByClass(UserIdColumn.class);
-    }
-
-    /**
-     * @return the CreatorColumn
-     */
-    public CreatorColumn getCreatorColumn() {
-      return getColumnSet().getColumnByClass(CreatorColumn.class);
-    }
-
-    /**
-     * @return the LastModifiedTimeColumn
-     */
-    public LastModifiedTimeColumn getLastModifiedTimeColumn() {
-      return getColumnSet().getColumnByClass(LastModifiedTimeColumn.class);
-    }
-
-    /**
-     * @return the LastModifierColumn
-     */
-    public LastModifierColumn getLastModifierColumn() {
-      return getColumnSet().getColumnByClass(LastModifierColumn.class);
-    }
-
-    /**
-     * @return the ValidChangeDateColumn
-     */
-    public ValidChangeDateColumn getValidChangeDateColumn() {
-      return getColumnSet().getColumnByClass(ValidChangeDateColumn.class);
-    }
-
-    /**
-     * @return the CreatedTimeColumn
-     */
-    public CreatedTimeColumn getCreatedTimeColumn() {
-      return getColumnSet().getColumnByClass(CreatedTimeColumn.class);
     }
 
     /**
@@ -120,14 +80,49 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
     }
 
     /**
-     * @return the UserColumn
+     * @return the LastModifiedTimeColumn
      */
-    public UserColumn getUserColumn() {
-      return getColumnSet().getColumnByClass(UserColumn.class);
+    public LastModifiedTimeColumn getLastModifiedTimeColumn() {
+      return getColumnSet().getColumnByClass(LastModifiedTimeColumn.class);
+    }
+
+    /**
+     * @return the ValidChangeDateColumn
+     */
+    public ValidChangeDateColumn getValidChangeDateColumn() {
+      return getColumnSet().getColumnByClass(ValidChangeDateColumn.class);
+    }
+
+    /**
+     * @return the LastModifierColumn
+     */
+    public LastModifierColumn getLastModifierColumn() {
+      return getColumnSet().getColumnByClass(RoleTablePage.Table.LastModifierColumn.class);
+    }
+
+    /**
+     * @return the CreatedTimeColumn
+     */
+    public CreatedTimeColumn getCreatedTimeColumn() {
+      return getColumnSet().getColumnByClass(RoleTablePage.Table.CreatedTimeColumn.class);
+    }
+
+    /**
+     * @return the CreatorColumn
+     */
+    public CreatorColumn getCreatorColumn() {
+      return getColumnSet().getColumnByClass(RoleTablePage.Table.CreatorColumn.class);
+    }
+
+    /**
+     * @return the RoleIdColumn
+     */
+    public RoleIdColumn getRoleIdColumn() {
+      return getColumnSet().getColumnByClass(RoleIdColumn.class);
     }
 
     @Order(10.0)
-    public class UserIdColumn extends AbstractLongColumn {
+    public class RoleIdColumn extends AbstractLongColumn {
 
       @Override
       protected boolean getConfiguredDisplayable() {
@@ -136,7 +131,7 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
 
       @Override
       protected String getConfiguredHeaderText() {
-        return TEXTS.get("UserId");
+        return TEXTS.get("RoleId");
       }
 
       @Override
@@ -151,11 +146,11 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
     }
 
     @Order(20.0)
-    public class UserColumn extends AbstractStringColumn {
+    public class RoleNameColumn extends AbstractStringColumn {
 
       @Override
       protected String getConfiguredHeaderText() {
-        return TEXTS.get("User");
+        return TEXTS.get("RoleName");
       }
 
       @Override
@@ -171,11 +166,6 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
       protected String getConfiguredHeaderText() {
         return TEXTS.get("Valid");
       }
-
-      @Override
-      protected int getConfiguredWidth() {
-        return 40;
-      }
     }
 
     @Order(40.0)
@@ -184,11 +174,6 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
       @Override
       protected String getConfiguredHeaderText() {
         return TEXTS.get("ValidChangeDate");
-      }
-
-      @Override
-      protected int getConfiguredWidth() {
-        return 100;
       }
     }
 
@@ -199,11 +184,6 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
       protected String getConfiguredHeaderText() {
         return TEXTS.get("Status");
       }
-
-      @Override
-      protected int getConfiguredWidth() {
-        return 80;
-      }
     }
 
     @Order(60.0)
@@ -212,11 +192,6 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
       @Override
       protected String getConfiguredHeaderText() {
         return TEXTS.get("CreatedTime");
-      }
-
-      @Override
-      protected int getConfiguredWidth() {
-        return 100;
       }
     }
 
@@ -248,7 +223,7 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
     }
 
     @Order(10.0)
-    public class CreateUserMenu extends AbstractExtensibleMenu {
+    public class CreateRoleMenu extends AbstractExtensibleMenu {
 
       @Override
       protected Set<? extends IMenuType> getConfiguredMenuTypes() {
@@ -257,12 +232,12 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
 
       @Override
       protected String getConfiguredText() {
-        return TEXTS.get("CreateUser");
+        return TEXTS.get("CreateRole");
       }
 
       @Override
       protected void execAction() throws ProcessingException {
-        UserForm form = new UserForm();
+        RoleForm form = new RoleForm();
         form.startNew();
         form.waitFor();
         if (form.isFormStored()) {
@@ -272,17 +247,17 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
     }
 
     @Order(20.0)
-    public class EditUserMenu extends AbstractExtensibleMenu {
+    public class EditRoleMenu extends AbstractExtensibleMenu {
 
       @Override
       protected String getConfiguredText() {
-        return TEXTS.get("EditUser");
+        return TEXTS.get("EditRole");
       }
 
       @Override
       protected void execAction() throws ProcessingException {
-        UserForm form = new UserForm();
-        form.setUserNr(getUserIdColumn().getSelectedValue());
+        RoleForm form = new RoleForm();
+        form.setRoleNr(getRoleIdColumn().getSelectedValue());
         form.startModify();
         form.waitFor();
         if (form.isFormStored()) {
@@ -292,16 +267,13 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
     }
 
     @Order(30.0)
-    public class DeleteUserMenu extends AbstractExtensibleMenu {
+    public class DeleteRoleMenu extends AbstractExtensibleMenu {
 
       @Override
       protected String getConfiguredText() {
-        return TEXTS.get("DeleteUser");
+        return TEXTS.get("DeleteRole");
       }
 
-      /* (non-Javadoc)
-       * @see org.eclipse.scout.rt.client.ui.action.AbstractAction#execAction()
-       */
       @Override
       protected void execAction() throws ProcessingException {
         // show message box
@@ -318,22 +290,68 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
         getSelectedRows().forEach(new Consumer<ITableRow>() {
           @Override
           public void accept(ITableRow t) {
-            ids.add(Long.valueOf(t.getCell(0).getValue().toString()));
+            ids.add(getRoleIdColumn().getValue(t));
           }
         });
 
-        SERVICES.getService(IUserService.class).deleteUsers(ids.toArray(new Long[]{}));
+        SERVICES.getService(IRoleService.class).deleteRoles(ids.toArray(new Long[]{}));
 
         reloadPage();
       }
     }
 
     @Order(40.0)
-    public class DeletePermantlyUserMenu extends AbstractExtensibleMenu {
+    public class RestoreRoleMenu extends AbstractExtensibleMenu {
 
       @Override
       protected String getConfiguredText() {
-        return TEXTS.get("DeletePermantlyUser");
+        return TEXTS.get("RestoreRole");
+      }
+
+      /* (non-Javadoc)
+       * @see org.eclipse.scout.rt.client.ui.action.AbstractAction#execAction()
+       */
+      @Override
+      protected void execAction() throws ProcessingException {
+        // show message box
+        int ans = MessageBox.showYesNoMessage(
+            TEXTS.get("ApplicationTitle"),
+            TEXTS.get("MsgBox.RestoreRoleHeader"),
+            TEXTS.get("MsgBox.RestoreRoleMessage"));
+
+        if (ans != MessageBox.YES_OPTION) return;
+
+        // if yes go to delete
+        ArrayList<Long> ids = new ArrayList<Long>();
+
+        getSelectedRows().forEach(new Consumer<ITableRow>() {
+          @Override
+          public void accept(ITableRow t) {
+            ids.add(getRoleIdColumn().getValue(t));
+          }
+        });
+
+        SERVICES.getService(IRoleService.class).restoreRoles(ids.toArray(new Long[]{}));
+
+        reloadPage();
+      }
+    }
+
+    @Order(50.0)
+    public class SeparatorMenu extends AbstractExtensibleMenu {
+
+      @Override
+      protected boolean getConfiguredSeparator() {
+        return true;
+      }
+    }
+
+    @Order(60.0)
+    public class DeleteRolePermantlyMenu extends AbstractExtensibleMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return TEXTS.get("DeleteRolePermantly");
       }
 
       /* (non-Javadoc)
@@ -355,68 +373,14 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
         getSelectedRows().forEach(new Consumer<ITableRow>() {
           @Override
           public void accept(ITableRow t) {
-            ids.add(Long.valueOf(t.getCell(0).getValue().toString()));
+            ids.add(getRoleIdColumn().getValue(t));
           }
         });
 
-        SERVICES.getService(IUserService.class).deleteUsersPermantly(ids.toArray(new Long[]{}));
+        SERVICES.getService(IRoleService.class).deleteRolesPermantly(ids.toArray(new Long[]{}));
 
         reloadPage();
       }
     }
-
-    @Order(50.0)
-    public class RestoreUserMenu extends AbstractExtensibleMenu {
-
-      @Override
-      protected String getConfiguredText() {
-        return TEXTS.get("RestoreUser");
-      }
-
-      /* (non-Javadoc)
-       * @see org.eclipse.scout.rt.client.ui.action.AbstractAction#execAction()
-       */
-      @Override
-      protected void execAction() throws ProcessingException {
-        // show message box
-        int ans = MessageBox.showYesNoMessage(
-            TEXTS.get("ApplicationTitle"),
-            TEXTS.get("MsgBox.RestoreUserHeader"),
-            TEXTS.get("MsgBox.RestoreUserMessage"));
-
-        if (ans != MessageBox.YES_OPTION) return;
-
-        // if yes go to delete
-        ArrayList<Long> ids = new ArrayList<Long>();
-
-        getSelectedRows().forEach(new Consumer<ITableRow>() {
-          @Override
-          public void accept(ITableRow t) {
-            ids.add(Long.valueOf(t.getCell(0).getValue().toString()));
-          }
-        });
-
-        SERVICES.getService(IUserService.class).restoreUsers(ids.toArray(new Long[]{}));
-
-        reloadPage();
-      }
-    }
-  }
-
-  /**
-   * @return the RoleNr
-   */
-  @FormData
-  public Long getRoleNr() {
-    return m_roleNr;
-  }
-
-  /**
-   * @param roleNr
-   *          the RoleNr to set
-   */
-  @FormData
-  public void setRoleNr(Long roleNr) {
-    m_roleNr = roleNr;
   }
 }

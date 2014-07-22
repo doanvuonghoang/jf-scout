@@ -17,35 +17,35 @@ import org.eclipse.scout.service.SERVICES;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.misc.TransactionManager;
 import com.jf.commons.datamodels.RecordStatus;
+import com.jf.commons.datamodels.Role;
 import com.jf.commons.datamodels.User;
 import com.jf.commons.datamodels.UserRole;
 import com.jf.scout.server.core.ServerSession;
-import com.jf.scout.shared.administration.ui.desktop.forms.CreateUserPermission;
-import com.jf.scout.shared.administration.ui.desktop.forms.IUserService;
-import com.jf.scout.shared.administration.ui.desktop.forms.ReadUserPermission;
-import com.jf.scout.shared.administration.ui.desktop.forms.UpdateUserPermission;
-import com.jf.scout.shared.administration.ui.desktop.forms.UserFormData;
+import com.jf.scout.shared.administration.ui.desktop.forms.CreateRolePermission;
+import com.jf.scout.shared.administration.ui.desktop.forms.IRoleService;
+import com.jf.scout.shared.administration.ui.desktop.forms.ReadRolePermission;
+import com.jf.scout.shared.administration.ui.desktop.forms.RoleFormData;
+import com.jf.scout.shared.administration.ui.desktop.forms.UpdateRolePermission;
 import com.jf.scout.shared.core.services.IDatabaseService;
 
 /**
  * @author Hoàng
  */
-public class UserService extends AbstractService implements IUserService {
+public class RoleService extends AbstractService implements IRoleService {
 
   @Override
-  public UserFormData create(UserFormData formData) throws ProcessingException {
-    if (!ACCESS.check(new CreateUserPermission())) {
+  public RoleFormData create(RoleFormData formData) throws ProcessingException {
+    if (!ACCESS.check(new CreateRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     //TODO [Hoàng] business logic here.
-    User u = new User();
-    u.setNew(true);
-    u.setUserName(formData.getUserName().getValue());
-    u.setPassword(formData.getUserPassword().getValue());
-    u.setValid(formData.getValid().getValue());
-    u.setCreator(ServerSession.get().getUserId());
+    Role m = new Role();
+    m.setNew(true);
+    m.setRoleName(formData.getRoleName().getValue());
+    m.setValid(formData.getValid().getValue());
+    m.setCreator(ServerSession.get().getUserId());
     try {
-      SERVICES.getService(IDatabaseService.class).getDao(User.class).create(u);
+      SERVICES.getService(IDatabaseService.class).getDao(Role.class).create(m);
     }
     catch (SQLException e) {
       throw new VetoException(e.getMessage(), e);
@@ -55,18 +55,17 @@ public class UserService extends AbstractService implements IUserService {
   }
 
   @Override
-  public UserFormData load(UserFormData formData) throws ProcessingException {
-    if (!ACCESS.check(new ReadUserPermission())) {
+  public RoleFormData load(RoleFormData formData) throws ProcessingException {
+    if (!ACCESS.check(new ReadRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     //TODO [Hoàng] business logic here.
-    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+    Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
     try {
-      User u = dao.queryForId(formData.getUserNr().longValue());
+      Role m = dao.queryForId(formData.getRoleNr().longValue());
 
-      formData.getUserName().setValue(u.getUserName());
-      formData.getUserPassword().setValue(u.getPassword());
-      formData.getValid().setValue(u.isValid());
+      formData.getRoleName().setValue(m.getRoleName());
+      formData.getValid().setValue(m.isValid());
     }
     catch (SQLException e) {
       throw new VetoException(e.getMessage(), e);
@@ -76,8 +75,8 @@ public class UserService extends AbstractService implements IUserService {
   }
 
   @Override
-  public UserFormData prepareCreate(UserFormData formData) throws ProcessingException {
-    if (!ACCESS.check(new CreateUserPermission())) {
+  public RoleFormData prepareCreate(RoleFormData formData) throws ProcessingException {
+    if (!ACCESS.check(new CreateRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     //TODO [Hoàng] business logic here.
@@ -85,23 +84,22 @@ public class UserService extends AbstractService implements IUserService {
   }
 
   @Override
-  public UserFormData store(UserFormData formData) throws ProcessingException {
-    if (!ACCESS.check(new UpdateUserPermission())) {
+  public RoleFormData store(RoleFormData formData) throws ProcessingException {
+    if (!ACCESS.check(new UpdateRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     //TODO [Hoàng] business logic here.
-    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+    Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
 
     try {
-      User u = new User();
-      u.setId(formData.getUserNr().longValue());
-      dao.refresh(u);
+      Role m = new Role();
+      m.setId(formData.getRoleNr().longValue());
+      dao.refresh(m);
 
-      u.setPassword(formData.getUserPassword().getValue());
-      u.setValid(formData.getValid().getValue());
-      u.setLastModifier(ServerSession.get().getUserId());
+      m.setValid(formData.getValid().getValue());
+      m.setLastModifier(ServerSession.get().getUserId());
 
-      dao.update(u);
+      dao.update(m);
     }
     catch (SQLException e) {
       throw new VetoException(e.getMessage(), e);
@@ -111,26 +109,26 @@ public class UserService extends AbstractService implements IUserService {
   }
 
   @Override
-  public Object[][] getAllUsers() throws ProcessingException {
+  public Object[][] getAllRoles() throws ProcessingException {
     //TODO [Hoàng] business logic here.
-    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+    Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
 
     try {
-      List<User> us = dao.queryForAll();
-      Object[][] result = new Object[us.size()][];
+      List<Role> rs = dao.queryForAll();
+      Object[][] result = new Object[rs.size()][];
       int c = 0;
 
-      for (User u : us) {
+      for (Role r : rs) {
         result[c] = new Object[]{
-            u.getId(),
-            u.getUserName(),
-            u.isValid(),
-            u.getValidChangedTime(),
-            u.getRecordStatus(),
-            u.getCreatedTime(),
-            u.getCreator(),
-            u.getLastModifiedTime(),
-            u.getLastModifier()
+            r.getId(),
+            r.getRoleName(),
+            r.isValid(),
+            r.getValidChangedTime(),
+            r.getRecordStatus(),
+            r.getCreatedTime(),
+            r.getCreator(),
+            r.getLastModifiedTime(),
+            r.getLastModifier()
         };
         c++;
       }
@@ -146,8 +144,8 @@ public class UserService extends AbstractService implements IUserService {
   }
 
   @Override
-  public void deleteUsers(Long[] ids) throws ProcessingException {
-    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+  public void deleteRoles(Long[] ids) throws ProcessingException {
+    Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
 
     try {
       TransactionManager.callInTransaction(
@@ -159,7 +157,7 @@ public class UserService extends AbstractService implements IUserService {
             @Override
             public Void call() throws Exception {
               for (long id : ids) {
-                User u = dao.queryForId(id);
+                Role u = dao.queryForId(id);
                 u.setRecordStatus(RecordStatus.DELETE);
                 u.setLastModifier(ServerSession.get().getUserId());
 
@@ -175,8 +173,8 @@ public class UserService extends AbstractService implements IUserService {
   }
 
   @Override
-  public void deleteUsersPermantly(Long[] ids) throws ProcessingException {
-    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+  public void deleteRolesPermantly(Long[] ids) throws ProcessingException {
+    Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
 
     try {
       TransactionManager.callInTransaction(
@@ -200,9 +198,9 @@ public class UserService extends AbstractService implements IUserService {
   }
 
   @Override
-  public void restoreUsers(Long[] ids) throws ProcessingException {
+  public void restoreRoles(Long[] ids) throws ProcessingException {
     //TODO [Hoàng] business logic here.
-    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+    Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
 
     try {
       TransactionManager.callInTransaction(
@@ -214,7 +212,7 @@ public class UserService extends AbstractService implements IUserService {
             @Override
             public Void call() throws Exception {
               for (long id : ids) {
-                User u = dao.queryForId(id);
+                Role u = dao.queryForId(id);
                 u.setRecordStatus(RecordStatus.UPDATE);
                 u.setLastModifier(ServerSession.get().getUserId());
 
@@ -230,15 +228,39 @@ public class UserService extends AbstractService implements IUserService {
   }
 
   @Override
-  public Long[] getRoleIdsOfUser(Long uid) throws ProcessingException {
-    Dao<UserRole, Long> urDao = SERVICES.getService(IDatabaseService.class).getDao(UserRole.class);
+  public void addUsersToRole(long[] uids, long rid) throws ProcessingException {
+    //TODO [Hoàng] business logic here.
+    Dao<UserRole, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(UserRole.class);
+
     try {
-      return urDao.queryBuilder().where()
-          .eq(UserRole.FIELD_USER_ID, uid).query().toArray(new Long[]{});
+      TransactionManager.callInTransaction(
+          dao.getConnectionSource(),
+          new Callable<Void>() {
+            /* (non-Javadoc)
+             * @see java.util.concurrent.Callable#call()
+             */
+            @Override
+            public Void call() throws Exception {
+              Role r = new Role();
+              r.setId(rid);
+
+              for (long id : uids) {
+                User u = new User();
+                u.setId(id);
+
+                UserRole ur = new UserRole();
+                ur.setNew(true);
+                ur.setUser(u);
+                ur.setRole(r);
+
+                dao.create(ur);
+              }
+              return null;
+            }
+          });
     }
     catch (SQLException e) {
       throw new VetoException(e.getMessage(), e);
     }
   }
-
 }

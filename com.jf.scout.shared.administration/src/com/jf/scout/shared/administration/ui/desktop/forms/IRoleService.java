@@ -12,64 +12,64 @@ import org.eclipse.scout.service.IService;
  * @author Hoàng
  */
 @InputValidation(IValidationStrategy.PROCESS.class)
-public interface IUserService extends IService {
+public interface IRoleService extends IService {
 
   /**
    * @param formData
    * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  UserFormData create(UserFormData formData) throws ProcessingException;
+  RoleFormData create(RoleFormData formData) throws ProcessingException;
 
   /**
    * @param formData
    * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  UserFormData load(UserFormData formData) throws ProcessingException;
+  RoleFormData load(RoleFormData formData) throws ProcessingException;
 
   /**
    * @param formData
    * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  UserFormData prepareCreate(UserFormData formData) throws ProcessingException;
+  RoleFormData prepareCreate(RoleFormData formData) throws ProcessingException;
 
   /**
    * @param formData
    * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  UserFormData store(UserFormData formData) throws ProcessingException;
+  RoleFormData store(RoleFormData formData) throws ProcessingException;
 
   /**
    * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  Object[][] getAllUsers() throws ProcessingException;
+  Object[][] getAllRoles() throws ProcessingException;
 
   /**
    * @param ids
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  void deleteUsers(Long[] ids) throws ProcessingException;
+  void deleteRoles(Long[] ids) throws ProcessingException;
 
   /**
    * @param ids
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  void deleteUsersPermantly(Long[] ids) throws ProcessingException;
+  void deleteRolesPermantly(Long[] ids) throws ProcessingException;
 
   /**
    * @param ids
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  void restoreUsers(Long[] ids) throws ProcessingException;
+  void restoreRoles(Long[] ids) throws ProcessingException;
 
   /**
+   * @param uids
    * @param rid
-   * @return
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
-  Long[] getRoleIdsOfUser(Long rid) throws ProcessingException;
+  void addUsersToRole(long[] uids, long rid) throws ProcessingException;
 }

@@ -31,16 +31,18 @@ public class UserRole extends TrackableEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
     public static final String FIELD_RECORD_STATUS = "recordStatus";
+    public static final String FIELD_ROLE_ID = "roleId";
+    public static final String FIELD_USER_ID = "userId";
     
-    @DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true)
+    @DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true, columnName = FIELD_USER_ID)
     private User user;
     
-    @DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true)
+    @DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true, columnName = FIELD_ROLE_ID)
     private Role role;
     
     @DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
     private RecordStatus recordStatus;
-
+    
 	/**
 	 * @return the user
 	 */
@@ -82,6 +84,5 @@ public class UserRole extends TrackableEntity implements Serializable {
 	public void setRecordStatus(RecordStatus recordStatus) {
 		this.recordStatus = recordStatus;
 	}
-    
     
 }

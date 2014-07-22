@@ -24,7 +24,10 @@ public class RoleLookupService extends AbstractSqlLookupService<Long> implements
       Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
 
       QueryBuilder<Role, Long> qb = dao.queryBuilder();
-      qb.selectColumns("id", Role.FIELD_NAME).where().eq(Role.FIELD_VALID, true).and().ne(Role.FIELD_RECORD_STATUS, RecordStatus.DELETE);
+      qb.selectColumns("id", Role.FIELD_NAME)
+          .where()
+          .eq(Role.FIELD_VALID, true)
+          .and().ne(Role.FIELD_RECORD_STATUS, RecordStatus.DELETE);
 
       String result = qb.prepareStatementString();
       result += " " +

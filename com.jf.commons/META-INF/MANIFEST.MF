@@ -8,4 +8,6 @@ Bundle-ClassPath: commons.jar,
  libs/ormlite-jdbc-4.48.jar
 Export-Package: com.jf.commons.annotations,
  com.jf.commons.datamodels,
- com.jf.scout.commons
+ com.jf.scout.commons,
+ com.jf.scout.commons.jdbc.style
+Require-Bundle: org.eclipse.scout.rt.server;bundle-version="4.0.0"

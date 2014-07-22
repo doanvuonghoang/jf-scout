@@ -16,6 +16,10 @@
             factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
             class="com.jf.scout.shared.administration.ui.desktop.forms.IUserService">
       </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="com.jf.scout.shared.administration.ui.desktop.forms.IRoleService">
+      </proxy>
    </extension>
    <extension
          name=""

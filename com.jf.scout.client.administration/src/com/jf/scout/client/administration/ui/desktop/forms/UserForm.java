@@ -218,6 +218,11 @@ public class UserForm extends AbstractForm {
 
     @Order(20.0)
     public class OkButton extends AbstractOkButton {
+
+      @Override
+      protected String getConfiguredIconId() {
+        return Icons.CreateUser;
+      }
     }
 
     @Order(30.0)

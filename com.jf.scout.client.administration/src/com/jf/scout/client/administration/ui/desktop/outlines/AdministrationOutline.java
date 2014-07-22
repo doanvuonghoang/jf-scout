@@ -11,6 +11,7 @@ import org.eclipse.scout.rt.extension.client.ui.desktop.outline.AbstractExtensib
 import org.eclipse.scout.rt.shared.TEXTS;
 
 import com.jf.scout.client.administration.ui.desktop.pages.UserTablePage;
+import com.jf.scout.client.administration.ui.desktop.pages.RoleTablePage;
 
 /**
  * @author Hoàng
@@ -26,5 +27,7 @@ public class AdministrationOutline extends AbstractExtensibleOutline {
   protected void execCreateChildPages(Collection<IPage> pageList) throws ProcessingException {
     UserTablePage userTablePage = new UserTablePage();
     pageList.add(userTablePage);
+    RoleTablePage roleTablePage = new RoleTablePage();
+    pageList.add(roleTablePage);
   }
 }
