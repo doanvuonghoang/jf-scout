@@ -128,6 +128,8 @@ public class PermissionManagementTablePage extends AbstractPageWithTable<Table> 
         if (ans != MessageBox.YES_OPTION) return;
 
         SERVICES.getService(IRoleService.class).revokePermissionsOfRole(getRoleId(), getPermissionNameColumn().getSelectedValues());
+
+        reloadPage();
       }
 
       @Override

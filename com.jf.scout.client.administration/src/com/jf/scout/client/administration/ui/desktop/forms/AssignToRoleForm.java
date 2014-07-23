@@ -116,6 +116,11 @@ public class AssignToRoleForm extends AbstractForm {
       public class RoleField extends AbstractListBox<Long> {
 
         @Override
+        protected int getConfiguredGridH() {
+          return 5;
+        }
+
+        @Override
         protected String getConfiguredLabel() {
           return TEXTS.get("Role");
         }

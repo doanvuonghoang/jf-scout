@@ -6,6 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.jf.scout.shared.administration.Activator
 Export-Package: com.jf.scout.shared.administration,
  com.jf.scout.shared.administration.lookup,
+ com.jf.scout.shared.administration.security,
  com.jf.scout.shared.administration.services,
  com.jf.scout.shared.administration.services.common.text,
  com.jf.scout.shared.administration.ui.desktop.forms,
