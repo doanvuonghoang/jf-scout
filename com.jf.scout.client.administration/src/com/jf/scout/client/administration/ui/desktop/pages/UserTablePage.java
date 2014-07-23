@@ -14,6 +14,8 @@ import org.eclipse.scout.commons.annotations.PageData;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.rt.client.ui.action.menu.IMenuType;
 import org.eclipse.scout.rt.client.ui.action.menu.TableMenuType;
+import org.eclipse.scout.rt.client.ui.action.menu.TreeMenuType;
+import org.eclipse.scout.rt.client.ui.action.menu.ValueFieldMenuType;
 import org.eclipse.scout.rt.client.ui.basic.table.ITableRow;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractBooleanColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractDateTimeColumn;
@@ -27,6 +29,7 @@ import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 import org.eclipse.scout.service.SERVICES;
 
+import com.jf.commons.datamodels.RecordStatus;
 import com.jf.scout.client.administration.ui.desktop.forms.UserForm;
 import com.jf.scout.client.administration.ui.desktop.pages.UserTablePage.Table;
 import com.jf.scout.shared.administration.ui.desktop.forms.IUserService;
@@ -55,7 +58,7 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
   protected Object[][] execLoadTableData(SearchFilter filter) throws ProcessingException {
     // get data from service
     if (getRoleNr() != null) {
-      return SERVICES.getService(IUserService.class).getAllUsers();
+      return SERVICES.getService(IUserService.class).getAllUsers(getRoleNr().longValue());
     }
     else return SERVICES.getService(IUserService.class).getAllUsers();
   }
@@ -103,6 +106,11 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
      */
     public ValidChangeDateColumn getValidChangeDateColumn() {
       return getColumnSet().getColumnByClass(ValidChangeDateColumn.class);
+    }
+
+    @Override
+    protected String getConfiguredDefaultIconId() {
+      return Icons.User;
     }
 
     /**
@@ -251,8 +259,13 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
     public class CreateUserMenu extends AbstractExtensibleMenu {
 
       @Override
+      protected String getConfiguredIconId() {
+        return Icons.UserAdd;
+      }
+
+      @Override
       protected Set<? extends IMenuType> getConfiguredMenuTypes() {
-        return CollectionUtility.<IMenuType> hashSet(TableMenuType.EmptySpace);
+        return CollectionUtility.<IMenuType> hashSet(TableMenuType.EmptySpace, TableMenuType.SingleSelection);
       }
 
       @Override
@@ -275,8 +288,26 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
     public class EditUserMenu extends AbstractExtensibleMenu {
 
       @Override
+      protected String getConfiguredIconId() {
+        return Icons.UserEdit;
+      }
+
+      @Override
       protected String getConfiguredText() {
         return TEXTS.get("EditUser");
+      }
+
+      @Override
+      protected void execAboutToShow() throws ProcessingException {
+        // disable menu when role was deleted
+        final AbstractExtensibleMenu menu = this;
+
+        getSelectedRows().forEach(new Consumer<ITableRow>() {
+          @Override
+          public void accept(ITableRow t) {
+            menu.setEnabled(!getStatusColumn().getValue(t).equals(RecordStatus.DELETE.toString()));
+          }
+        });
       }
 
       @Override
@@ -295,8 +326,31 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
     public class DeleteUserMenu extends AbstractExtensibleMenu {
 
       @Override
+      protected String getConfiguredIconId() {
+        return Icons.UserDelete;
+      }
+
+      @Override
+      protected Set<? extends IMenuType> getConfiguredMenuTypes() {
+        return CollectionUtility.<IMenuType> hashSet(TableMenuType.MultiSelection, TableMenuType.SingleSelection, ValueFieldMenuType.NotNull, TreeMenuType.MultiSelection, TreeMenuType.SingleSelection);
+      }
+
+      @Override
       protected String getConfiguredText() {
         return TEXTS.get("DeleteUser");
+      }
+
+      @Override
+      protected void execAboutToShow() throws ProcessingException {
+        // disable menu when role was deleted
+        final AbstractExtensibleMenu menu = this;
+
+        getSelectedRows().forEach(new Consumer<ITableRow>() {
+          @Override
+          public void accept(ITableRow t) {
+            menu.setEnabled(!getStatusColumn().getValue(t).equals(RecordStatus.DELETE.toString()));
+          }
+        });
       }
 
       /* (non-Javadoc)
@@ -328,8 +382,22 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
       }
     }
 
-    @Order(40.0)
+    @Order(50.0)
+    public class SeparatorMenu extends AbstractExtensibleMenu {
+
+      @Override
+      protected boolean getConfiguredSeparator() {
+        return true;
+      }
+    }
+
+    @Order(60.0)
     public class DeletePermantlyUserMenu extends AbstractExtensibleMenu {
+
+      @Override
+      protected Set<? extends IMenuType> getConfiguredMenuTypes() {
+        return CollectionUtility.<IMenuType> hashSet(TableMenuType.MultiSelection, TableMenuType.SingleSelection, ValueFieldMenuType.NotNull, TreeMenuType.MultiSelection, TreeMenuType.SingleSelection);
+      }
 
       @Override
       protected String getConfiguredText() {
@@ -365,12 +433,30 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
       }
     }
 
-    @Order(50.0)
+    @Order(40.0)
     public class RestoreUserMenu extends AbstractExtensibleMenu {
+
+      @Override
+      protected Set<? extends IMenuType> getConfiguredMenuTypes() {
+        return CollectionUtility.<IMenuType> hashSet(TableMenuType.MultiSelection, TableMenuType.SingleSelection, ValueFieldMenuType.NotNull, TreeMenuType.MultiSelection, TreeMenuType.SingleSelection);
+      }
 
       @Override
       protected String getConfiguredText() {
         return TEXTS.get("RestoreUser");
+      }
+
+      @Override
+      protected void execAboutToShow() throws ProcessingException {
+        //  disable menu when role was not deleted
+        final AbstractExtensibleMenu menu = this;
+
+        getSelectedRows().forEach(new Consumer<ITableRow>() {
+          @Override
+          public void accept(ITableRow t) {
+            menu.setEnabled(getStatusColumn().getValue(t).equals(RecordStatus.DELETE.toString()));
+          }
+        });
       }
 
       /* (non-Javadoc)

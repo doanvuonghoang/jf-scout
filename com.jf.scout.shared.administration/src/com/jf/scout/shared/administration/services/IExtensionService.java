@@ -18,4 +18,11 @@ public interface IExtensionService extends IService {
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
   void installDB() throws ProcessingException;
+
+  /**
+   * @param roleId
+   * @return
+   * @throws org.eclipse.scout.commons.exception.ProcessingException
+   */
+  Object[][] getPermissionTableData(Long roleId) throws ProcessingException;
 }

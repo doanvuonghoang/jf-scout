@@ -8,6 +8,7 @@ import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.rt.client.ui.form.AbstractForm;
 import org.eclipse.scout.rt.client.ui.form.AbstractFormHandler;
+import org.eclipse.scout.rt.client.ui.form.fields.IValueField;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractCancelButton;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractOkButton;
 import org.eclipse.scout.rt.client.ui.form.fields.checkbox.AbstractCheckBox;
@@ -30,7 +31,6 @@ import com.jf.scout.shared.administration.ui.desktop.forms.IUserService;
 import com.jf.scout.shared.administration.ui.desktop.forms.UpdateUserPermission;
 import com.jf.scout.shared.administration.ui.desktop.forms.UserFormData;
 import com.jf.scout.shared.core.Icons;
-import org.eclipse.scout.rt.client.ui.form.fields.IValueField;
 
 /**
  * @author Hoàng
@@ -201,6 +201,16 @@ public class UserForm extends AbstractForm {
       public class RolesField extends AbstractListBox<Long> {
 
         @Override
+        protected int getConfiguredGridH() {
+          return 5;
+        }
+
+        @Override
+        protected int getConfiguredGridY() {
+          return 1;
+        }
+
+        @Override
         protected String getConfiguredLabel() {
           return TEXTS.get("Roles");
         }
@@ -227,7 +237,7 @@ public class UserForm extends AbstractForm {
 
       @Override
       protected String getConfiguredIconId() {
-        return Icons.CreateUser;
+        return Icons.UserAdd;
       }
     }
 

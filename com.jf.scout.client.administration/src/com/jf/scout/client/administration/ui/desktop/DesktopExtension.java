@@ -6,7 +6,6 @@ import java.util.List;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.logger.IScoutLogger;
 import org.eclipse.scout.commons.logger.ScoutLogManager;
-import org.eclipse.scout.rt.client.ui.action.tool.AbstractToolButton;
 import org.eclipse.scout.rt.client.ui.desktop.AbstractDesktopExtension;
 import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractOutlineViewButton;
 import org.eclipse.scout.rt.client.ui.desktop.outline.IOutline;
@@ -19,7 +18,6 @@ import com.jf.commons.annotations.Version;
 import com.jf.scout.client.administration.ui.desktop.outlines.AdministrationOutline;
 import com.jf.scout.commons.IInstallable;
 import com.jf.scout.shared.administration.services.IExtensionService;
-import com.jf.scout.shared.core.Icons;
 
 @Author(name = "Hoang Doan")
 @Version(version = "1.0")
@@ -70,25 +68,6 @@ public class DesktopExtension extends AbstractDesktopExtension implements IInsta
    */
     public AdministrationOutlineViewButton() {
       super(getCoreDesktop(), AdministrationOutline.class);
-    }
-  }
-
-  @Order(10.0)
-  public class CreateUserTool extends AbstractToolButton {
-
-    @Override
-    protected String getConfiguredIconId() {
-      return Icons.CreateUser;
-    }
-
-    @Override
-    protected String getConfiguredText() {
-      return TEXTS.get("CreateUser");
-    }
-
-    @Override
-    protected String getConfiguredTooltipText() {
-      return TEXTS.get("CreateUser");
     }
   }
 }

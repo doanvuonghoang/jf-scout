@@ -4,6 +4,7 @@
 package com.jf.scout.server.administration.services;
 
 import java.sql.SQLException;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 import org.eclipse.scout.commons.Base64Utility;
@@ -24,6 +25,7 @@ import com.jf.commons.datamodels.User;
 import com.jf.commons.datamodels.UserRole;
 import com.jf.scout.server.core.ServerSession;
 import com.jf.scout.shared.administration.services.IExtensionService;
+import com.jf.scout.shared.administration.ui.desktop.forms.IRoleService;
 import com.jf.scout.shared.core.services.IDatabaseService;
 
 /**
@@ -54,7 +56,6 @@ public class ExtensionService extends AbstractService implements IExtensionServi
          */
         @Override
         public Void call() throws Exception {
-          // TODO Auto-generated method stub
           // create user table
           TableUtils.createTable(getDao(User.class).getConnectionSource(), User.class);
           logger.info("Installed user table");
@@ -82,10 +83,26 @@ public class ExtensionService extends AbstractService implements IExtensionServi
       });
     }
     catch (SQLException e) {
-      // TODO Auto-generated catch block
       throw new VetoException(e.getMessage(), e);
     }
 
     logger.info("Installed database for administration extension successfully");
+  }
+
+  @Override
+  public Object[][] getPermissionTableData(Long roleId) throws ProcessingException {
+    Set<RolePermission> rps = SERVICES.getService(IRoleService.class).getPermissionsOfRole(roleId);
+
+    Object[][] result = new Object[rps.size()][];
+    int c = 0;
+
+    for (RolePermission r : rps) {
+      result[c] = new Object[]{
+          r.getPermission()
+      };
+      c++;
+    }
+
+    return result;
   }
 }

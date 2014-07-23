@@ -24,6 +24,7 @@ import com.jf.scout.client.administration.ui.desktop.forms.RoleForm.MainBox.Role
 import com.jf.scout.shared.administration.ui.desktop.forms.IRoleService;
 import com.jf.scout.shared.administration.ui.desktop.forms.RoleFormData;
 import com.jf.scout.shared.administration.ui.desktop.forms.UpdateRolePermission;
+import com.jf.scout.shared.core.Icons;
 
 /**
  * @author Hoàng
@@ -160,6 +161,11 @@ public class RoleForm extends AbstractForm {
 
     @Order(20.0)
     public class OkButton extends AbstractOkButton {
+
+      @Override
+      protected String getConfiguredIconId() {
+        return Icons.RoleAdd;
+      }
     }
 
     @Order(30.0)

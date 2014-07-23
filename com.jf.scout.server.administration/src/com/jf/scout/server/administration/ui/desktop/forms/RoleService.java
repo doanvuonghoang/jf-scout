@@ -4,7 +4,10 @@
 package com.jf.scout.server.administration.ui.desktop.forms;
 
 import java.sql.SQLException;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 import org.eclipse.scout.commons.exception.ProcessingException;
@@ -16,8 +19,11 @@ import org.eclipse.scout.service.SERVICES;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.misc.TransactionManager;
+import com.j256.ormlite.stmt.DeleteBuilder;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.jf.commons.datamodels.RecordStatus;
 import com.jf.commons.datamodels.Role;
+import com.jf.commons.datamodels.RolePermission;
 import com.jf.commons.datamodels.User;
 import com.jf.commons.datamodels.UserRole;
 import com.jf.scout.server.core.ServerSession;
@@ -260,6 +266,72 @@ public class RoleService extends AbstractService implements IRoleService {
           });
     }
     catch (SQLException e) {
+      throw new VetoException(e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Set<User> getUsersInRole(Long rid) throws ProcessingException {
+    Dao<UserRole, Long> urdao = SERVICES.getService(IDatabaseService.class).getDao(UserRole.class);
+    Dao<User, Long> udao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+    QueryBuilder<User, Long> uqb = udao.queryBuilder();
+    QueryBuilder<UserRole, Long> urqb = urdao.queryBuilder();
+
+    try {
+      urqb.where().eq(UserRole.FIELD_ROLE_ID, rid);
+
+      return new HashSet<User>(uqb.join(urqb).query());
+    }
+    catch (SQLException e) {
+      // TODO Auto-generated catch block
+      throw new VetoException(e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Set<RolePermission> getPermissionsOfRole(Long roleId) throws ProcessingException {
+    Dao<RolePermission, Long> rpdao = SERVICES.getService(IDatabaseService.class).getDao(RolePermission.class);
+
+    try {
+      List<RolePermission> rps = rpdao.queryBuilder().where().eq(RolePermission.FIELD_ROLE_ID, roleId).query();
+      rps.sort(new Comparator<RolePermission>() {
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
+        @Override
+        public int compare(RolePermission o1, RolePermission o2) {
+          return o1.getPermission().compareTo(o2.getPermission());
+        }
+      });
+
+      return new HashSet<RolePermission>(rps);
+    }
+    catch (SQLException e) {
+      throw new VetoException(e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void revokePermissionsOfRole(Long roleId, List<String> permissions) throws ProcessingException {
+    Dao<RolePermission, Long> rpdao = SERVICES.getService(IDatabaseService.class).getDao(RolePermission.class);
+
+    try {
+      TransactionManager.callInTransaction(rpdao.getConnectionSource(), new Callable<Void>() {
+        /* (non-Javadoc)
+         * @see java.util.concurrent.Callable#call()
+         */
+        @Override
+        public Void call() throws Exception {
+          DeleteBuilder<RolePermission, Long> db = rpdao.deleteBuilder();
+          db.where().eq(RolePermission.FIELD_ROLE_ID, roleId).and().in(RolePermission.FIELD_PERMISSION, permissions);
+          db.delete();
+
+          return null;
+        }
+      });
+
+    }
+    catch (Exception e) {
       throw new VetoException(e.getMessage(), e);
     }
   }

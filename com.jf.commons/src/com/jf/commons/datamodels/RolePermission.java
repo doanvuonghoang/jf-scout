@@ -31,11 +31,13 @@ public class RolePermission extends TrackableEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
     public static final String FIELD_RECORD_STATUS = "recordStatus";
+    public static final String FIELD_ROLE_ID = "roleId";
+    public static final String FIELD_PERMISSION = "permission";
     
-    @DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true)
+    @DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true, columnName = FIELD_ROLE_ID)
     private Role role;
     
-    @DatabaseField(canBeNull = false, uniqueCombo = true)
+    @DatabaseField(canBeNull = false, uniqueCombo = true, columnName = FIELD_PERMISSION)
     private String permission;
     
     @DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
@@ -81,5 +83,14 @@ public class RolePermission extends TrackableEntity implements Serializable {
 	 */
 	public void setRecordStatus(RecordStatus recordStatus) {
 		this.recordStatus = recordStatus;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof RolePermission) {
+			RolePermission rp = (RolePermission) obj;
+			return rp.getId() == getId();
+		} else 
+		return super.equals(obj);
 	}
 }

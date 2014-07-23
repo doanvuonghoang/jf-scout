@@ -4,15 +4,11 @@
 package com.jf.scout.client.administration.ui.desktop.pages;
 
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.function.Consumer;
 
-import org.eclipse.scout.commons.CollectionUtility;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.annotations.PageData;
 import org.eclipse.scout.commons.exception.ProcessingException;
-import org.eclipse.scout.rt.client.ui.action.menu.IMenuType;
-import org.eclipse.scout.rt.client.ui.action.menu.TableMenuType;
 import org.eclipse.scout.rt.client.ui.basic.table.ITableRow;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractBooleanColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractDateTimeColumn;
@@ -27,16 +23,29 @@ import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 import org.eclipse.scout.service.SERVICES;
 
+import com.jf.commons.datamodels.RecordStatus;
 import com.jf.scout.client.administration.ui.desktop.forms.RoleForm;
 import com.jf.scout.client.administration.ui.desktop.pages.RoleTablePage.Table;
 import com.jf.scout.shared.administration.ui.desktop.forms.IRoleService;
 import com.jf.scout.shared.administration.ui.desktop.pages.RoleTablePageData;
+import com.jf.scout.shared.core.Icons;
+import java.util.Set;
+import org.eclipse.scout.commons.CollectionUtility;
+import org.eclipse.scout.rt.client.ui.action.menu.IMenuType;
+import org.eclipse.scout.rt.client.ui.action.menu.TableMenuType;
+import org.eclipse.scout.rt.client.ui.action.menu.TreeMenuType;
+import org.eclipse.scout.rt.client.ui.action.menu.ValueFieldMenuType;
 
 /**
  * @author Hoàng
  */
 @PageData(RoleTablePageData.class)
 public class RoleTablePage extends AbstractExtensiblePageWithTable<Table> {
+
+  @Override
+  protected String getConfiguredIconId() {
+    return Icons.RoleManagement;
+  }
 
   @Override
   protected String getConfiguredTitle() {
@@ -98,6 +107,11 @@ public class RoleTablePage extends AbstractExtensiblePageWithTable<Table> {
      */
     public LastModifierColumn getLastModifierColumn() {
       return getColumnSet().getColumnByClass(RoleTablePage.Table.LastModifierColumn.class);
+    }
+
+    @Override
+    protected String getConfiguredDefaultIconId() {
+      return Icons.Role;
     }
 
     /**
@@ -226,8 +240,13 @@ public class RoleTablePage extends AbstractExtensiblePageWithTable<Table> {
     public class CreateRoleMenu extends AbstractExtensibleMenu {
 
       @Override
+      protected String getConfiguredIconId() {
+        return Icons.RoleAdd;
+      }
+
+      @Override
       protected Set<? extends IMenuType> getConfiguredMenuTypes() {
-        return CollectionUtility.<IMenuType> hashSet(TableMenuType.EmptySpace);
+        return CollectionUtility.<IMenuType> hashSet(TableMenuType.EmptySpace, TableMenuType.MultiSelection, TableMenuType.SingleSelection);
       }
 
       @Override
@@ -250,8 +269,26 @@ public class RoleTablePage extends AbstractExtensiblePageWithTable<Table> {
     public class EditRoleMenu extends AbstractExtensibleMenu {
 
       @Override
+      protected String getConfiguredIconId() {
+        return Icons.RoleEdit;
+      }
+
+      @Override
       protected String getConfiguredText() {
         return TEXTS.get("EditRole");
+      }
+
+      @Override
+      protected void execAboutToShow() throws ProcessingException {
+        // disable menu when role was deleted
+        final AbstractExtensibleMenu menu = this;
+
+        getSelectedRows().forEach(new Consumer<ITableRow>() {
+          @Override
+          public void accept(ITableRow t) {
+            menu.setEnabled(!getStatusColumn().getValue(t).equals(RecordStatus.DELETE.toString()));
+          }
+        });
       }
 
       @Override
@@ -270,8 +307,31 @@ public class RoleTablePage extends AbstractExtensiblePageWithTable<Table> {
     public class DeleteRoleMenu extends AbstractExtensibleMenu {
 
       @Override
+      protected String getConfiguredIconId() {
+        return Icons.RoleDelete;
+      }
+
+      @Override
+      protected Set<? extends IMenuType> getConfiguredMenuTypes() {
+        return CollectionUtility.<IMenuType> hashSet(TableMenuType.MultiSelection, TableMenuType.SingleSelection, ValueFieldMenuType.NotNull, TreeMenuType.MultiSelection, TreeMenuType.SingleSelection);
+      }
+
+      @Override
       protected String getConfiguredText() {
         return TEXTS.get("DeleteRole");
+      }
+
+      @Override
+      protected void execAboutToShow() throws ProcessingException {
+        // disable menu when role was deleted
+        final AbstractExtensibleMenu menu = this;
+
+        getSelectedRows().forEach(new Consumer<ITableRow>() {
+          @Override
+          public void accept(ITableRow t) {
+            menu.setEnabled(!getStatusColumn().getValue(t).equals(RecordStatus.DELETE.toString()));
+          }
+        });
       }
 
       @Override
@@ -304,8 +364,26 @@ public class RoleTablePage extends AbstractExtensiblePageWithTable<Table> {
     public class RestoreRoleMenu extends AbstractExtensibleMenu {
 
       @Override
+      protected Set<? extends IMenuType> getConfiguredMenuTypes() {
+        return CollectionUtility.<IMenuType> hashSet(TableMenuType.MultiSelection, TableMenuType.SingleSelection, ValueFieldMenuType.NotNull, TreeMenuType.MultiSelection, TreeMenuType.SingleSelection);
+      }
+
+      @Override
       protected String getConfiguredText() {
         return TEXTS.get("RestoreRole");
+      }
+
+      @Override
+      protected void execAboutToShow() throws ProcessingException {
+        // disable menu when role was not deleted
+        final AbstractExtensibleMenu menu = this;
+
+        getSelectedRows().forEach(new Consumer<ITableRow>() {
+          @Override
+          public void accept(ITableRow t) {
+            menu.setEnabled(getStatusColumn().getValue(t).equals(RecordStatus.DELETE.toString()));
+          }
+        });
       }
 
       /* (non-Javadoc)
@@ -348,6 +426,11 @@ public class RoleTablePage extends AbstractExtensiblePageWithTable<Table> {
 
     @Order(60.0)
     public class DeleteRolePermantlyMenu extends AbstractExtensibleMenu {
+
+      @Override
+      protected Set<? extends IMenuType> getConfiguredMenuTypes() {
+        return CollectionUtility.<IMenuType> hashSet(TableMenuType.MultiSelection, TableMenuType.SingleSelection, ValueFieldMenuType.NotNull, TreeMenuType.MultiSelection, TreeMenuType.SingleSelection);
+      }
 
       @Override
       protected String getConfiguredText() {
