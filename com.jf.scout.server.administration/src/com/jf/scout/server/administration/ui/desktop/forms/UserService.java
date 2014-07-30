@@ -115,7 +115,7 @@ public class UserService extends AbstractService implements IUserService {
     try {
       User u = dao.queryForId(formData.getUserNr().longValue());
 
-      if (u.getPassword() != formData.getUserPassword().getValue()) {
+      if (!u.getPassword().equals(formData.getUserPassword().getValue())) {
         try {
           u.setPassword(Base64Utility.encode(EncryptionUtility.signMD5(formData.getUserPassword().getValue().getBytes())));
         }
@@ -265,18 +265,18 @@ public class UserService extends AbstractService implements IUserService {
       Set<Long> result = new HashSet<Long>();
 
       urDao.queryBuilder().selectColumns(UserRole.FIELD_ROLE_ID)
-          .where()
-          .eq(UserRole.FIELD_USER_ID, uid)
-          .and().ne(UserRole.FIELD_RECORD_STATUS, RecordStatus.DELETE)
-          .query().forEach(new Consumer<UserRole>() {
-            /* (non-Javadoc)
-             * @see java.util.function.Consumer#accept(java.lang.Object)
-             */
-            @Override
-            public void accept(UserRole t) {
-              result.add(t.getRole().getId());
-            }
-          });
+      .where()
+      .eq(UserRole.FIELD_USER_ID, uid)
+      .and().ne(UserRole.FIELD_RECORD_STATUS, RecordStatus.DELETE)
+      .query().forEach(new Consumer<UserRole>() {
+        /* (non-Javadoc)
+         * @see java.util.function.Consumer#accept(java.lang.Object)
+         */
+        @Override
+        public void accept(UserRole t) {
+          result.add(t.getRole().getId());
+        }
+      });
 
       return result;
     }
@@ -297,24 +297,24 @@ public class UserService extends AbstractService implements IUserService {
         @Override
         public Void call() throws Exception {
           urDao.queryBuilder().where()
-          .eq(UserRole.FIELD_USER_ID, uid)
-          .and().ne(UserRole.FIELD_RECORD_STATUS, RecordStatus.DELETE).query().forEach(new Consumer<UserRole>() {
-            /* (non-Javadoc)
-             * @see java.util.function.Consumer#accept(java.lang.Object)
-             */
-            @Override
-            public void accept(UserRole t) {
-              if (!rids.contains(t.getRole().getId())) {
-                try {
-                  urDao.delete(t);
+              .eq(UserRole.FIELD_USER_ID, uid)
+              .and().ne(UserRole.FIELD_RECORD_STATUS, RecordStatus.DELETE).query().forEach(new Consumer<UserRole>() {
+                /* (non-Javadoc)
+                 * @see java.util.function.Consumer#accept(java.lang.Object)
+                 */
+                @Override
+                public void accept(UserRole t) {
+                  if (!rids.contains(t.getRole().getId())) {
+                    try {
+                      urDao.delete(t);
+                    }
+                    catch (SQLException e) {
+                      logger.info(e.getMessage(), e);
+                    }
+                  }
+                  else rids.remove(t.getRole().getId());
                 }
-                catch (SQLException e) {
-                  logger.info(e.getMessage(), e);
-                }
-              }
-              else rids.remove(t.getRole().getId());
-            }
-          });
+              });
 
           rids.forEach(new Consumer<Long>() {
             @Override

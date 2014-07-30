@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.eclipse.equinox.app.IApplication;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.logger.IScoutLogger;
@@ -13,13 +14,13 @@ import org.eclipse.scout.rt.client.ui.action.keystroke.AbstractKeyStroke;
 import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
 import org.eclipse.scout.rt.client.ui.desktop.IDesktop;
 import org.eclipse.scout.rt.client.ui.desktop.IDesktopExtension;
-import org.eclipse.scout.rt.client.ui.desktop.bookmark.menu.AbstractBookmarkMenu;
 import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractOutlineViewButton;
 import org.eclipse.scout.rt.client.ui.desktop.outline.IOutline;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
 import org.eclipse.scout.rt.client.ui.form.ScoutInfoForm;
 import org.eclipse.scout.rt.client.ui.form.outline.DefaultOutlineTableForm;
 import org.eclipse.scout.rt.client.ui.form.outline.DefaultOutlineTreeForm;
+import org.eclipse.scout.rt.extension.client.ui.action.menu.AbstractExtensibleMenu;
 import org.eclipse.scout.rt.extension.client.ui.desktop.AbstractExtensibleDesktop;
 import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.ui.UserAgentUtility;
@@ -182,7 +183,7 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
       return TEXTS.get("FileMenu");
     }
 
-    @Order(100.0)
+    @Order(20.0)
     public class ExitMenu extends AbstractMenu {
 
       @Override
@@ -195,21 +196,19 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
         ClientSyncJob.getCurrentSession(ClientSession.class).stopSession();
       }
     }
-  }
 
-  @Order(20.0)
-  public class ToolsMenu extends AbstractMenu {
+    @Order(10.0)
+    public class RestartMenu extends AbstractExtensibleMenu {
 
-    @Override
-    protected String getConfiguredText() {
-      return TEXTS.get("ToolsMenu");
-    }
-  }
+      @Override
+      protected String getConfiguredText() {
+        return TEXTS.get("Restart");
+      }
 
-  @Order(25)
-  public class BookmarkMenu extends AbstractBookmarkMenu {
-    public BookmarkMenu() {
-      super(Desktop.this);
+      @Override
+      protected void execAction() throws ProcessingException {
+        ClientSyncJob.getCurrentSession(ClientSession.class).stopSession(IApplication.EXIT_RESTART);
+      }
     }
   }
 

@@ -4,6 +4,8 @@
 package com.jf.scout.server.administration.services;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -13,12 +15,15 @@ import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.exception.VetoException;
 import org.eclipse.scout.commons.logger.IScoutLogger;
 import org.eclipse.scout.commons.logger.ScoutLogManager;
+import org.eclipse.scout.commons.osgi.BundleClassDescriptor;
+import org.eclipse.scout.rt.shared.services.common.security.IPermissionService;
 import org.eclipse.scout.service.AbstractService;
 import org.eclipse.scout.service.SERVICES;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.misc.TransactionManager;
 import com.j256.ormlite.table.TableUtils;
+import com.jf.commons.annotations.Annotations;
 import com.jf.commons.datamodels.Role;
 import com.jf.commons.datamodels.RolePermission;
 import com.jf.commons.datamodels.User;
@@ -98,11 +103,29 @@ public class ExtensionService extends AbstractService implements IExtensionServi
 
     for (RolePermission r : rps) {
       result[c] = new Object[]{
-          r.getPermission()
+          r.getPermission(),
+          Annotations.getDescriptionContent(r.getPermission())
       };
       c++;
     }
 
     return result;
+  }
+
+  @Override
+  public Object[][] getPermissionTableData(String pfilter) throws ProcessingException {
+    ArrayList<String> rows = new ArrayList<String>();
+    BundleClassDescriptor[] permissions = SERVICES.getService(IPermissionService.class).getAllPermissionClasses();
+    for (int i = 0; i < permissions.length; i++) {
+      if (pfilter == null || pfilter.isEmpty()) rows.add(permissions[i].getClassName());
+      else if (permissions[i].getClassName().toUpperCase().contains(pfilter.toUpperCase())) rows.add(permissions[i].getClassName());
+    }
+    Collections.sort(rows);
+    Object[][] data = new Object[rows.size()][2];
+    for (int i = 0; i < rows.size(); i++) {
+      data[i][0] = rows.get(i);
+      data[i][1] = Annotations.getDescriptionContent(rows.get(i));
+    }
+    return data;
   }
 }

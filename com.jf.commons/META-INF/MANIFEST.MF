@@ -108,4 +108,6 @@ Bundle-ClassPath: libs/commons-beanutils-1.9.2.jar,
  libs/ormlite-jdbc-4.48.jar,
  libs/hsqldb.jar,
  .
-Import-Package: org.eclipse.scout.rt.server.services.common.jdbc.style
+Import-Package: org.eclipse.scout.commons,
+ org.eclipse.scout.commons.security,
+ org.eclipse.scout.rt.server.services.common.jdbc.style

@@ -3,8 +3,6 @@
  */
 package com.jf.scout.client.administration.ui.desktop.pages;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Set;
 
 import org.eclipse.scout.commons.CollectionUtility;
@@ -12,7 +10,6 @@ import org.eclipse.scout.commons.annotations.FormData;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.annotations.PageData;
 import org.eclipse.scout.commons.exception.ProcessingException;
-import org.eclipse.scout.commons.osgi.BundleClassDescriptor;
 import org.eclipse.scout.rt.client.ui.action.menu.IMenuType;
 import org.eclipse.scout.rt.client.ui.action.menu.TableMenuType;
 import org.eclipse.scout.rt.client.ui.action.menu.TreeMenuType;
@@ -25,7 +22,6 @@ import org.eclipse.scout.rt.extension.client.ui.action.menu.AbstractExtensibleMe
 import org.eclipse.scout.rt.extension.client.ui.basic.table.AbstractExtensibleTable;
 import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
-import org.eclipse.scout.rt.shared.services.common.security.IPermissionService;
 import org.eclipse.scout.service.SERVICES;
 
 import com.jf.scout.client.administration.ui.desktop.forms.AssignToRoleForm;
@@ -59,6 +55,13 @@ public class PermissionManagementTablePage extends AbstractPageWithTable<Table> 
     }
 
     /**
+     * @return the DescriptionColumn
+     */
+    public DescriptionColumn getDescriptionColumn() {
+      return getColumnSet().getColumnByClass(DescriptionColumn.class);
+    }
+
+    /**
      * @return the PermissionNameColumn
      */
     public PermissionNameColumn getPermissionNameColumn() {
@@ -71,6 +74,15 @@ public class PermissionManagementTablePage extends AbstractPageWithTable<Table> 
       @Override
       protected String getConfiguredHeaderText() {
         return TEXTS.get("PermissionName");
+      }
+    }
+
+    @Order(20.0)
+    public class DescriptionColumn extends AbstractStringColumn {
+
+      @Override
+      protected String getConfiguredHeaderText() {
+        return TEXTS.get("Description");
       }
     }
 
@@ -146,18 +158,7 @@ public class PermissionManagementTablePage extends AbstractPageWithTable<Table> 
       String pfilter = "";
       if (formData != null) pfilter = formData.getPermissionName().getValue();
 
-      ArrayList<String> rows = new ArrayList<String>();
-      BundleClassDescriptor[] permissions = SERVICES.getService(IPermissionService.class).getAllPermissionClasses();
-      for (int i = 0; i < permissions.length; i++) {
-        if (pfilter == null || pfilter.isEmpty()) rows.add(permissions[i].getClassName());
-        else if (permissions[i].getClassName().toUpperCase().contains(pfilter.toUpperCase())) rows.add(permissions[i].getClassName());
-      }
-      Collections.sort(rows);
-      Object[][] data = new Object[rows.size()][1];
-      for (int i = 0; i < rows.size(); i++) {
-        data[i][0] = rows.get(i);
-      }
-      return data;
+      return SERVICES.getService(IExtensionService.class).getPermissionTableData(pfilter);
     }
     else {
       return SERVICES.getService(IExtensionService.class).getPermissionTableData(getRoleId());

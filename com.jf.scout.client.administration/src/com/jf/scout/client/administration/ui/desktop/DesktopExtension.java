@@ -64,8 +64,8 @@ public class DesktopExtension extends AbstractDesktopExtension implements IInsta
   public class AdministrationOutlineViewButton extends AbstractOutlineViewButton {
 
     /**
-   * 
-   */
+     *
+     */
     public AdministrationOutlineViewButton() {
       super(getCoreDesktop(), AdministrationOutline.class);
     }

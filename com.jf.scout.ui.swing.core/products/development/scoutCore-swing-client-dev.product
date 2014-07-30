@@ -36,8 +36,10 @@
       <plugin id="com.jf.commons"/>
       <plugin id="com.jf.scout.client.administration"/>
       <plugin id="com.jf.scout.client.core"/>
+      <plugin id="com.jf.scout.client.hrm"/>
       <plugin id="com.jf.scout.shared.administration"/>
       <plugin id="com.jf.scout.shared.core"/>
+      <plugin id="com.jf.scout.shared.hrm"/>
       <plugin id="com.jf.scout.ui.swing.core"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.xml"/>

@@ -36,9 +36,11 @@
       <plugin id="com.jf.scout.server.administration"/>
       <plugin id="com.jf.scout.server.core"/>
       <plugin id="com.jf.scout.server.core.requiredlibs"/>
+      <plugin id="com.jf.scout.server.hrm"/>
       <plugin id="com.jf.scout.server.installer"/>
       <plugin id="com.jf.scout.shared.administration"/>
       <plugin id="com.jf.scout.shared.core"/>
+      <plugin id="com.jf.scout.shared.hrm"/>
       <plugin id="com.jf.scout.shared.installer"/>
       <plugin id="javax.xml"/>
       <plugin id="org.eclipse.core.contenttype"/>

@@ -10,14 +10,25 @@ import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
 import org.eclipse.scout.rt.extension.client.ui.desktop.outline.AbstractExtensibleOutline;
 import org.eclipse.scout.rt.shared.TEXTS;
 
+import com.jf.scout.client.administration.ui.desktop.pages.PermissionManagementTablePage;
 import com.jf.scout.client.administration.ui.desktop.pages.RoleTablePage;
 import com.jf.scout.client.administration.ui.desktop.pages.UserTablePage;
-import com.jf.scout.client.administration.ui.desktop.pages.PermissionManagementTablePage;
+import com.jf.scout.shared.administration.security.ViewOutlinePermission;
 
 /**
  * @author Hoàng
  */
 public class AdministrationOutline extends AbstractExtensibleOutline {
+
+  /* (non-Javadoc)
+   * @see org.eclipse.scout.rt.client.ui.basic.tree.AbstractTree#execInitTree()
+   */
+  @Override
+  protected void execInitTree() throws ProcessingException {
+    setVisiblePermission(new ViewOutlinePermission());
+
+    super.execInitTree();
+  }
 
   @Override
   protected String getConfiguredTitle() {

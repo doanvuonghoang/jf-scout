@@ -60,7 +60,9 @@ public class PermissionManagementTablePageData extends AbstractTablePageData {
 
     private static final long serialVersionUID = 1L;
     public static final String permissionName = "permissionName";
+    public static final String description = "description";
     private String m_permissionName;
+    private String m_description;
 
     public PermissionManagementTableRowData() {
     }
@@ -78,6 +80,21 @@ public class PermissionManagementTablePageData extends AbstractTablePageData {
      */
     public void setPermissionName(String permissionName) {
       m_permissionName = permissionName;
+    }
+
+    /**
+     * @return the Description
+     */
+    public String getDescription() {
+      return m_description;
+    }
+
+    /**
+     * @param description
+     *          the Description to set
+     */
+    public void setDescription(String description) {
+      m_description = description;
     }
   }
 }
