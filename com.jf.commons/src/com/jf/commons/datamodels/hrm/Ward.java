@@ -17,31 +17,24 @@
 
 package com.jf.commons.datamodels.hrm;
 
-import java.beans.PropertyChangeEvent;
-import java.io.Serializable;
-import java.util.Calendar;
+import java.util.ResourceBundle;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.jf.commons.datamodels.RecordStatus;
-import com.jf.commons.datamodels.TrackableEntity;
+import com.j256.ormlite.table.TableUtils;
+import com.jf.commons.datamodels.RecordHistEntity;
 
 /**
  *
  * @author Hoàng Doãn
  */
 @DatabaseTable(tableName = "hrm_Wards")
-public class Ward extends TrackableEntity implements Serializable {
+public class Ward extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
-
-	public final static String FIELD_RECORD_STATUS = "recordStatus";
 
 	@DatabaseField(canBeNull = false)
 	private String name;
-
-	@DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
-	private RecordStatus recordStatus;
 
 	@DatabaseField(canBeNull = false, foreign = true)
 	private City city;
@@ -97,36 +90,26 @@ public class Ward extends TrackableEntity implements Serializable {
 		this.district = district;
 	}
 
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if (isNew())
-			return;
-
-		super.propertyChange(evt);
-
-		setRecordStatus(RecordStatus.UPDATE);
-	}
-
-	/**
-	 * @return the recordStatus
-	 */
-	public RecordStatus getRecordStatus() {
-		return recordStatus;
-	}
-
-	/**
-	 * This value is auto set, no need to call.
-	 * 
-	 * @param recordStatus
-	 *            the recordStatus to set
-	 */
-	public void setRecordStatus(RecordStatus recordStatus) {
-		this.recordStatus = recordStatus;
-		setLastModifiedTime(Calendar.getInstance().getTime());
-	}
-
 	public static void generateData(Dao<Ward, Long> dao, Dao<City, Long> cdao,
 			Dao<District, Long> ddao) throws Exception {
+		// create table if not exists
+		TableUtils
+				.createTableIfNotExists(dao.getConnectionSource(), Ward.class);
+
 		// TODO working on it
+		ResourceBundle rb = ResourceBundle.getBundle("wards");
+		for (String w : rb.getStringArray("wards")) {
+			String[] parts = w.split(",");
+
+			Ward m = new Ward();
+			m.setNew(true);
+			m.setName(parts[0].trim());
+			m.setDistrict(ddao.queryForEq(District.FIELD_NAME, parts[1].trim())
+					.get(0));
+			m.setCity(cdao.queryForEq(City.FIELD_NAME, parts[2].trim()).get(0));
+			m.setCreator("admin");
+
+			dao.create(m);
+		}
 	}
 }

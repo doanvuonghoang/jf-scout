@@ -17,25 +17,20 @@
 
 package com.jf.commons.datamodels.hrm;
 
-import java.beans.PropertyChangeEvent;
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.jf.commons.datamodels.RecordStatus;
-import com.jf.commons.datamodels.TrackableEntity;
+import com.jf.commons.datamodels.RecordHistEntity;
 
 /**
  *
  * @author Hoàng Doãn
  */
 @DatabaseTable(tableName = "hrm_BasicInformation")
-public class BasicInformation extends TrackableEntity implements Serializable {
+public class BasicInformation extends RecordHistEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	public static final String FIELD_RECORD_STATUS = "recordStatus";
 	
 	@DatabaseField(foreign = true, canBeNull = false, unique = true)
 	private Employee employee;
@@ -77,7 +72,7 @@ public class BasicInformation extends TrackableEntity implements Serializable {
 	private EducationLevel educationLevel;
 	
 	@DatabaseField(foreign = true)
-	private ForeignLanguageSkill foreignLanguageSkill;
+	private ForeignLanguageLevel foreignLanguageSkill;
 	
 	@DatabaseField
 	private Date unionJoinedDate;
@@ -100,18 +95,6 @@ public class BasicInformation extends TrackableEntity implements Serializable {
 	@DatabaseField(foreign = true)
 	private QualificationLevel qualificationLevel;
     
-    @DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
-    private RecordStatus recordStatus;
-    
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-    	if(isNew()) return;
-    	
-    	super.propertyChange(evt);
-    	    	
-    	setRecordStatus(RecordStatus.UPDATE);
-    }
-
 	/**
 	 * @return the employee
 	 */
@@ -297,14 +280,14 @@ public class BasicInformation extends TrackableEntity implements Serializable {
 	/**
 	 * @return the foreignLanguageSkill
 	 */
-	public ForeignLanguageSkill getForeignLanguageSkill() {
+	public ForeignLanguageLevel getForeignLanguageSkill() {
 		return foreignLanguageSkill;
 	}
 
 	/**
 	 * @param foreignLanguageSkill the foreignLanguageSkill to set
 	 */
-	public void setForeignLanguageSkill(ForeignLanguageSkill foreignLanguageSkill) {
+	public void setForeignLanguageSkill(ForeignLanguageLevel foreignLanguageSkill) {
 		this.foreignLanguageSkill = foreignLanguageSkill;
 	}
 
@@ -404,21 +387,5 @@ public class BasicInformation extends TrackableEntity implements Serializable {
 	 */
 	public void setQualificationLevel(QualificationLevel qualificationLevel) {
 		this.qualificationLevel = qualificationLevel;
-	}
-
-	/**
-	 * @return the recordStatus
-	 */
-	public RecordStatus getRecordStatus() {
-		return recordStatus;
-	}
-
-	/**
-	 * This value is auto set, no need to call.
-	 * @param recordStatus the recordStatus to set
-	 */
-	public void setRecordStatus(RecordStatus recordStatus) {
-		this.recordStatus = recordStatus;
-		setLastModifiedTime(Calendar.getInstance().getTime());
 	}
 }

@@ -17,28 +17,23 @@
 
 package com.jf.commons.datamodels.hrm;
 
-import java.beans.PropertyChangeEvent;
-import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.jf.commons.datamodels.RecordStatus;
-import com.jf.commons.datamodels.TrackableEntity;
+import com.jf.commons.datamodels.RecordHistEntity;
 
 /**
  *
  * @author Hoàng Doãn
  */
 @DatabaseTable(tableName = "hrm_Employees")
-public class Employee extends TrackableEntity implements Serializable {
+public class Employee extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
 	
     public static final String FIELD_CODE = "code";
     public static final String FIELD_FIRST_NAME = "firstName";
     public static final String FIELD_LAST_NAME = "lastName";
-    public static final String FIELD_RECORD_STATUS = "recordStatus";
     
     @DatabaseField(canBeNull = false, unique = true, columnName = FIELD_CODE)
     private String code;
@@ -69,18 +64,6 @@ public class Employee extends TrackableEntity implements Serializable {
     
     @DatabaseField(foreign = true)
     private Address contactAddress;
-    
-    @DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
-    private RecordStatus recordStatus;
-    
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-    	if(isNew()) return;
-    	
-    	super.propertyChange(evt);
-    	    	
-    	setRecordStatus(RecordStatus.UPDATE);
-    }
     
 	/**
 	 * @return the name
@@ -220,21 +203,5 @@ public class Employee extends TrackableEntity implements Serializable {
 	 */
 	public void setContactAddress(Address contactAddress) {
 		this.contactAddress = contactAddress;
-	}
-
-	/**
-	 * @return the recordStatus
-	 */
-	public RecordStatus getRecordStatus() {
-		return recordStatus;
-	}
-
-	/**
-	 * This value is auto set, no need to call.
-	 * @param recordStatus the recordStatus to set
-	 */
-	public void setRecordStatus(RecordStatus recordStatus) {
-		this.recordStatus = recordStatus;
-		setLastModifiedTime(Calendar.getInstance().getTime());
 	}
 }

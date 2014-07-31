@@ -17,7 +17,6 @@
 
 package com.jf.commons.datamodels.hrm;
 
-import java.beans.PropertyChangeEvent;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,21 +27,19 @@ import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.jf.commons.datamodels.RecordStatus;
-import com.jf.commons.datamodels.TrackableEntity;
+import com.jf.commons.datamodels.RecordHistEntity;
 
 /**
  *
  * @author Hoàng Doãn
  */
 @DatabaseTable(tableName = "hrm_Departments")
-public class Department extends TrackableEntity implements Serializable {
+public class Department extends RecordHistEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIELD_PARENT_ID = "parentId";
 	public static final String FIELD_CODE = "code";
 	public static final String FIELD_NAME = "name";
-	public static final String FIELD_RECORD_STATUS = "recordStatus";
 
 	@DatabaseField(foreign = true, foreignColumnName = FIELD_PARENT_ID)
 	private Department parent;
@@ -68,21 +65,8 @@ public class Department extends TrackableEntity implements Serializable {
 	@DatabaseField(width = 200)
 	private String email;
 
-	@DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
-	private RecordStatus recordStatus;
-
 	@ForeignCollectionField(foreignFieldName = "parent")
 	private ForeignCollection<Department> subUnits;
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if (isNew())
-			return;
-
-		super.propertyChange(evt);
-
-		setRecordStatus(RecordStatus.UPDATE);
-	}
 
 	public ForeignCollection<Department> subUnits() {
 		return subUnits;
@@ -206,24 +190,6 @@ public class Department extends TrackableEntity implements Serializable {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	/**
-	 * @return the recordStatus
-	 */
-	public RecordStatus getRecordStatus() {
-		return recordStatus;
-	}
-
-	/**
-	 * This value is auto set, no need to call.
-	 * 
-	 * @param recordStatus
-	 *            the recordStatus to set
-	 */
-	public void setRecordStatus(RecordStatus recordStatus) {
-		this.recordStatus = recordStatus;
-		setLastModifiedTime(Calendar.getInstance().getTime());
 	}
 
 	/**

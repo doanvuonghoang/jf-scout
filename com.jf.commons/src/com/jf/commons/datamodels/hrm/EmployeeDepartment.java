@@ -17,56 +17,52 @@
 
 package com.jf.commons.datamodels.hrm;
 
-import java.beans.PropertyChangeEvent;
-import java.io.Serializable;
-import java.util.Calendar;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.jf.commons.datamodels.RecordStatus;
-import com.jf.commons.datamodels.TrackableEntity;
+import com.jf.commons.datamodels.RecordHistEntity;
 
 /**
  *
  * @author Hoàng Doãn
  */
 @DatabaseTable(tableName = "hrm_EmployeeDepartment")
-public class EmployeeDepartment extends TrackableEntity implements Serializable {
+public class EmployeeDepartment extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
-	
-	public final static String FIELD_RECORD_STATUS = "recordStatus";
-	
-    @DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
-    private RecordStatus recordStatus;
-    
-    @DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true)
-    private Employee employee;
-    
-    @DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true)
-    private Department department;
 
-	@Override
-    public void propertyChange(PropertyChangeEvent evt) {
-    	if(isNew()) return;
-    	
-    	super.propertyChange(evt);
-    	    	
-    	setRecordStatus(RecordStatus.UPDATE);
-    }
-    
+	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true)
+	private Employee employee;
+
+	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true)
+	private Department department;
+
 	/**
-	 * @return the recordStatus
+	 * @return the employee
 	 */
-	public RecordStatus getRecordStatus() {
-		return recordStatus;
+	public Employee getEmployee() {
+		return employee;
 	}
 
 	/**
-	 * This value is auto set, no need to call.
-	 * @param recordStatus the recordStatus to set
+	 * @param employee
+	 *            the employee to set
 	 */
-	public void setRecordStatus(RecordStatus recordStatus) {
-		this.recordStatus = recordStatus;
-		setLastModifiedTime(Calendar.getInstance().getTime());
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
+
+	/**
+	 * @return the department
+	 */
+	public Department getDepartment() {
+		return department;
+	}
+
+	/**
+	 * @param department
+	 *            the department to set
+	 */
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
 }

@@ -21,11 +21,12 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
- * Trinh do chuyen mon
+ *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_QualificationLevels")
-public class QualificationLevel extends TypeBasedEntity {
+@DatabaseTable(tableName = "hrm_ForeignLanguageLevels")
+public class ForeignLanguageLevel extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
-
+	
+	
 }

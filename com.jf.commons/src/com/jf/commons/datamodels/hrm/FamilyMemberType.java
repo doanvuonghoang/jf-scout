@@ -17,70 +17,37 @@
 
 package com.jf.commons.datamodels.hrm;
 
-import java.beans.PropertyChangeEvent;
-import java.io.Serializable;
-import java.util.Calendar;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.jf.commons.datamodels.RecordStatus;
-import com.jf.commons.datamodels.TrackableEntity;
+import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
  *
  * @author Hoàng Doãn
  */
 @DatabaseTable(tableName = "hrm_FamilyMemberTypes")
-public class FamilyMemberType extends TrackableEntity implements Serializable {
+public class FamilyMemberType extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
-	
-	public final static String FIELD_RECORD_STATUS = "recordStatus";
-	
-	@DatabaseField(canBeNull = false)
-	private String name;
-	
-    @DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
-    private RecordStatus recordStatus;
 
-    /**
-	 * @return the name
+	/**
+	 * Co phai thong tin co ban hay khong
 	 */
-	public String getName() {
-		return name;
+	@DatabaseField(canBeNull = false, defaultValue = "true")
+	private boolean isExtended;
+
+	/**
+	 * @return the isExtended
+	 */
+	public boolean isExtended() {
+		return isExtended;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param isExtended
+	 *            the isExtended to set
 	 */
-	public void setName(String name) {
-		String old = this.name;
-		this.name = name;
-		
-		this.propertyChange.firePropertyChange("name", old, name);
+	public void setExtended(boolean isExtended) {
+		this.isExtended = isExtended;
 	}
 
-	@Override
-    public void propertyChange(PropertyChangeEvent evt) {
-    	if(isNew()) return;
-    	
-    	super.propertyChange(evt);
-    	    	
-    	setRecordStatus(RecordStatus.UPDATE);
-    }
-    
-	/**
-	 * @return the recordStatus
-	 */
-	public RecordStatus getRecordStatus() {
-		return recordStatus;
-	}
-
-	/**
-	 * This value is auto set, no need to call.
-	 * @param recordStatus the recordStatus to set
-	 */
-	public void setRecordStatus(RecordStatus recordStatus) {
-		this.recordStatus = recordStatus;
-		setLastModifiedTime(Calendar.getInstance().getTime());
-	}
 }

@@ -14,60 +14,37 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package com.jf.commons.datamodels.hrm;
+package com.jf.commons.datamodels;
 
 import java.beans.PropertyChangeEvent;
 import java.io.Serializable;
 import java.util.Calendar;
 
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-import com.jf.commons.datamodels.RecordStatus;
-import com.jf.commons.datamodels.TrackableEntity;
 
 /**
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_ForeignLanguageSkills")
-public class ForeignLanguageSkill extends TrackableEntity implements Serializable {
+public class RecordHistEntity extends TrackableEntity implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	public final static String FIELD_RECORD_STATUS = "recordStatus";
-	
-	@DatabaseField(canBeNull = false)
-	private String name;
-	
-    @DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
-    private RecordStatus recordStatus;
 
-    /**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		String old = this.name;
-		this.name = name;
-		
-		this.propertyChange.firePropertyChange("name", old, name);
-	}
+	@DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
+	private RecordStatus recordStatus;
 
 	@Override
-    public void propertyChange(PropertyChangeEvent evt) {
-    	if(isNew()) return;
-    	
-    	super.propertyChange(evt);
-    	    	
-    	setRecordStatus(RecordStatus.UPDATE);
-    }
-    
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (isNew())
+			return;
+
+		super.propertyChange(evt);
+
+		setRecordStatus(RecordStatus.UPDATE);
+	}
+
 	/**
 	 * @return the recordStatus
 	 */
@@ -77,10 +54,13 @@ public class ForeignLanguageSkill extends TrackableEntity implements Serializabl
 
 	/**
 	 * This value is auto set, no need to call.
-	 * @param recordStatus the recordStatus to set
+	 * 
+	 * @param recordStatus
+	 *            the recordStatus to set
 	 */
 	public void setRecordStatus(RecordStatus recordStatus) {
 		this.recordStatus = recordStatus;
 		setLastModifiedTime(Calendar.getInstance().getTime());
 	}
+
 }

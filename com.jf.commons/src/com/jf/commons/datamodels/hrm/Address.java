@@ -17,27 +17,17 @@
 
 package com.jf.commons.datamodels.hrm;
 
-import java.beans.PropertyChangeEvent;
-import java.io.Serializable;
-import java.util.Calendar;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.jf.commons.datamodels.RecordStatus;
-import com.jf.commons.datamodels.TrackableEntity;
+import com.jf.commons.datamodels.RecordHistEntity;
 
 /**
  *
  * @author Hoàng Doãn
  */
 @DatabaseTable(tableName = "hrm_Addresses")
-public class Address extends TrackableEntity implements Serializable {
+public class Address extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
-
-	public final static String FIELD_RECORD_STATUS = "recordStatus";
-
-	@DatabaseField(defaultValue = "CREATE", columnName = FIELD_RECORD_STATUS)
-	private RecordStatus recordStatus;
 
 	@DatabaseField(uniqueCombo = true, foreign = true)
 	private City city;
@@ -53,16 +43,6 @@ public class Address extends TrackableEntity implements Serializable {
 
 	@DatabaseField(canBeNull = false)
 	private String toString;
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if (isNew())
-			return;
-
-		super.propertyChange(evt);
-
-		setRecordStatus(RecordStatus.UPDATE);
-	}
 
 	/**
 	 * @return the city
@@ -139,24 +119,6 @@ public class Address extends TrackableEntity implements Serializable {
 		this.toString = toString;
 	}
 
-	/**
-	 * @return the recordStatus
-	 */
-	public RecordStatus getRecordStatus() {
-		return recordStatus;
-	}
-
-	/**
-	 * This value is auto set, no need to call.
-	 * 
-	 * @param recordStatus
-	 *            the recordStatus to set
-	 */
-	public void setRecordStatus(RecordStatus recordStatus) {
-		this.recordStatus = recordStatus;
-		setLastModifiedTime(Calendar.getInstance().getTime());
-	}
-	
 	@Override
 	public String toString() {
 		return this.toString;
