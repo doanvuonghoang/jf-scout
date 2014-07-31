@@ -15,54 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm;
+package com.jf.commons.datamodels.hrm.cv;
+
+import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
+import com.jf.commons.datamodels.hrm.classifiers.RDType;
 
 /**
- *
+ * Sơ yếu lý lịch - Khối Khen thưởng và Kỷ luật
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_Violations")
-public class Violation extends RecordHistEntity {
+@DatabaseTable(tableName = "hrm_CVRDs")
+public class CVRD extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
 	
-	@DatabaseField(foreign = true, canBeNull = false)
-	private Employee employee;
+	public static final String FIELD_CV = "cvId";
+	public static final String FIELD_RD_TYPE = "rdTypeId";
+
+	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true, columnName = FIELD_CV)
+	private CVPersonalDetail cVPersonalDetail;
+
+	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true, columnName = FIELD_RD_TYPE)
+	private RDType rdType;
 	
 	@DatabaseField(canBeNull = false)
 	private String content;
 	
-    /**
-	 * @return the employee
-	 */
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	/**
-	 * @param employee the employee to set
-	 */
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	/**
-	 * @return the content
-	 */
-	public String getContent() {
-		return content;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setContent(String content) {
-		String old = this.content;
-		this.content = content;
-		
-		this.propertyChange.firePropertyChange("content", old, content);
-	}
+	@DatabaseField
+	private Date fromDate;
+	
+	@DatabaseField
+	private Date toDate;
 }

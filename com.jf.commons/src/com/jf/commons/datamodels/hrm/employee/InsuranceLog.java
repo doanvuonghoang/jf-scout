@@ -15,24 +15,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm;
+package com.jf.commons.datamodels.hrm.employee;
 
-import java.util.ResourceBundle;
+import java.util.Date;
 
-import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.j256.ormlite.table.TableUtils;
-import com.jf.commons.datamodels.TypeBasedEntity;
+import com.jf.commons.datamodels.RecordHistEntity;
+import com.jf.commons.datamodels.hrm.classifiers.InsuranceStatus;
 
 /**
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_InsuranceTypes")
-public class InsuranceType extends TypeBasedEntity {
+@DatabaseTable(tableName = "hrm_InsuranceLogs")
+public class InsuranceLog extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String FIELD_INSURANCE = "insuranceId";
+	
+	@DatabaseField(canBeNull = false, foreign = true, columnName = FIELD_INSURANCE)
+	private Insurance insurance;
 
+	/**
+	 * Ngày bắt đầu nộp bảo hiểm
+	 */
+	@DatabaseField(canBeNull = false)
+	private Date statusChangedFromDate;
+	
+	@DatabaseField
+	private Date statusChangedToDate;
+	
+	/**
+	 * Trạng thái hiện nay, đang dừng hay không?
+	 */
+	@DatabaseField(canBeNull = false, foreign = true, columnName = Insurance.FIELD_INSURANCE_STATUS)
+	private InsuranceStatus status;
+	
 	/**
 	 * Ti le phai nop bao hiem
 	 */
@@ -64,6 +83,62 @@ public class InsuranceType extends TypeBasedEntity {
 	private double employerRate;
 
 	/**
+	 * @return the insurance
+	 */
+	public Insurance getInsurance() {
+		return insurance;
+	}
+
+	/**
+	 * @param insurance the insurance to set
+	 */
+	public void setInsurance(Insurance insurance) {
+		this.insurance = insurance;
+	}
+
+	/**
+	 * @return the statusChangedFromDate
+	 */
+	public Date getStatusChangedFromDate() {
+		return statusChangedFromDate;
+	}
+
+	/**
+	 * @param statusChangedFromDate the statusChangedFromDate to set
+	 */
+	public void setStatusChangedFromDate(Date statusChangedFromDate) {
+		this.statusChangedFromDate = statusChangedFromDate;
+	}
+
+	/**
+	 * @return the statusChangedToDate
+	 */
+	public Date getStatusChangedToDate() {
+		return statusChangedToDate;
+	}
+
+	/**
+	 * @param statusChangedToDate the statusChangedToDate to set
+	 */
+	public void setStatusChangedToDate(Date statusChangedToDate) {
+		this.statusChangedToDate = statusChangedToDate;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public InsuranceStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(InsuranceStatus status) {
+		this.status = status;
+	}
+
+	/**
 	 * @return the rate
 	 */
 	public double getRate() {
@@ -71,14 +146,10 @@ public class InsuranceType extends TypeBasedEntity {
 	}
 
 	/**
-	 * @param rate
-	 *            the rate to set
+	 * @param rate the rate to set
 	 */
 	public void setRate(double rate) {
-		double old = this.rate;
 		this.rate = rate;
-
-		this.propertyChange.firePropertyChange("rate", old, rate);
 	}
 
 	/**
@@ -89,14 +160,10 @@ public class InsuranceType extends TypeBasedEntity {
 	}
 
 	/**
-	 * @param yearAssc
-	 *            the yearAssc to set
+	 * @param yearAssc the yearAssc to set
 	 */
 	public void setYearAssc(int yearAssc) {
-		int old = this.yearAssc;
 		this.yearAssc = yearAssc;
-
-		this.propertyChange.firePropertyChange("yearAssc", old, yearAssc);
 	}
 
 	/**
@@ -107,14 +174,10 @@ public class InsuranceType extends TypeBasedEntity {
 	}
 
 	/**
-	 * @param isRequired
-	 *            the isRequired to set
+	 * @param isRequired the isRequired to set
 	 */
 	public void setRequired(boolean isRequired) {
-		boolean old = this.isRequired;
 		this.isRequired = isRequired;
-
-		this.propertyChange.firePropertyChange("required", old, isRequired);
 	}
 
 	/**
@@ -125,15 +188,10 @@ public class InsuranceType extends TypeBasedEntity {
 	}
 
 	/**
-	 * @param employeeRate
-	 *            the employeeRate to set
+	 * @param employeeRate the employeeRate to set
 	 */
 	public void setEmployeeRate(double employeeRate) {
-		double old = this.employeeRate;
 		this.employeeRate = employeeRate;
-
-		this.propertyChange.firePropertyChange("employeeRate", old,
-				employeeRate);
 	}
 
 	/**
@@ -144,43 +202,10 @@ public class InsuranceType extends TypeBasedEntity {
 	}
 
 	/**
-	 * @param employerRate
-	 *            the employerRate to set
+	 * @param employerRate the employerRate to set
 	 */
 	public void setEmployerRate(double employerRate) {
-		double old = this.employerRate;
 		this.employerRate = employerRate;
-
-		this.propertyChange.firePropertyChange("employerRate", old,
-				employerRate);
 	}
-
-	/**
-	 * Generate predefine data
-	 * 
-	 * @param dao
-	 * @throws Exception
-	 */
-	public static void generateData(Dao<InsuranceType, Long> dao)
-			throws Exception {
-		// create table
-		TableUtils.createTableIfNotExists(dao.getConnectionSource(),
-				InsuranceType.class);
-
-		// insert data
-		ResourceBundle rb = ResourceBundle.getBundle("insuranceTypes");
-		for (String p : rb.getStringArray("types")) {
-			String[] types = p.split(",");
-
-			InsuranceType m = new InsuranceType();
-			m.setNew(true);
-			m.setName(types[0].trim());
-			m.setRate(Double.parseDouble(types[1]));
-			m.setYearAssc(Integer.parseInt(types[2]));
-			m.setRequired(Boolean.parseBoolean(types[3]));
-			m.setCreator("admin");
-
-			dao.create(m);
-		}
-	}
+	
 }

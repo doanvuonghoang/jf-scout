@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm;
+package com.jf.commons.datamodels.hrm.cv;
 
 import java.util.Date;
 
@@ -27,12 +27,12 @@ import com.jf.commons.datamodels.RecordHistEntity;
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_HistoryPersonalActivities")
-public class HistoryPersonalActivity extends RecordHistEntity {
+@DatabaseTable(tableName = "hrm_PersonalActivities")
+public class CVPersonalActivity extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@DatabaseField(foreign = true, canBeNull = false)
-	private Employee employee;
+	private CV cv;
 	
 	@DatabaseField(canBeNull = false)
 	private Date fromDate;
@@ -50,17 +50,17 @@ public class HistoryPersonalActivity extends RecordHistEntity {
 	private String position;
     
 	/**
-	 * @return the employee
+	 * @return the cv
 	 */
-	public Employee getEmployee() {
-		return employee;
+	public CV getCV() {
+		return cv;
 	}
 
 	/**
-	 * @param employee the employee to set
+	 * @param CV the cv to set
 	 */
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setCV(CV cv) {
+		this.cv = cv;
 	}
 
 	/**

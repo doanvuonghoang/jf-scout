@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm;
+package com.jf.commons.datamodels.hrm.classifiers;
 
 import java.util.ResourceBundle;
 

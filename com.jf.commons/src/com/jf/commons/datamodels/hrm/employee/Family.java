@@ -15,11 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm;
+package com.jf.commons.datamodels.hrm.employee;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
+import com.jf.commons.datamodels.hrm.classifiers.FamilyRelationType;
 
 /**
  *
@@ -33,7 +34,7 @@ public class Family extends RecordHistEntity {
 	private Employee employee;
 
 	@DatabaseField(foreign = true)
-	private FamilyMemberType familyMemberType;
+	private FamilyRelationType familyMemberType;
 
 	@DatabaseField(canBeNull = false)
 	private String fullname;
@@ -74,7 +75,7 @@ public class Family extends RecordHistEntity {
 	/**
 	 * @return the familyMemberType
 	 */
-	public FamilyMemberType getFamilyMemberType() {
+	public FamilyRelationType getFamilyMemberType() {
 		return familyMemberType;
 	}
 
@@ -82,7 +83,7 @@ public class Family extends RecordHistEntity {
 	 * @param familyMemberType
 	 *            the familyMemberType to set
 	 */
-	public void setFamilyMemberType(FamilyMemberType familyMemberType) {
+	public void setFamilyMemberType(FamilyRelationType familyMemberType) {
 		this.familyMemberType = familyMemberType;
 	}
 

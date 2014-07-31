@@ -15,56 +15,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm;
-
-import java.io.Serializable;
+package com.jf.commons.datamodels.hrm.classifiers;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.jf.commons.datamodels.RecordHistEntity;
+import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_Commendations")
-public class Commendation extends RecordHistEntity implements Serializable {
+@DatabaseTable(tableName = "hrm_CL_FamilyRelationTypes")
+public class FamilyRelationType extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
-	
-	@DatabaseField(foreign = true, canBeNull = false)
-	private Employee employee;
-	
-	@DatabaseField(canBeNull = false)
-	private String content;
 
-    /**
-	 * @return the employee
+	/**
+	 * Co phai thong tin co ban hay khong
 	 */
-	public Employee getEmployee() {
-		return employee;
+	@DatabaseField(canBeNull = false, defaultValue = "true")
+	private boolean isExtended;
+
+	/**
+	 * @return the isExtended
+	 */
+	public boolean isExtended() {
+		return isExtended;
 	}
 
 	/**
-	 * @param employee the employee to set
+	 * @param isExtended
+	 *            the isExtended to set
 	 */
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setExtended(boolean isExtended) {
+		this.isExtended = isExtended;
 	}
 
-	/**
-	 * @return the content
-	 */
-	public String getContent() {
-		return content;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setContent(String content) {
-		String old = this.content;
-		this.content = content;
-		
-		this.propertyChange.firePropertyChange("content", old, content);
-	}
 }

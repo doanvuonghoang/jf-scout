@@ -15,39 +15,47 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm;
+package com.jf.commons.datamodels.hrm.classifiers;
 
-import com.j256.ormlite.field.DatabaseField;
+import java.util.ResourceBundle;
+
+import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.table.DatabaseTable;
+import com.j256.ormlite.table.TableUtils;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_FamilyMemberTypes")
-public class FamilyMemberType extends TypeBasedEntity {
+@DatabaseTable(tableName = "hrm_InsuranceStatuses")
+public class InsuranceStatus extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Co phai thong tin co ban hay khong
+	 * Generate predefine data
+	 * 
+	 * @param dao
+	 * @throws Exception
 	 */
-	@DatabaseField(canBeNull = false, defaultValue = "true")
-	private boolean isExtended;
+	public static void generateData(Dao<InsuranceStatus, Long> dao)
+			throws Exception {
+		// create table
+		TableUtils.createTableIfNotExists(dao.getConnectionSource(),
+				InsuranceStatus.class);
 
-	/**
-	 * @return the isExtended
-	 */
-	public boolean isExtended() {
-		return isExtended;
+		// insert data
+		ResourceBundle rb = ResourceBundle.getBundle("insuranceStatuses");
+		for (String p : rb.getStringArray("statuses")) {
+			String[] statuses = p.split(",");
+
+			InsuranceStatus m = new InsuranceStatus();
+			m.setNew(true);
+			m.setName(statuses[0].trim());
+			m.setDescription(statuses[1]);
+			m.setCreator("admin");
+
+			dao.create(m);
+		}
 	}
-
-	/**
-	 * @param isExtended
-	 *            the isExtended to set
-	 */
-	public void setExtended(boolean isExtended) {
-		this.isExtended = isExtended;
-	}
-
 }

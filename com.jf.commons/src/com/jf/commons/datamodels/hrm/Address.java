@@ -20,6 +20,9 @@ package com.jf.commons.datamodels.hrm;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
+import com.jf.commons.datamodels.hrm.classifiers.City;
+import com.jf.commons.datamodels.hrm.classifiers.District;
+import com.jf.commons.datamodels.hrm.classifiers.Ward;
 
 /**
  *

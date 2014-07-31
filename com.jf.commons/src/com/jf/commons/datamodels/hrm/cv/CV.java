@@ -15,25 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm;
+package com.jf.commons.datamodels.hrm.cv;
 
 import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
+import com.jf.commons.datamodels.hrm.Address;
+import com.jf.commons.datamodels.hrm.employee.Employee;
 
 /**
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_Employees")
-public class Employee extends RecordHistEntity {
+@DatabaseTable(tableName = "hrm_CV")
+public class CV extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
 	
     public static final String FIELD_CODE = "code";
     public static final String FIELD_FIRST_NAME = "firstName";
     public static final String FIELD_LAST_NAME = "lastName";
+    
+    @DatabaseField(foreign = true, canBeNull = false, unique = true)
+	private Employee employee;
     
     @DatabaseField(canBeNull = false, unique = true, columnName = FIELD_CODE)
     private String code;
@@ -64,19 +69,19 @@ public class Employee extends RecordHistEntity {
     
     @DatabaseField(foreign = true)
     private Address contactAddress;
-    
+
 	/**
-	 * @return the name
+	 * @return the employee
 	 */
-	public String getFirstName() {
-		return firstName;
+	public Employee getEmployee() {
+		return employee;
 	}
 
 	/**
-	 * @param firstName the name to set
+	 * @param employee the employee to set
 	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	/**
@@ -91,6 +96,20 @@ public class Employee extends RecordHistEntity {
 	 */
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	/**
@@ -204,4 +223,5 @@ public class Employee extends RecordHistEntity {
 	public void setContactAddress(Address contactAddress) {
 		this.contactAddress = contactAddress;
 	}
+
 }

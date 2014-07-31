@@ -18,15 +18,15 @@
 package com.jf.commons.datamodels.hrm;
 
 import com.j256.ormlite.table.DatabaseTable;
-import com.jf.commons.datamodels.TypeBasedEntity;
+import com.jf.commons.datamodels.RecordHistEntity;
 
 /**
- * Trinh do van hoa
+ *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_EducationLevels")
-public class EducationLevel extends TypeBasedEntity {
+@DatabaseTable(tableName = "hrm_Addresses")
+public class File extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
-	
+
 	
 }

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm;
+package com.jf.commons.datamodels.hrm.cv;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,24 +23,38 @@ import java.util.Date;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
+import com.jf.commons.datamodels.hrm.Address;
+import com.jf.commons.datamodels.hrm.classifiers.EducationLevel;
+import com.jf.commons.datamodels.hrm.classifiers.ForeignLanguageLevel;
+import com.jf.commons.datamodels.hrm.classifiers.MaritalStatus;
+import com.jf.commons.datamodels.hrm.classifiers.QualificationLevel;
 
 /**
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_BasicInformation")
-public class BasicInformation extends RecordHistEntity implements Serializable {
+@DatabaseTable(tableName = "hrm_CVPersonalDetails")
+public class CVPersonalDetail extends RecordHistEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@DatabaseField(foreign = true, canBeNull = false, unique = true)
-	private Employee employee;
+	private CV cv;
 	
+	/**
+	 * Ho va ten
+	 */
 	@DatabaseField(canBeNull = false)
 	private String fullName;
 	
+	/**
+	 * Bi danh
+	 */
 	@DatabaseField
 	private String aliasName;
 	
+	/**
+	 * Ten thuong goi
+	 */
 	@DatabaseField
 	private String nickName;
 	
@@ -72,7 +86,7 @@ public class BasicInformation extends RecordHistEntity implements Serializable {
 	private EducationLevel educationLevel;
 	
 	@DatabaseField(foreign = true)
-	private ForeignLanguageLevel foreignLanguageSkill;
+	private ForeignLanguageLevel foreignLanguageLevel;
 	
 	@DatabaseField
 	private Date unionJoinedDate;
@@ -87,26 +101,43 @@ public class BasicInformation extends RecordHistEntity implements Serializable {
 	private Address partyJoinedPlace;
 	
 	@DatabaseField
-	private String HealthStatus;
+	private String healthStatus;
 	
 	@DatabaseField
 	private String job;
 	
 	@DatabaseField(foreign = true)
 	private QualificationLevel qualificationLevel;
+	
+	@DatabaseField(foreign = true)
+	private MaritalStatus maritalStatus;
     
 	/**
-	 * @return the employee
+	 * @return the cv
 	 */
-	public Employee getEmployee() {
-		return employee;
+	public CV getCv() {
+		return cv;
 	}
 
 	/**
-	 * @param employee the employee to set
+	 * @param cv the cv to set
 	 */
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setCv(CV cv) {
+		this.cv = cv;
+	}
+
+	/**
+	 * @return the maritalStatus
+	 */
+	public MaritalStatus getMaritalStatus() {
+		return maritalStatus;
+	}
+
+	/**
+	 * @param maritalStatus the maritalStatus to set
+	 */
+	public void setMaritalStatus(MaritalStatus maritalStatus) {
+		this.maritalStatus = maritalStatus;
 	}
 
 	/**
@@ -280,15 +311,15 @@ public class BasicInformation extends RecordHistEntity implements Serializable {
 	/**
 	 * @return the foreignLanguageSkill
 	 */
-	public ForeignLanguageLevel getForeignLanguageSkill() {
-		return foreignLanguageSkill;
+	public ForeignLanguageLevel getForeignLanguageLevel() {
+		return foreignLanguageLevel;
 	}
 
 	/**
-	 * @param foreignLanguageSkill the foreignLanguageSkill to set
+	 * @param foreignLanguageLevel the foreignLanguageSkill to set
 	 */
-	public void setForeignLanguageSkill(ForeignLanguageLevel foreignLanguageSkill) {
-		this.foreignLanguageSkill = foreignLanguageSkill;
+	public void setForeignLanguageLevel(ForeignLanguageLevel foreignLanguageLevel) {
+		this.foreignLanguageLevel = foreignLanguageLevel;
 	}
 
 	/**
@@ -351,14 +382,14 @@ public class BasicInformation extends RecordHistEntity implements Serializable {
 	 * @return the healthStatus
 	 */
 	public String getHealthStatus() {
-		return HealthStatus;
+		return healthStatus;
 	}
 
 	/**
 	 * @param healthStatus the healthStatus to set
 	 */
 	public void setHealthStatus(String healthStatus) {
-		HealthStatus = healthStatus;
+		this.healthStatus = healthStatus;
 	}
 
 	/**
