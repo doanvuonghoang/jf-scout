@@ -61,7 +61,7 @@ public class Insurance extends RecordHistEntity {
 	/**
 	 * Trạng thái hiện nay, đang dừng hay không?
 	 */
-	@DatabaseField(canBeNull = false, foreign = true, columnName = FIELD_INSURANCE_STATUS)
+	@DatabaseField(canBeNull = false, foreign = true, columnName = FIELD_INSURANCE_STATUS, uniqueCombo = true)
 	private InsuranceStatus status;
 
 	/**

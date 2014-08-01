@@ -17,12 +17,8 @@
 
 package com.jf.commons.datamodels.hrm.classifiers;
 
-import java.util.ResourceBundle;
-
-import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.j256.ormlite.table.TableUtils;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
@@ -154,33 +150,15 @@ public class InsuranceType extends TypeBasedEntity {
 		this.propertyChange.firePropertyChange("employerRate", old,
 				employerRate);
 	}
-
-	/**
-	 * Generate predefine data
-	 * 
-	 * @param dao
-	 * @throws Exception
-	 */
-	public static void generateData(Dao<InsuranceType, Long> dao)
-			throws Exception {
-		// create table
-		TableUtils.createTableIfNotExists(dao.getConnectionSource(),
-				InsuranceType.class);
-
-		// insert data
-		ResourceBundle rb = ResourceBundle.getBundle("insuranceTypes");
-		for (String p : rb.getStringArray("types")) {
-			String[] types = p.split(",");
-
-			InsuranceType m = new InsuranceType();
-			m.setNew(true);
-			m.setName(types[0].trim());
-			m.setRate(Double.parseDouble(types[1]));
-			m.setYearAssc(Integer.parseInt(types[2]));
-			m.setRequired(Boolean.parseBoolean(types[3]));
-			m.setCreator("admin");
-
-			dao.create(m);
-		}
+	
+	@Override
+	protected <T extends TypeBasedEntity> void onModelCreated(T t,
+			String[] parts) {
+		super.onModelCreated(t, parts);
+		
+		InsuranceType m = (InsuranceType) t;
+		m.setRate(Double.parseDouble(parts[2]));
+		m.setYearAssc(Integer.parseInt(parts[3]));
+		m.setRequired(Boolean.parseBoolean(parts[4]));
 	}
 }

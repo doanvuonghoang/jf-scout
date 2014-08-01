@@ -17,11 +17,7 @@
 
 package com.jf.commons.datamodels.hrm.classifiers;
 
-import java.util.ResourceBundle;
-
-import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.table.DatabaseTable;
-import com.j256.ormlite.table.TableUtils;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
@@ -32,30 +28,4 @@ import com.jf.commons.datamodels.TypeBasedEntity;
 public class LabourAgreementType extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Generate predefine data
-	 * 
-	 * @param dao
-	 * @throws Exception
-	 */
-	public static void generateData(Dao<LabourAgreementType, Long> dao)
-			throws Exception {
-		// create table
-		TableUtils.createTableIfNotExists(dao.getConnectionSource(),
-				InsuranceStatus.class);
-
-		// insert data
-		ResourceBundle rb = ResourceBundle.getBundle("labourAgreementTypes");
-		for (String p : rb.getStringArray("statuses")) {
-			String[] statuses = p.split(",");
-
-			LabourAgreementType m = new LabourAgreementType();
-			m.setNew(true);
-			m.setName(statuses[0].trim());
-			m.setDescription(statuses[1]);
-			m.setCreator("admin");
-
-			dao.create(m);
-		}
-	}
 }

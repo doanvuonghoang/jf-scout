@@ -29,14 +29,18 @@ import com.jf.commons.datamodels.hrm.classifiers.LabourAgreementType;
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_LabourAgreements")
-public class LabourAgreement extends RecordHistEntity {
+@DatabaseTable(tableName = "hrm_LabourAgreementLogs")
+public class LabourAgreementLog extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
-
+	
+	public static final String FIELD_LABOUR_AGREEMENT = "labourAgreementId";
 	public static final String FIELD_EMPLOYEE = "employeeId";
 	public static final String FIELD_LABOUR_AGREEMENT_TYPE = "laTypeId";
 	public static final String FIELD_LABOUR_AGREEMENT_STATUS = "laStatusId";
 	public static final String FIELD_ROOT_LABOUR_AGREEMENT = "rootAgreementId";
+	
+	@DatabaseField(foreign = true, canBeNull = false, columnName = FIELD_LABOUR_AGREEMENT)
+	private LabourAgreement labourAgreement;
 
 	@DatabaseField(foreign = true, canBeNull = false, columnName = FIELD_EMPLOYEE, uniqueCombo = true)
 	private Employee employee;
@@ -53,10 +57,10 @@ public class LabourAgreement extends RecordHistEntity {
 	@DatabaseField
 	private Date endDate;
 	
-	@DatabaseField(canBeNull = false, foreign = true, columnName = FIELD_LABOUR_AGREEMENT_STATUS, uniqueCombo = true)
+	@DatabaseField(canBeNull = false, foreign = true, columnName = FIELD_LABOUR_AGREEMENT_STATUS)
 	private LabourAgreementStatus status;
 	
-	@DatabaseField(canBeNull = false, foreign = true, columnName = FIELD_LABOUR_AGREEMENT_TYPE, uniqueCombo = true)
+	@DatabaseField(canBeNull = false, foreign = true, columnName = FIELD_LABOUR_AGREEMENT_TYPE)
 	private LabourAgreementType type;
 	
 	@DatabaseField
@@ -78,13 +82,27 @@ public class LabourAgreement extends RecordHistEntity {
 	private Date appendixEndDate;
 	
 	@DatabaseField(foreign = true, columnName = FIELD_ROOT_LABOUR_AGREEMENT)
-	private LabourAgreement rootAgreement;
+	private LabourAgreementLog rootAgreement;
 	
 	@DatabaseField
 	private Date closedDate;
 	
 	@DatabaseField(width = 4000)
 	private String closedReason;
+
+	/**
+	 * @return the labourAgreement
+	 */
+	public LabourAgreement getLabourAgreement() {
+		return labourAgreement;
+	}
+
+	/**
+	 * @param labourAgreement the labourAgreement to set
+	 */
+	public void setLabourAgreement(LabourAgreement labourAgreement) {
+		this.labourAgreement = labourAgreement;
+	}
 
 	/**
 	 * @return the employee
@@ -125,9 +143,7 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
-		String old = this.description;
 		this.description = description;
-		propertyChange.firePropertyChange("description", old, description);
 	}
 
 	/**
@@ -141,9 +157,7 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param startDate the startDate to set
 	 */
 	public void setStartDate(Date startDate) {
-		Date old = this.startDate;
 		this.startDate = startDate;
-		propertyChange.firePropertyChange("startDate", old, startDate);
 	}
 
 	/**
@@ -157,9 +171,7 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param endDate the endDate to set
 	 */
 	public void setEndDate(Date endDate) {
-		Date old = this.endDate;
 		this.endDate = endDate;
-		propertyChange.firePropertyChange("endDate", old, endDate);
 	}
 
 	/**
@@ -173,9 +185,7 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param status the status to set
 	 */
 	public void setStatus(LabourAgreementStatus status) {
-		LabourAgreementStatus old = this.status;
 		this.status = status;
-		propertyChange.firePropertyChange("status", old, status);
 	}
 
 	/**
@@ -203,9 +213,7 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param suspendedFromDate the suspendedFromDate to set
 	 */
 	public void setSuspendedFromDate(Date suspendedFromDate) {
-		Date old = this.suspendedFromDate;
 		this.suspendedFromDate = suspendedFromDate;
-		propertyChange.firePropertyChange("suspendedFromDate", old, suspendedFromDate);
 	}
 
 	/**
@@ -219,9 +227,7 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param suspendedToDate the suspendedToDate to set
 	 */
 	public void setSuspendedToDate(Date suspendedToDate) {
-		Date old = this.suspendedToDate;
 		this.suspendedToDate = suspendedToDate;
-		propertyChange.firePropertyChange("suspendedToDate", old, suspendedToDate);
 	}
 
 	/**
@@ -235,9 +241,7 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param suspendedReason the suspendedReason to set
 	 */
 	public void setSuspendedReason(String suspendedReason) {
-		String old = suspendedReason;
 		this.suspendedReason = suspendedReason;
-		propertyChange.firePropertyChange("suspendedReason", old, suspendedReason);
 	}
 
 	/**
@@ -251,9 +255,7 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param appendixChange the appendixChange to set
 	 */
 	public void setAppendixChange(String appendixChange) {
-		String old = this.appendixChange;
 		this.appendixChange = appendixChange;
-		propertyChange.firePropertyChange("appendixChange", old, appendixChange);
 	}
 
 	/**
@@ -267,9 +269,7 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param appendixStartDate the appendixStartDate to set
 	 */
 	public void setAppendixStartDate(Date appendixStartDate) {
-		Date old = this.appendixStartDate;
 		this.appendixStartDate = appendixStartDate;
-		propertyChange.firePropertyChange("appendixStartDate", old, appendixStartDate);
 	}
 
 	/**
@@ -283,25 +283,21 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param appendixEndDate the appendixEndDate to set
 	 */
 	public void setAppendixEndDate(Date appendixEndDate) {
-		Date old = this.appendixEndDate;
 		this.appendixEndDate = appendixEndDate;
-		propertyChange.firePropertyChange("appendixEndDate", old, appendixEndDate);
 	}
 
 	/**
 	 * @return the rootAgreement
 	 */
-	public LabourAgreement getRootAgreement() {
+	public LabourAgreementLog getRootAgreement() {
 		return rootAgreement;
 	}
 
 	/**
 	 * @param rootAgreement the rootAgreement to set
 	 */
-	public void setRootAgreement(LabourAgreement rootAgreement) {
-		LabourAgreement old = this.rootAgreement;
+	public void setRootAgreement(LabourAgreementLog rootAgreement) {
 		this.rootAgreement = rootAgreement;
-		propertyChange.firePropertyChange("rootAgreement", old, rootAgreement);
 	}
 
 	/**
@@ -315,9 +311,7 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param closedDate the closedDate to set
 	 */
 	public void setClosedDate(Date closedDate) {
-		Date old = this.closedDate;
 		this.closedDate = closedDate;
-		propertyChange.firePropertyChange("closedDate", old, closedDate);
 	}
 
 	/**
@@ -331,9 +325,7 @@ public class LabourAgreement extends RecordHistEntity {
 	 * @param closedReason the closedReason to set
 	 */
 	public void setClosedReason(String closedReason) {
-		String old = this.closedReason;
 		this.closedReason = closedReason;
-		propertyChange.firePropertyChange("closedReason", old, closedReason);
 	}
 
 }
