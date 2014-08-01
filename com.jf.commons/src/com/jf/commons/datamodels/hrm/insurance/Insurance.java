@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm.employee;
+package com.jf.commons.datamodels.hrm.insurance;
 
 import java.util.Date;
 
@@ -24,6 +24,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
 import com.jf.commons.datamodels.hrm.classifiers.InsuranceStatus;
 import com.jf.commons.datamodels.hrm.classifiers.InsuranceType;
+import com.jf.commons.datamodels.hrm.employee.Employee;
 
 /**
  *

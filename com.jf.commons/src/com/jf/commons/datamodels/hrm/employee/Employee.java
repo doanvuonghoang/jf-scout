@@ -24,6 +24,9 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
 import com.jf.commons.datamodels.hrm.File;
 import com.jf.commons.datamodels.hrm.classifiers.EmployeeStatus;
+import com.jf.commons.datamodels.hrm.contract.Contract;
+import com.jf.commons.datamodels.hrm.insurance.Insurance;
+import com.jf.commons.datamodels.hrm.training.Qualification;
 
 /**
  *
@@ -54,5 +57,104 @@ public class Employee extends RecordHistEntity {
     private ForeignCollection<Qualification> qualifications;
     
     @ForeignCollectionField(eager = false)
-    private ForeignCollection<LabourAgreement> labourAgreements;
+    private ForeignCollection<Contract> contracts;
+
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	/**
+	 * @return the fullName
+	 */
+	public String getFullName() {
+		return fullName;
+	}
+
+	/**
+	 * @param fullName the fullName to set
+	 */
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	/**
+	 * @return the photo
+	 */
+	public File getPhoto() {
+		return photo;
+	}
+
+	/**
+	 * @param photo the photo to set
+	 */
+	public void setPhoto(File photo) {
+		this.photo = photo;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public EmployeeStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(EmployeeStatus status) {
+		this.status = status;
+	}
+
+	/**
+	 * @return the insurances
+	 */
+	public ForeignCollection<Insurance> getInsurances() {
+		return insurances;
+	}
+
+	/**
+	 * @param insurances the insurances to set
+	 */
+	public void setInsurances(ForeignCollection<Insurance> insurances) {
+		this.insurances = insurances;
+	}
+
+	/**
+	 * @return the qualifications
+	 */
+	public ForeignCollection<Qualification> getQualifications() {
+		return qualifications;
+	}
+
+	/**
+	 * @param qualifications the qualifications to set
+	 */
+	public void setQualifications(ForeignCollection<Qualification> qualifications) {
+		this.qualifications = qualifications;
+	}
+
+	/**
+	 * @return the contracts
+	 */
+	public ForeignCollection<Contract> getContracts() {
+		return contracts;
+	}
+
+	/**
+	 * @param contracts the contracts to set
+	 */
+	public void setContracts(ForeignCollection<Contract> contracts) {
+		this.contracts = contracts;
+	}
+    
 }

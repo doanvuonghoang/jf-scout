@@ -20,7 +20,7 @@ package com.jf.commons.datamodels.hrm.employee;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
-import com.jf.commons.datamodels.hrm.Department;
+import com.jf.commons.datamodels.hrm.organization.Department;
 
 /**
  *

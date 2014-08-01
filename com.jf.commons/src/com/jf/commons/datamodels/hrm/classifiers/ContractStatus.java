@@ -24,8 +24,8 @@ import com.jf.commons.datamodels.TypeBasedEntity;
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_LabourAgreementTypes")
-public class LabourAgreementType extends TypeBasedEntity {
+@DatabaseTable(tableName = "hrm_LabourAgreementStatuses")
+public class ContractStatus extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
 
 }

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm.employee;
+package com.jf.commons.datamodels.hrm.insurance;
 
 import java.util.Date;
 

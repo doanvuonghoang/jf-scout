@@ -46,4 +46,75 @@ public class EmployeeStatusLog extends RecordHistEntity {
     
     @DatabaseField(width = 4000)
     private String statusChangedReason;
+
+	/**
+	 * @return the employee
+	 */
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	/**
+	 * @param employee the employee to set
+	 */
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public EmployeeStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(EmployeeStatus status) {
+		this.status = status;
+	}
+
+	/**
+	 * @return the statusChangedFrom
+	 */
+	public Date getStatusChangedFrom() {
+		return statusChangedFrom;
+	}
+
+	/**
+	 * @param statusChangedFrom the statusChangedFrom to set
+	 */
+	public void setStatusChangedFrom(Date statusChangedFrom) {
+		this.statusChangedFrom = statusChangedFrom;
+	}
+
+	/**
+	 * @return the statusChangedTo
+	 */
+	public Date getStatusChangedTo() {
+		return statusChangedTo;
+	}
+
+	/**
+	 * @param statusChangedTo the statusChangedTo to set
+	 */
+	public void setStatusChangedTo(Date statusChangedTo) {
+		this.statusChangedTo = statusChangedTo;
+	}
+
+	/**
+	 * @return the statusChangedReason
+	 */
+	public String getStatusChangedReason() {
+		return statusChangedReason;
+	}
+
+	/**
+	 * @param statusChangedReason the statusChangedReason to set
+	 */
+	public void setStatusChangedReason(String statusChangedReason) {
+		this.statusChangedReason = statusChangedReason;
+	}
+
 }

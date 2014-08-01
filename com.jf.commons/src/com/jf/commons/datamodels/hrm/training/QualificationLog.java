@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.jf.commons.datamodels.hrm.employee;
+package com.jf.commons.datamodels.hrm.training;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,18 +23,18 @@ import java.util.Date;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
-import com.jf.commons.datamodels.hrm.classifiers.QualificationLevel;
+import com.jf.commons.datamodels.hrm.classifiers.EducationLevel;
 
 /**
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_Qualifications")
-public class Qualification extends RecordHistEntity implements Serializable {
+@DatabaseTable(tableName = "hrm_QualificationLogs")
+public class QualificationLog extends RecordHistEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true)
-	private Employee employee;
+	@DatabaseField(foreign = true, canBeNull = false, unique = true)
+	private Qualification qualification;
 	
 	@DatabaseField(canBeNull = false)
 	private Date fromDate;
@@ -57,8 +57,8 @@ public class Qualification extends RecordHistEntity implements Serializable {
 	/**
 	 * Trình độ
 	 */
-	@DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true)
-	private QualificationLevel level;
+	@DatabaseField(canBeNull = false, foreign = true)
+	private EducationLevel level;
 	
 	/**
 	 * Học vị
@@ -71,19 +71,19 @@ public class Qualification extends RecordHistEntity implements Serializable {
 	 */
 	@DatabaseField
 	private String grade;
-	
+
 	/**
-	 * @return the employee
+	 * @return the qualification
 	 */
-	public Employee getEmployee() {
-		return employee;
+	public Qualification getQualification() {
+		return qualification;
 	}
 
 	/**
-	 * @param employee the employee to set
+	 * @param qualification the qualification to set
 	 */
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setQualification(Qualification qualification) {
+		this.qualification = qualification;
 	}
 
 	/**
@@ -145,14 +145,14 @@ public class Qualification extends RecordHistEntity implements Serializable {
 	/**
 	 * @return the level
 	 */
-	public QualificationLevel getLevel() {
+	public EducationLevel getLevel() {
 		return level;
 	}
 
 	/**
 	 * @param level the level to set
 	 */
-	public void setLevel(QualificationLevel level) {
+	public void setLevel(EducationLevel level) {
 		this.level = level;
 	}
 
