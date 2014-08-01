@@ -23,16 +23,17 @@ import java.util.Date;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
+import com.jf.commons.datamodels.hrm.classifiers.QualificationLevel;
 
 /**
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_Educations")
-public class Education extends RecordHistEntity implements Serializable {
+@DatabaseTable(tableName = "hrm_Qualifications")
+public class Qualification extends RecordHistEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@DatabaseField(foreign = true, canBeNull = false)
+	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true)
 	private Employee employee;
 	
 	@DatabaseField(canBeNull = false)
@@ -41,17 +42,35 @@ public class Education extends RecordHistEntity implements Serializable {
 	@DatabaseField
 	private Date toDate;
 	
+	/**
+	 * Trường đào tạo
+	 */
 	@DatabaseField(canBeNull = false)
 	private String trainingUnit;
 	
+	/**
+	 * Khoa, ngành
+	 */
 	@DatabaseField(canBeNull = false)
-	private String address;
+	private String department;
 	
+	/**
+	 * Trình độ
+	 */
+	@DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true)
+	private QualificationLevel level;
+	
+	/**
+	 * Học vị
+	 */
 	@DatabaseField(canBeNull = false)
 	private String title;
 	
-	@DatabaseField(canBeNull = false)
-	private String degree;
+	/**
+	 * Tốt nghiệp loại
+	 */
+	@DatabaseField
+	private String grade;
 	
 	/**
 	 * @return the employee
@@ -110,17 +129,31 @@ public class Education extends RecordHistEntity implements Serializable {
 	}
 
 	/**
-	 * @return the address
+	 * @return the department
 	 */
-	public String getAddress() {
-		return address;
+	public String getDepartment() {
+		return department;
 	}
 
 	/**
-	 * @param address the address to set
+	 * @param department the department to set
 	 */
-	public void setAddress(String address) {
-		this.address = address;
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	/**
+	 * @return the level
+	 */
+	public QualificationLevel getLevel() {
+		return level;
+	}
+
+	/**
+	 * @param level the level to set
+	 */
+	public void setLevel(QualificationLevel level) {
+		this.level = level;
 	}
 
 	/**
@@ -138,16 +171,17 @@ public class Education extends RecordHistEntity implements Serializable {
 	}
 
 	/**
-	 * @return the degree
+	 * @return the grade
 	 */
-	public String getDegree() {
-		return degree;
+	public String getGrade() {
+		return grade;
 	}
 
 	/**
-	 * @param degree the degree to set
+	 * @param grade the grade to set
 	 */
-	public void setDegree(String degree) {
-		this.degree = degree;
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
+
 }

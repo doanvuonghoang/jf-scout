@@ -17,42 +17,33 @@
 
 package com.jf.commons.datamodels.hrm.employee;
 
-import com.j256.ormlite.dao.ForeignCollection;
+import java.util.Date;
+
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
-import com.jf.commons.datamodels.hrm.File;
 import com.jf.commons.datamodels.hrm.classifiers.EmployeeStatus;
 
 /**
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_Employees")
-public class Employee extends RecordHistEntity {
+@DatabaseTable(tableName = "hrm_EmployeeStatusLogs")
+public class EmployeeStatusLog extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
-	
-    public static final String FIELD_CODE = "code";
 
-    @DatabaseField(canBeNull = false, unique = true, columnName = FIELD_CODE)
-    private String code;
-    
-    @DatabaseField(canBeNull = false)
-    private String fullName;
-    
-    @DatabaseField(foreign = true)
-    private File photo;
-    
-    @DatabaseField(foreign = true, canBeNull = false)
+	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true)
+	private Employee employee;
+
+	@DatabaseField(foreign = true, canBeNull = false)
     private EmployeeStatus status;
     
-    @ForeignCollectionField(eager = false)
-    private ForeignCollection<Insurance> insurances;
+    @DatabaseField
+    private Date statusChangedFrom;
     
-    @ForeignCollectionField(eager = false)
-    private ForeignCollection<Qualification> qualifications;
+    @DatabaseField
+    private Date statusChangedTo;
     
-    @ForeignCollectionField(eager = false)
-    private ForeignCollection<LabourAgreement> labourAgreements;
+    @DatabaseField(width = 4000)
+    private String statusChangedReason;
 }

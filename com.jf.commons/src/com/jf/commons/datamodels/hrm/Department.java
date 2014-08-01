@@ -23,11 +23,10 @@ import java.util.Date;
 
 import org.eclipse.scout.commons.DateUtility;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
+import com.jf.commons.datamodels.hrm.classifiers.DepartmentType;
 
 /**
  *
@@ -37,12 +36,11 @@ import com.jf.commons.datamodels.RecordHistEntity;
 public class Department extends RecordHistEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public static final String FIELD_PARENT_ID = "parentId";
 	public static final String FIELD_CODE = "code";
 	public static final String FIELD_NAME = "name";
 
-	@DatabaseField(foreign = true, foreignColumnName = FIELD_PARENT_ID)
-	private Department parent;
+	@DatabaseField(foreign = true)
+	private DepartmentType departmentType;
 
 	@DatabaseField(uniqueCombo = true)
 	private String code;
@@ -65,26 +63,18 @@ public class Department extends RecordHistEntity implements Serializable {
 	@DatabaseField(width = 200)
 	private String email;
 
-	@ForeignCollectionField(foreignFieldName = "parent")
-	private ForeignCollection<Department> subUnits;
-
-	public ForeignCollection<Department> subUnits() {
-		return subUnits;
+	/**
+	 * @return the departmentType
+	 */
+	public DepartmentType getDepartmentType() {
+		return departmentType;
 	}
 
 	/**
-	 * @return the parent
+	 * @param departmentType the departmentType to set
 	 */
-	public Department getParent() {
-		return parent;
-	}
-
-	/**
-	 * @param parent
-	 *            the parent to set
-	 */
-	public void setParent(Department parent) {
-		this.parent = parent;
+	public void setDepartmentType(DepartmentType departmentType) {
+		this.departmentType = departmentType;
 	}
 
 	/**
