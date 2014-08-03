@@ -112,8 +112,7 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
             svc.install(model);
           }
           catch (ProcessingException e1) {
-            // TODO Auto-generated catch block
-            logger.info(e1.getMessage(), e1);
+                        logger.info(e1.getMessage(), e1);
           }
         }
       }
@@ -126,8 +125,7 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
    * @return
    */
   private Extension createExtensionModel(IInstallable ext) {
-    // TODO Auto-generated method stub
-    Extension model = new Extension();
+        Extension model = new Extension();
     model.extClassName = ext.getClass().getName();
     model.author = ext.getClass().getAnnotation(Author.class).name();
     model.version = ext.getClass().getAnnotation(Version.class).version();
@@ -141,8 +139,7 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
    * @param ext
    */
   private void executeInternalInstall(IInstallable ext) {
-    // TODO Auto-generated method stub
-    try {
+        try {
       ext.doInstall();
     }
     catch (Exception ex) {
@@ -154,8 +151,7 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
    * @param ext
    */
   private void executeInternalUninstall(IInstallable ext) {
-    // TODO Auto-generated method stub
-    try {
+        try {
       ext.doUnInstall();
     }
     catch (Exception ex) {

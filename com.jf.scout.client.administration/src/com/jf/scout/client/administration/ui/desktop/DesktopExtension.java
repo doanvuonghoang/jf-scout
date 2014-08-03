@@ -56,8 +56,7 @@ public class DesktopExtension extends AbstractDesktopExtension implements IInsta
    */
   @Override
   public void doUnInstall() throws Exception {
-    // TODO Auto-generated method stub
-    logger.info("Uninstalling extension: " + getClass().getName());
+        logger.info("Uninstalling extension: " + getClass().getName());
   }
 
   @Order(10.0)

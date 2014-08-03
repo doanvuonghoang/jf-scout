@@ -52,8 +52,7 @@ public class TrackableEntity extends GeneratedIdEntity implements PropertyChange
     
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-    	// TODO Auto-generated method stub
-    	if(!isNew()) setLastModifiedTime(Calendar.getInstance().getTime());
+    	    	if(!isNew()) setLastModifiedTime(Calendar.getInstance().getTime());
     }
     
     /**

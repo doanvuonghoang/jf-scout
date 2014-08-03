@@ -24,7 +24,9 @@ import com.jf.commons.datamodels.TypeBasedEntity;
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_CL_DepartmentTypes")
-public class DepartmentType extends TypeBasedEntity {
+@DatabaseTable(tableName = "hrm_WorkStatuses")
+public class WorkStatus extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
+
+	
 }

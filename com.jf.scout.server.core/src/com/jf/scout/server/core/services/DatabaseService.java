@@ -28,8 +28,7 @@ public class DatabaseService extends AbstractService implements IDatabaseService
 
   @Override
   public <U, V> Dao<U, V> getDao(Class<U> cls) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    try {
+        try {
       Dao<U, V> dao = DaoManager.lookupDao(getConnectionSource(false), cls);
 
       if (dao == null) {
@@ -53,8 +52,7 @@ public class DatabaseService extends AbstractService implements IDatabaseService
 //        jcs.setDatabaseType(DatabaseTypeUtils.createDatabaseType(getDatabaseUri()));
       }
       catch (SQLException e) {
-        // TODO Auto-generated catch block
-        throw new VetoException(e.getMessage(), e);
+                throw new VetoException(e.getMessage(), e);
       }
 
       cs = jcs;
@@ -82,14 +80,12 @@ public class DatabaseService extends AbstractService implements IDatabaseService
 
   @Override
   public void refreshSource() throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    getConnectionSource(true);
+        getConnectionSource(true);
   }
 
   @Override
   public Connection getJdbcConnection() throws ClassNotFoundException, SQLException {
-    //TODO [Hoàng] business logic here.
-    String driver = "", uri = "", user = "", password = "";
+        String driver = "", uri = "", user = "", password = "";
     try {
       driver = getDatabaseDriver();
       uri = getDatabaseUri();

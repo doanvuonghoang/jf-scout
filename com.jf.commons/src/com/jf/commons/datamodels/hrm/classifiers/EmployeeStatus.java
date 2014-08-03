@@ -21,12 +21,13 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
- *
+ * Trạng thái nhân viên: đang làm việc, tạm hoãn, nghỉ chế độ, buộc thôi việc,
+ * nghỉ hưu
+ * 
  * @author Hoàng Doãn
  */
 @DatabaseTable(tableName = "hrm_EmployeeStatuses")
 public class EmployeeStatus extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
 
-	
 }

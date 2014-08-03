@@ -33,8 +33,7 @@ public class AssignToRoleService extends AbstractService implements IAssignToRol
     if (!ACCESS.check(new CreateAssignToRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    Dao<RolePermission, Long> rpdao = SERVICES.getService(IDatabaseService.class).getDao(RolePermission.class);
+        Dao<RolePermission, Long> rpdao = SERVICES.getService(IDatabaseService.class).getDao(RolePermission.class);
 
     try {
       TransactionManager.callInTransaction(rpdao.getConnectionSource(), new Callable<Void>() {
@@ -76,8 +75,7 @@ public class AssignToRoleService extends AbstractService implements IAssignToRol
     if (!ACCESS.check(new ReadAssignToRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    return formData;
+        return formData;
   }
 
   @Override
@@ -85,8 +83,7 @@ public class AssignToRoleService extends AbstractService implements IAssignToRol
     if (!ACCESS.check(new CreateAssignToRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    return formData;
+        return formData;
   }
 
   @Override
@@ -94,7 +91,6 @@ public class AssignToRoleService extends AbstractService implements IAssignToRol
     if (!ACCESS.check(new UpdateAssignToRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    return formData;
+        return formData;
   }
 }

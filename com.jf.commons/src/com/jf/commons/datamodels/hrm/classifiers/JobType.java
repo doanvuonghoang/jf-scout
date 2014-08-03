@@ -21,12 +21,11 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
- * Trinh do van hoa
+ * Loại công việc: quản lý kinh tế, kỹ thuật, việc khác ...
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_EducationLevels")
-public class EducationLevel extends TypeBasedEntity {
+@DatabaseTable(tableName = "hrm_JobTypes")
+public class JobType extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
-	
-	
+
 }

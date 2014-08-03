@@ -21,10 +21,10 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
- *
+ * Khen thưởng, kỷ luật
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_CL_RDTypes")
+@DatabaseTable(tableName = "hrm_RDTypes")
 public class RDType extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
 

@@ -50,8 +50,7 @@ public class UserService extends AbstractService implements IUserService {
     if (!ACCESS.check(new CreateUserPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    User u = new User();
+        User u = new User();
     u.setNew(true);
     u.setUserName(formData.getUserName().getValue());
     try {
@@ -77,8 +76,7 @@ public class UserService extends AbstractService implements IUserService {
     if (!ACCESS.check(new ReadUserPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+        Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
     try {
       User u = dao.queryForId(formData.getUserNr().longValue());
 
@@ -100,8 +98,7 @@ public class UserService extends AbstractService implements IUserService {
     if (!ACCESS.check(new CreateUserPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    return formData;
+        return formData;
   }
 
   @Override
@@ -109,8 +106,7 @@ public class UserService extends AbstractService implements IUserService {
     if (!ACCESS.check(new UpdateUserPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+        Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
 
     try {
       User u = dao.queryForId(formData.getUserNr().longValue());
@@ -140,8 +136,7 @@ public class UserService extends AbstractService implements IUserService {
 
   @Override
   public Object[][] getAllUsers() throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+        Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
 
     try {
       List<User> us = dao.queryForAll();
@@ -167,8 +162,7 @@ public class UserService extends AbstractService implements IUserService {
       return result;
     }
     catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+            e.printStackTrace();
     }
 
     return null;
@@ -230,8 +224,7 @@ public class UserService extends AbstractService implements IUserService {
 
   @Override
   public void restoreUsers(Long[] ids) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
+        Dao<User, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(User.class);
 
     try {
       TransactionManager.callInTransaction(
@@ -389,8 +382,7 @@ public class UserService extends AbstractService implements IUserService {
       return rpqb.query();
     }
     catch (SQLException e) {
-      // TODO Auto-generated catch block
-      throw new VetoException(e.getMessage(), e);
+            throw new VetoException(e.getMessage(), e);
     }
   }
 

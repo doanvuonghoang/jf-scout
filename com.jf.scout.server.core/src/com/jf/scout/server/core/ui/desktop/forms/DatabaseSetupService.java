@@ -23,26 +23,22 @@ public class DatabaseSetupService extends AbstractService implements IDatabaseSe
 
   @Override
   public DatabaseSetupFormData create(DatabaseSetupFormData formData) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    return formData;
+        return formData;
   }
 
   @Override
   public DatabaseSetupFormData load(DatabaseSetupFormData formData) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    return formData;
+        return formData;
   }
 
   @Override
   public DatabaseSetupFormData prepareCreate(DatabaseSetupFormData formData) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    return formData;
+        return formData;
   }
 
   @Override
   public DatabaseSetupFormData store(DatabaseSetupFormData formData) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    // test connection
+        // test connection
     testConnection(
         formData.getDatabaseDriver().getValue(),
         formData.getDatabaseUri().getValue(),
@@ -63,8 +59,7 @@ public class DatabaseSetupService extends AbstractService implements IDatabaseSe
 
   @Override
   public boolean testConnection(String driver, String uri, String user, String password) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    try {
+        try {
       Class.forName(driver);
 
       Connection conn = DriverManager.getConnection(uri, user, password);
@@ -73,8 +68,7 @@ public class DatabaseSetupService extends AbstractService implements IDatabaseSe
       return true;
     }
     catch (Exception e) {
-      // TODO Auto-generated catch block
-      throw new VetoException(e.getMessage(), e);
+            throw new VetoException(e.getMessage(), e);
     }
   }
 }

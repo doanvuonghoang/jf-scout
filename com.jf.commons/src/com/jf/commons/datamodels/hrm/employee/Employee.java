@@ -26,7 +26,7 @@ import com.jf.commons.datamodels.hrm.File;
 import com.jf.commons.datamodels.hrm.classifiers.EmployeeStatus;
 import com.jf.commons.datamodels.hrm.contract.Contract;
 import com.jf.commons.datamodels.hrm.insurance.Insurance;
-import com.jf.commons.datamodels.hrm.training.Qualification;
+import com.jf.commons.datamodels.hrm.training.Skill;
 
 /**
  *
@@ -54,7 +54,7 @@ public class Employee extends RecordHistEntity {
     private ForeignCollection<Insurance> insurances;
     
     @ForeignCollectionField(eager = false)
-    private ForeignCollection<Qualification> qualifications;
+    private ForeignCollection<Skill> skills;
     
     @ForeignCollectionField(eager = false)
     private ForeignCollection<Contract> contracts;
@@ -130,17 +130,17 @@ public class Employee extends RecordHistEntity {
 	}
 
 	/**
-	 * @return the qualifications
+	 * @return the skills
 	 */
-	public ForeignCollection<Qualification> getQualifications() {
-		return qualifications;
+	public ForeignCollection<Skill> getSkills() {
+		return skills;
 	}
 
 	/**
-	 * @param qualifications the qualifications to set
+	 * @param skills the skills to set
 	 */
-	public void setQualifications(ForeignCollection<Qualification> qualifications) {
-		this.qualifications = qualifications;
+	public void setSkills(ForeignCollection<Skill> skills) {
+		this.skills = skills;
 	}
 
 	/**

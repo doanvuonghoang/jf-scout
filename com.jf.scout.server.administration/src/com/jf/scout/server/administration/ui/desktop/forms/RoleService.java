@@ -44,8 +44,7 @@ public class RoleService extends AbstractService implements IRoleService {
     if (!ACCESS.check(new CreateRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    Role m = new Role();
+        Role m = new Role();
     m.setNew(true);
     m.setRoleName(formData.getRoleName().getValue());
     m.setValid(formData.getValid().getValue());
@@ -65,8 +64,7 @@ public class RoleService extends AbstractService implements IRoleService {
     if (!ACCESS.check(new ReadRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
+        Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
     try {
       Role m = dao.queryForId(formData.getRoleNr().longValue());
 
@@ -85,8 +83,7 @@ public class RoleService extends AbstractService implements IRoleService {
     if (!ACCESS.check(new CreateRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    return formData;
+        return formData;
   }
 
   @Override
@@ -94,8 +91,7 @@ public class RoleService extends AbstractService implements IRoleService {
     if (!ACCESS.check(new UpdateRolePermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
-    //TODO [Hoàng] business logic here.
-    Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
+        Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
 
     try {
       Role m = new Role();
@@ -116,8 +112,7 @@ public class RoleService extends AbstractService implements IRoleService {
 
   @Override
   public Object[][] getAllRoles() throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
+        Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
 
     try {
       List<Role> rs = dao.queryForAll();
@@ -142,8 +137,7 @@ public class RoleService extends AbstractService implements IRoleService {
       return result;
     }
     catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+            e.printStackTrace();
     }
 
     return null;
@@ -205,8 +199,7 @@ public class RoleService extends AbstractService implements IRoleService {
 
   @Override
   public void restoreRoles(Long[] ids) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
+        Dao<Role, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Role.class);
 
     try {
       TransactionManager.callInTransaction(
@@ -235,8 +228,7 @@ public class RoleService extends AbstractService implements IRoleService {
 
   @Override
   public void addUsersToRole(long[] uids, long rid) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    Dao<UserRole, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(UserRole.class);
+        Dao<UserRole, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(UserRole.class);
 
     try {
       TransactionManager.callInTransaction(
@@ -283,8 +275,7 @@ public class RoleService extends AbstractService implements IRoleService {
       return new HashSet<User>(uqb.join(urqb).query());
     }
     catch (SQLException e) {
-      // TODO Auto-generated catch block
-      throw new VetoException(e.getMessage(), e);
+            throw new VetoException(e.getMessage(), e);
     }
   }
 

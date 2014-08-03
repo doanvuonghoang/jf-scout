@@ -45,13 +45,11 @@ public class DBSqlService extends AbstractSqlService {
    */
   @Override
   protected String getConfiguredJdbcDriverName() {
-    // TODO Auto-generated method stub
-    try {
+        try {
       return getCfg().readString(IConfigurationService.DATABASE_DRIVER, "");
     }
     catch (ProcessingException e) {
-      // TODO Auto-generated catch block
-      ScoutLogManager.getLogger(getClass()).info(e.getMessage(), e);
+            ScoutLogManager.getLogger(getClass()).info(e.getMessage(), e);
 
       return super.getConfiguredJdbcDriverName();
     }
@@ -62,13 +60,11 @@ public class DBSqlService extends AbstractSqlService {
    */
   @Override
   protected String getConfiguredJdbcMappingName() {
-    // TODO Auto-generated method stub
-    try {
+        try {
       return getCfg().readString(IConfigurationService.DATABASE_URI, "");
     }
     catch (ProcessingException e) {
-      // TODO Auto-generated catch block
-      ScoutLogManager.getLogger(getClass()).info(e.getMessage(), e);
+            ScoutLogManager.getLogger(getClass()).info(e.getMessage(), e);
 
       return super.getConfiguredJdbcMappingName();
     }
@@ -79,13 +75,11 @@ public class DBSqlService extends AbstractSqlService {
    */
   @Override
   protected String getConfiguredUsername() {
-    // TODO Auto-generated method stub
-    try {
+        try {
       return getCfg().readString(IConfigurationService.DATABASE_USER, "");
     }
     catch (ProcessingException e) {
-      // TODO Auto-generated catch block
-      ScoutLogManager.getLogger(getClass()).info(e.getMessage(), e);
+            ScoutLogManager.getLogger(getClass()).info(e.getMessage(), e);
 
       return super.getConfiguredUsername();
     }
@@ -96,13 +90,11 @@ public class DBSqlService extends AbstractSqlService {
    */
   @Override
   protected String getConfiguredPassword() {
-    // TODO Auto-generated method stub
-    try {
+        try {
       return getCfg().readString(IConfigurationService.DATABASE_PASSWORD, "");
     }
     catch (ProcessingException e) {
-      // TODO Auto-generated catch block
-      ScoutLogManager.getLogger(getClass()).info(e.getMessage(), e);
+            ScoutLogManager.getLogger(getClass()).info(e.getMessage(), e);
 
       return super.getConfiguredPassword();
     }

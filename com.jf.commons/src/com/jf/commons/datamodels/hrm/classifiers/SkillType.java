@@ -17,16 +17,36 @@
 
 package com.jf.commons.datamodels.hrm.classifiers;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
- *
+ * Loại chuyên môn, ngành đào tạo, ...
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_ForeignLanguageLevels")
-public class ForeignLanguageLevel extends TypeBasedEntity {
+@DatabaseTable(tableName = "hrm_SkillTypes")
+public class SkillType extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
-	
-	
+
+	/**
+	 * Phân loại
+	 */
+	@DatabaseField
+	private String category;
+
+	/**
+	 * @return the category
+	 */
+	public String getCategory() {
+		return category;
+	}
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 }

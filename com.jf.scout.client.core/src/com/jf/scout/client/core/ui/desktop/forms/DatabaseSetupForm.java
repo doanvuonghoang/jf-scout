@@ -45,8 +45,7 @@ public class DatabaseSetupForm extends AbstractForm {
 
   @Override
   protected boolean execCheckFields() throws ProcessingException {
-    //TODO [Hoàng] Auto-generated method stub.
-    IValidateContentDescriptor[] vcds = new IValidateContentDescriptor[]{
+        IValidateContentDescriptor[] vcds = new IValidateContentDescriptor[]{
         getDatabaseDriverField().validateContent(),
         getDatabaseUriField().validateContent()
     };
@@ -185,8 +184,7 @@ public class DatabaseSetupForm extends AbstractForm {
 
         @Override
         protected String execValidateValue(String rawValue) throws ProcessingException {
-          //TODO [Hoàng] Auto-generated method stub.
-          if (rawValue == null || rawValue.isEmpty()) throw new VetoException(TEXTS.get("emptyString.error"));
+                    if (rawValue == null || rawValue.isEmpty()) throw new VetoException(TEXTS.get("emptyString.error"));
 
           return super.execValidateValue(rawValue);
         }
@@ -207,8 +205,7 @@ public class DatabaseSetupForm extends AbstractForm {
 
         @Override
         protected String execValidateValue(String rawValue) throws ProcessingException {
-          //TODO [Hoàng] Auto-generated method stub.
-          if (rawValue == null || rawValue.isEmpty()) throw new VetoException(TEXTS.get("emptyString.error"));
+                    if (rawValue == null || rawValue.isEmpty()) throw new VetoException(TEXTS.get("emptyString.error"));
 
           return super.execValidateValue(rawValue);
         }
@@ -270,8 +267,7 @@ public class DatabaseSetupForm extends AbstractForm {
 
         @Override
         protected void execClickAction() throws ProcessingException {
-          //TODO [Hoàng] Auto-generated method stub.
-          try {
+                    try {
             SERVICES.getService(IDatabaseSetupService.class).testConnection(
                 getDatabaseDriverField().getValue(),
                 getDatabaseUriField().getValue(),
@@ -295,8 +291,7 @@ public class DatabaseSetupForm extends AbstractForm {
 
     @Override
     protected void execLoad() throws ProcessingException {
-      //TODO [Hoàng] Auto-generated method stub.
-      IConfigurationService cfg = SERVICES.getService(IConfigurationService.class);
+            IConfigurationService cfg = SERVICES.getService(IConfigurationService.class);
 
       // read database information
       getDatabaseDriverField().setValue(cfg.readString(IConfigurationService.DATABASE_DRIVER, ""));
@@ -308,8 +303,7 @@ public class DatabaseSetupForm extends AbstractForm {
 
     @Override
     protected void execStore() throws ProcessingException {
-      //TODO [Hoàng] Auto-generated method stub.
-      DatabaseSetupFormData fd = new DatabaseSetupFormData();
+            DatabaseSetupFormData fd = new DatabaseSetupFormData();
       exportFormData(fd);
       SERVICES.getService(IDatabaseSetupService.class).store(fd);
 

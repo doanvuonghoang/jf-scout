@@ -55,8 +55,7 @@ public class AccessControlService extends AbstractAccessControlService {
         });
       }
       catch (Exception e) {
-        // TODO Auto-generated catch block
-        logger.warn(e.getMessage(), e);
+                logger.warn(e.getMessage(), e);
       }
     }
 

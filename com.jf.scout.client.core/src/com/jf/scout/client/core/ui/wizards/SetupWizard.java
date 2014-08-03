@@ -36,8 +36,7 @@ public class SetupWizard extends AbstractWizard {
 
   @Override
   protected void execFinish() throws ProcessingException {
-    //TODO [Hoàng] Auto-generated method stub.
-    getDatabaseSetupStep().getForm().validateForm();
+        getDatabaseSetupStep().getForm().validateForm();
 
     super.execFinish();
   }

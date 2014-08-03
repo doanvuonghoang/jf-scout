@@ -94,8 +94,7 @@ public class WelcomeForm extends AbstractForm {
 
         @Override
         public String getDisplayText() {
-          // TODO Auto-generated method stub
-          return TEXTS.get("welcome.text");
+                    return TEXTS.get("welcome.text");
         }
       }
     }

@@ -31,8 +31,7 @@ public class ConfigurationService extends AbstractService implements IConfigurat
    */
   @Override
   public void initializeService(ServiceRegistration registration) {
-    // TODO Auto-generated method stub
-    super.initializeService(registration);
+        super.initializeService(registration);
 
     _initConfiguration();
   }
@@ -42,13 +41,11 @@ public class ConfigurationService extends AbstractService implements IConfigurat
    */
   @Override
   public void disposeServices() {
-    // TODO Auto-generated method stub
-    try {
+        try {
       commit();
     }
     catch (ProcessingException e) {
-      // TODO Auto-generated catch block
-      logger.info(e.getMessage(), e);
+            logger.info(e.getMessage(), e);
     }
 
     super.disposeServices();
@@ -58,8 +55,7 @@ public class ConfigurationService extends AbstractService implements IConfigurat
    *
    */
   private void _initConfiguration() {
-    // TODO Auto-generated method stub
-    File f = new File(_getConfigFile());
+        File f = new File(_getConfigFile());
 
     if (f.exists()) {
       try {
@@ -75,8 +71,7 @@ public class ConfigurationService extends AbstractService implements IConfigurat
 //        f.createNewFile();
 //      }
 //      catch (IOException e) {
-//        // TODO Auto-generated catch block
-//        logger.info(e.getMessage(), e);
+//        //        logger.info(e.getMessage(), e);
 //      }
       ((XMLConfiguration) cfg).setFileName(_getConfigFile());
     }
@@ -102,58 +97,49 @@ public class ConfigurationService extends AbstractService implements IConfigurat
 
   @Override
   public Object read(String key) throws ProcessingException {
-    //TODO [Hoang] business logic here.
-    return cfg.getProperty(key);
+        return cfg.getProperty(key);
   }
 
   @Override
   public <T> T read(String key, Class<T> cls) throws ProcessingException {
-    //TODO [Hoang] business logic here.
-    return cls.cast(read(key));
+        return cls.cast(read(key));
   }
 
   @Override
   public void write(String key, Object val) throws ProcessingException {
-    //TODO [Hoang] business logic here.
-    cfg.setProperty(key, val);
+        cfg.setProperty(key, val);
   }
 
   @Override
   public Configuration getConfiguration() throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    if (cfg == null) _initConfiguration();
+        if (cfg == null) _initConfiguration();
 
     return cfg;
   }
 
   @Override
   public boolean readBoolean(String key, boolean _default) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    return cfg.getBoolean(key, _default);
+        return cfg.getBoolean(key, _default);
   }
 
   @Override
   public void writeString(String key, String val) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    cfg.setProperty(key, val);
+        cfg.setProperty(key, val);
   }
 
   @Override
   public String readString(String key, String _default) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    return cfg.getString(key, _default);
+        return cfg.getString(key, _default);
   }
 
   @Override
   public void commit() throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    logger.info("Storing config");
+        logger.info("Storing config");
     try {
       ((XMLConfiguration) cfg).save();
     }
     catch (ConfigurationException e) {
-      // TODO Auto-generated catch block
-      throw new VetoException(e.getMessage(), e);
+            throw new VetoException(e.getMessage(), e);
     }
   }
 }

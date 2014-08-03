@@ -24,7 +24,7 @@ import com.jf.commons.datamodels.RecordHistEntity;
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_Addresses")
+@DatabaseTable(tableName = "hrm_Files")
 public class File extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
 

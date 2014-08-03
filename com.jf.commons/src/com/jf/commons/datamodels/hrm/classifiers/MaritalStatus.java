@@ -24,7 +24,7 @@ import com.jf.commons.datamodels.TypeBasedEntity;
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_CL_MaritalStatuses")
+@DatabaseTable(tableName = "hrm_MaritalStatuses")
 public class MaritalStatus extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
 

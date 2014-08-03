@@ -96,7 +96,7 @@ public class Ward extends RecordHistEntity {
 		TableUtils
 				.createTableIfNotExists(dao.getConnectionSource(), Ward.class);
 
-		// TODO working on it
+		// insert wards
 		ResourceBundle rb = ResourceBundle.getBundle("wards");
 		for (String w : rb.getStringArray("wards")) {
 			String[] parts = w.split(",");

@@ -56,8 +56,7 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
 
   @Override
   protected void execInitPage() throws ProcessingException {
-    //TODO [Hoàng] Auto-generated method stub.
-
+    
     super.execInitPage();
   }
 

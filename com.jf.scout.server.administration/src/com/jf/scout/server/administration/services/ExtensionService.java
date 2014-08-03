@@ -51,8 +51,7 @@ public class ExtensionService extends AbstractService implements IExtensionServi
 
   @Override
   public void installDB() throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    logger.info("Preparing scripts to install database for administration extension");
+        logger.info("Preparing scripts to install database for administration extension");
 
     try {
       TransactionManager.callInTransaction(getDao(User.class).getConnectionSource(), new Callable<Void>() {

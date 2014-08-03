@@ -17,24 +17,31 @@
 
 package com.jf.commons.datamodels.hrm.training;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
-import com.jf.commons.datamodels.hrm.classifiers.EducationLevel;
+import com.jf.commons.datamodels.hrm.classifiers.SkillLevel;
+import com.jf.commons.datamodels.hrm.classifiers.SkillType;
+import com.jf.commons.datamodels.hrm.employee.Employee;
 
 /**
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_QualificationLogs")
-public class QualificationLog extends RecordHistEntity implements Serializable {
+@DatabaseTable(tableName = "hrm_SkillLogs")
+public class SkillLog extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
 	
-	@DatabaseField(foreign = true, canBeNull = false, unique = true)
-	private Qualification qualification;
+	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true)
+	private Employee employee;
+	
+	/**
+	 * Trường đào tạo
+	 */
+	@DatabaseField(canBeNull = false)
+	private String trainingUnit;
 	
 	@DatabaseField(canBeNull = false)
 	private Date fromDate;
@@ -43,22 +50,16 @@ public class QualificationLog extends RecordHistEntity implements Serializable {
 	private Date toDate;
 	
 	/**
-	 * Trường đào tạo
+	 * Loại chuyên môn
 	 */
-	@DatabaseField(canBeNull = false)
-	private String trainingUnit;
+	@DatabaseField(foreign = true, uniqueCombo = true)
+	private SkillType type;
 	
 	/**
-	 * Khoa, ngành
+	 * Bậc thợ
 	 */
-	@DatabaseField(canBeNull = false)
-	private String department;
-	
-	/**
-	 * Trình độ
-	 */
-	@DatabaseField(canBeNull = false, foreign = true)
-	private EducationLevel level;
+	@DatabaseField(foreign = true, uniqueCombo = true)
+	private SkillLevel level;
 	
 	/**
 	 * Học vị
@@ -71,19 +72,19 @@ public class QualificationLog extends RecordHistEntity implements Serializable {
 	 */
 	@DatabaseField
 	private String grade;
-
+	
 	/**
-	 * @return the qualification
+	 * @return the employee
 	 */
-	public Qualification getQualification() {
-		return qualification;
+	public Employee getEmployee() {
+		return employee;
 	}
 
 	/**
-	 * @param qualification the qualification to set
+	 * @param employee the employee to set
 	 */
-	public void setQualification(Qualification qualification) {
-		this.qualification = qualification;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	/**
@@ -129,30 +130,30 @@ public class QualificationLog extends RecordHistEntity implements Serializable {
 	}
 
 	/**
-	 * @return the department
+	 * @return the type
 	 */
-	public String getDepartment() {
-		return department;
+	public SkillType getType() {
+		return type;
 	}
 
 	/**
-	 * @param department the department to set
+	 * @param type the type to set
 	 */
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setType(SkillType type) {
+		this.type = type;
 	}
 
 	/**
 	 * @return the level
 	 */
-	public EducationLevel getLevel() {
+	public SkillLevel getLevel() {
 		return level;
 	}
 
 	/**
 	 * @param level the level to set
 	 */
-	public void setLevel(EducationLevel level) {
+	public void setLevel(SkillLevel level) {
 		this.level = level;
 	}
 

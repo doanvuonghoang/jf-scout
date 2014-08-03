@@ -23,19 +23,27 @@ import java.util.Date;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
-import com.jf.commons.datamodels.hrm.classifiers.QualificationLevel;
+import com.jf.commons.datamodels.hrm.classifiers.SkillLevel;
+import com.jf.commons.datamodels.hrm.classifiers.SkillTitle;
+import com.jf.commons.datamodels.hrm.classifiers.SkillType;
 import com.jf.commons.datamodels.hrm.employee.Employee;
 
 /**
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_Qualifications")
-public class Qualification extends RecordHistEntity implements Serializable {
+@DatabaseTable(tableName = "hrm_Skills")
+public class Skill extends RecordHistEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true)
 	private Employee employee;
+	
+	/**
+	 * Trường đào tạo
+	 */
+	@DatabaseField(canBeNull = false)
+	private String trainingUnit;
 	
 	@DatabaseField(canBeNull = false)
 	private Date fromDate;
@@ -44,28 +52,22 @@ public class Qualification extends RecordHistEntity implements Serializable {
 	private Date toDate;
 	
 	/**
-	 * Trường đào tạo
+	 * Loại chuyên môn
 	 */
-	@DatabaseField(canBeNull = false)
-	private String trainingUnit;
+	@DatabaseField(foreign = true, uniqueCombo = true)
+	private SkillType type;
 	
 	/**
-	 * Khoa, ngành
+	 * Bậc thợ
 	 */
-	@DatabaseField(canBeNull = false)
-	private String department;
-	
-	/**
-	 * Trình độ
-	 */
-	@DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true)
-	private QualificationLevel level;
+	@DatabaseField(foreign = true)
+	private SkillLevel level;
 	
 	/**
 	 * Học vị
 	 */
-	@DatabaseField(canBeNull = false)
-	private String title;
+	@DatabaseField(canBeNull = false, foreign = true)
+	private SkillTitle title;
 	
 	/**
 	 * Tốt nghiệp loại
@@ -130,44 +132,44 @@ public class Qualification extends RecordHistEntity implements Serializable {
 	}
 
 	/**
-	 * @return the department
+	 * @return the type
 	 */
-	public String getDepartment() {
-		return department;
+	public SkillType getType() {
+		return type;
 	}
 
 	/**
-	 * @param department the department to set
+	 * @param type the type to set
 	 */
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setType(SkillType type) {
+		this.type = type;
 	}
 
 	/**
 	 * @return the level
 	 */
-	public QualificationLevel getLevel() {
+	public SkillLevel getLevel() {
 		return level;
 	}
 
 	/**
 	 * @param level the level to set
 	 */
-	public void setLevel(QualificationLevel level) {
+	public void setLevel(SkillLevel level) {
 		this.level = level;
 	}
 
 	/**
 	 * @return the title
 	 */
-	public String getTitle() {
+	public SkillTitle getTitle() {
 		return title;
 	}
 
 	/**
 	 * @param title the title to set
 	 */
-	public void setTitle(String title) {
+	public void setTitle(SkillTitle title) {
 		this.title = title;
 	}
 

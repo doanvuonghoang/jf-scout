@@ -24,10 +24,9 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
 import com.jf.commons.datamodels.hrm.Address;
-import com.jf.commons.datamodels.hrm.classifiers.EducationLevel;
-import com.jf.commons.datamodels.hrm.classifiers.ForeignLanguageLevel;
+import com.jf.commons.datamodels.hrm.classifiers.JobTitle;
 import com.jf.commons.datamodels.hrm.classifiers.MaritalStatus;
-import com.jf.commons.datamodels.hrm.classifiers.QualificationLevel;
+import com.jf.commons.datamodels.hrm.classifiers.SkillType;
 
 /**
  *
@@ -36,150 +35,84 @@ import com.jf.commons.datamodels.hrm.classifiers.QualificationLevel;
 @DatabaseTable(tableName = "hrm_CVPersonalDetails")
 public class CVPersonalDetail extends RecordHistEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@DatabaseField(foreign = true, canBeNull = false, unique = true)
-	private CV cv;
-	
-	/**
-	 * Ho va ten
-	 */
-	@DatabaseField(canBeNull = false)
-	private String fullName;
-	
+
 	/**
 	 * Bi danh
 	 */
 	@DatabaseField
 	private String aliasName;
-	
+
+	@DatabaseField
+	private Date birthdate;
+
+	@DatabaseField(foreign = true)
+	private Address birthplace;
+
+	@DatabaseField(foreign = true, canBeNull = false, unique = true)
+	private CV cv;
+
+	@DatabaseField
+	private String ethnic;
+
+	@DatabaseField
+	private String familyComposition;
+
+	/**
+	 * Ho va ten
+	 */
+	@DatabaseField(canBeNull = false)
+	private String fullName;
+
+	@DatabaseField
+	private String healthStatus;
+
+	@DatabaseField
+	private String job;
+
+	@DatabaseField(foreign = true)
+	private JobTitle jobTitle;
+
+	@DatabaseField(foreign = true)
+	private MaritalStatus maritalStatus;
+
+	@DatabaseField(foreign = true)
+	private Address motherland;
+
 	/**
 	 * Ten thuong goi
 	 */
 	@DatabaseField
 	private String nickName;
-	
+
 	@DatabaseField
-	private Date birthdate;
-	
+	private Date partyJoinedDate;
+
 	@DatabaseField(foreign = true)
-	private Address birthplace;
-	
-	@DatabaseField(foreign = true)
-	private Address motherland;
-	
+	private Address partyJoinedPlace;
+
+	@DatabaseField
+	private String personComposition;
+
+	@DatabaseField
+	private String religion;
+
 	@DatabaseField(foreign = true)
 	private Address residentAddress;
 
-	@DatabaseField
-	private String ethnic;
-	
-	@DatabaseField
-	private String religion;
-	
-	@DatabaseField
-	private String familyComposition;
-	
-	@DatabaseField
-	private String personComposition;
-	
 	@DatabaseField(foreign = true)
-	private EducationLevel educationLevel;
-	
-	@DatabaseField(foreign = true)
-	private ForeignLanguageLevel foreignLanguageLevel;
-	
+	private SkillType skillType;
+
 	@DatabaseField
 	private Date unionJoinedDate;
-	
+
 	@DatabaseField(foreign = true)
 	private Address unionJoinedPlace;
-	
-	@DatabaseField
-	private Date partyJoinedDate;
-	
-	@DatabaseField(foreign = true)
-	private Address partyJoinedPlace;
-	
-	@DatabaseField
-	private String healthStatus;
-	
-	@DatabaseField
-	private String job;
-	
-	@DatabaseField(foreign = true)
-	private QualificationLevel qualificationLevel;
-	
-	@DatabaseField(foreign = true)
-	private MaritalStatus maritalStatus;
-    
-	/**
-	 * @return the cv
-	 */
-	public CV getCv() {
-		return cv;
-	}
-
-	/**
-	 * @param cv the cv to set
-	 */
-	public void setCv(CV cv) {
-		this.cv = cv;
-	}
-
-	/**
-	 * @return the maritalStatus
-	 */
-	public MaritalStatus getMaritalStatus() {
-		return maritalStatus;
-	}
-
-	/**
-	 * @param maritalStatus the maritalStatus to set
-	 */
-	public void setMaritalStatus(MaritalStatus maritalStatus) {
-		this.maritalStatus = maritalStatus;
-	}
-
-	/**
-	 * @return the fullName
-	 */
-	public String getFullName() {
-		return fullName;
-	}
-
-	/**
-	 * @param fullName the fullName to set
-	 */
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
 
 	/**
 	 * @return the aliasName
 	 */
 	public String getAliasName() {
 		return aliasName;
-	}
-
-	/**
-	 * @param aliasName the aliasName to set
-	 */
-	public void setAliasName(String aliasName) {
-		this.aliasName = aliasName;
-	}
-
-	/**
-	 * @return the nickName
-	 */
-	public String getNickName() {
-		return nickName;
-	}
-
-	/**
-	 * @param nickName the nickName to set
-	 */
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
 	}
 
 	/**
@@ -190,13 +123,6 @@ public class CVPersonalDetail extends RecordHistEntity implements Serializable {
 	}
 
 	/**
-	 * @param birthdate the birthdate to set
-	 */
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
-	}
-
-	/**
 	 * @return the birthplace
 	 */
 	public Address getBirthplace() {
@@ -204,38 +130,10 @@ public class CVPersonalDetail extends RecordHistEntity implements Serializable {
 	}
 
 	/**
-	 * @param birthplace the birthplace to set
+	 * @return the cv
 	 */
-	public void setBirthplace(Address birthplace) {
-		this.birthplace = birthplace;
-	}
-
-	/**
-	 * @return the motherland
-	 */
-	public Address getMotherland() {
-		return motherland;
-	}
-
-	/**
-	 * @param motherland the motherland to set
-	 */
-	public void setMotherland(Address motherland) {
-		this.motherland = motherland;
-	}
-
-	/**
-	 * @return the residentAddress
-	 */
-	public Address getResidentAddress() {
-		return residentAddress;
-	}
-
-	/**
-	 * @param residentAddress the residentAddress to set
-	 */
-	public void setResidentAddress(Address residentAddress) {
-		this.residentAddress = residentAddress;
+	public CV getCv() {
+		return cv;
 	}
 
 	/**
@@ -246,27 +144,6 @@ public class CVPersonalDetail extends RecordHistEntity implements Serializable {
 	}
 
 	/**
-	 * @param ethnic the ethnic to set
-	 */
-	public void setEthnic(String ethnic) {
-		this.ethnic = ethnic;
-	}
-
-	/**
-	 * @return the religion
-	 */
-	public String getReligion() {
-		return religion;
-	}
-
-	/**
-	 * @param religion the religion to set
-	 */
-	public void setReligion(String religion) {
-		this.religion = religion;
-	}
-
-	/**
 	 * @return the familyComposition
 	 */
 	public String getFamilyComposition() {
@@ -274,108 +151,10 @@ public class CVPersonalDetail extends RecordHistEntity implements Serializable {
 	}
 
 	/**
-	 * @param familyComposition the familyComposition to set
+	 * @return the fullName
 	 */
-	public void setFamilyComposition(String familyComposition) {
-		this.familyComposition = familyComposition;
-	}
-
-	/**
-	 * @return the personComposition
-	 */
-	public String getPersonComposition() {
-		return personComposition;
-	}
-
-	/**
-	 * @param personComposition the personComposition to set
-	 */
-	public void setPersonComposition(String personComposition) {
-		this.personComposition = personComposition;
-	}
-
-	/**
-	 * @return the educationLevel
-	 */
-	public EducationLevel getEducationLevel() {
-		return educationLevel;
-	}
-
-	/**
-	 * @param educationLevel the educationLevel to set
-	 */
-	public void setEducationLevel(EducationLevel educationLevel) {
-		this.educationLevel = educationLevel;
-	}
-
-	/**
-	 * @return the foreignLanguageSkill
-	 */
-	public ForeignLanguageLevel getForeignLanguageLevel() {
-		return foreignLanguageLevel;
-	}
-
-	/**
-	 * @param foreignLanguageLevel the foreignLanguageSkill to set
-	 */
-	public void setForeignLanguageLevel(ForeignLanguageLevel foreignLanguageLevel) {
-		this.foreignLanguageLevel = foreignLanguageLevel;
-	}
-
-	/**
-	 * @return the unionJoinedDate
-	 */
-	public Date getUnionJoinedDate() {
-		return unionJoinedDate;
-	}
-
-	/**
-	 * @param unionJoinedDate the unionJoinedDate to set
-	 */
-	public void setUnionJoinedDate(Date unionJoinedDate) {
-		this.unionJoinedDate = unionJoinedDate;
-	}
-
-	/**
-	 * @return the unionJoinedPlace
-	 */
-	public Address getUnionJoinedPlace() {
-		return unionJoinedPlace;
-	}
-
-	/**
-	 * @param unionJoinedPlace the unionJoinedPlace to set
-	 */
-	public void setUnionJoinedPlace(Address unionJoinedPlace) {
-		this.unionJoinedPlace = unionJoinedPlace;
-	}
-
-	/**
-	 * @return the partyJoinedDate
-	 */
-	public Date getPartyJoinedDate() {
-		return partyJoinedDate;
-	}
-
-	/**
-	 * @param partyJoinedDate the partyJoinedDate to set
-	 */
-	public void setPartyJoinedDate(Date partyJoinedDate) {
-		this.partyJoinedDate = partyJoinedDate;
-	}
-
-	/**
-	 * @return the partyJoinedPlace
-	 */
-	public Address getPartyJoinedPlace() {
-		return partyJoinedPlace;
-	}
-
-	/**
-	 * @param partyJoinedPlace the partyJoinedPlace to set
-	 */
-	public void setPartyJoinedPlace(Address partyJoinedPlace) {
-		this.partyJoinedPlace = partyJoinedPlace;
+	public String getFullName() {
+		return fullName;
 	}
 
 	/**
@@ -386,13 +165,6 @@ public class CVPersonalDetail extends RecordHistEntity implements Serializable {
 	}
 
 	/**
-	 * @param healthStatus the healthStatus to set
-	 */
-	public void setHealthStatus(String healthStatus) {
-		this.healthStatus = healthStatus;
-	}
-
-	/**
 	 * @return the job
 	 */
 	public String getJob() {
@@ -400,23 +172,253 @@ public class CVPersonalDetail extends RecordHistEntity implements Serializable {
 	}
 
 	/**
-	 * @param job the job to set
+	 * @return the jobTitle
+	 */
+	public JobTitle getJobTitle() {
+		return jobTitle;
+	}
+
+	/**
+	 * @return the maritalStatus
+	 */
+	public MaritalStatus getMaritalStatus() {
+		return maritalStatus;
+	}
+
+	/**
+	 * @return the motherland
+	 */
+	public Address getMotherland() {
+		return motherland;
+	}
+
+	/**
+	 * @return the nickName
+	 */
+	public String getNickName() {
+		return nickName;
+	}
+
+	/**
+	 * @return the partyJoinedDate
+	 */
+	public Date getPartyJoinedDate() {
+		return partyJoinedDate;
+	}
+
+	/**
+	 * @return the partyJoinedPlace
+	 */
+	public Address getPartyJoinedPlace() {
+		return partyJoinedPlace;
+	}
+
+	/**
+	 * @return the personComposition
+	 */
+	public String getPersonComposition() {
+		return personComposition;
+	}
+
+	/**
+	 * @return the religion
+	 */
+	public String getReligion() {
+		return religion;
+	}
+
+	/**
+	 * @return the residentAddress
+	 */
+	public Address getResidentAddress() {
+		return residentAddress;
+	}
+
+	/**
+	 * @return the skillType
+	 */
+	public SkillType getSkillType() {
+		return skillType;
+	}
+
+	/**
+	 * @return the unionJoinedDate
+	 */
+	public Date getUnionJoinedDate() {
+		return unionJoinedDate;
+	}
+
+	/**
+	 * @return the unionJoinedPlace
+	 */
+	public Address getUnionJoinedPlace() {
+		return unionJoinedPlace;
+	}
+
+	/**
+	 * @param aliasName
+	 *            the aliasName to set
+	 */
+	public void setAliasName(String aliasName) {
+		this.aliasName = aliasName;
+	}
+
+	/**
+	 * @param birthdate
+	 *            the birthdate to set
+	 */
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	/**
+	 * @param birthplace
+	 *            the birthplace to set
+	 */
+	public void setBirthplace(Address birthplace) {
+		this.birthplace = birthplace;
+	}
+
+	/**
+	 * @param cv
+	 *            the cv to set
+	 */
+	public void setCv(CV cv) {
+		this.cv = cv;
+	}
+
+	/**
+	 * @param ethnic
+	 *            the ethnic to set
+	 */
+	public void setEthnic(String ethnic) {
+		this.ethnic = ethnic;
+	}
+
+	/**
+	 * @param familyComposition
+	 *            the familyComposition to set
+	 */
+	public void setFamilyComposition(String familyComposition) {
+		this.familyComposition = familyComposition;
+	}
+
+	/**
+	 * @param fullName
+	 *            the fullName to set
+	 */
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	/**
+	 * @param healthStatus
+	 *            the healthStatus to set
+	 */
+	public void setHealthStatus(String healthStatus) {
+		this.healthStatus = healthStatus;
+	}
+
+	/**
+	 * @param job
+	 *            the job to set
 	 */
 	public void setJob(String job) {
 		this.job = job;
 	}
 
 	/**
-	 * @return the qualificationLevel
+	 * @param jobTitle the jobTitle to set
 	 */
-	public QualificationLevel getQualificationLevel() {
-		return qualificationLevel;
+	public void setJobTitle(JobTitle jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 
 	/**
-	 * @param qualificationLevel the qualificationLevel to set
+	 * @param maritalStatus
+	 *            the maritalStatus to set
 	 */
-	public void setQualificationLevel(QualificationLevel qualificationLevel) {
-		this.qualificationLevel = qualificationLevel;
+	public void setMaritalStatus(MaritalStatus maritalStatus) {
+		this.maritalStatus = maritalStatus;
 	}
+
+	/**
+	 * @param motherland
+	 *            the motherland to set
+	 */
+	public void setMotherland(Address motherland) {
+		this.motherland = motherland;
+	}
+
+	/**
+	 * @param nickName
+	 *            the nickName to set
+	 */
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	/**
+	 * @param partyJoinedDate
+	 *            the partyJoinedDate to set
+	 */
+	public void setPartyJoinedDate(Date partyJoinedDate) {
+		this.partyJoinedDate = partyJoinedDate;
+	}
+
+	/**
+	 * @param partyJoinedPlace
+	 *            the partyJoinedPlace to set
+	 */
+	public void setPartyJoinedPlace(Address partyJoinedPlace) {
+		this.partyJoinedPlace = partyJoinedPlace;
+	}
+
+	/**
+	 * @param personComposition
+	 *            the personComposition to set
+	 */
+	public void setPersonComposition(String personComposition) {
+		this.personComposition = personComposition;
+	}
+
+	/**
+	 * @param religion
+	 *            the religion to set
+	 */
+	public void setReligion(String religion) {
+		this.religion = religion;
+	}
+
+	/**
+	 * @param residentAddress
+	 *            the residentAddress to set
+	 */
+	public void setResidentAddress(Address residentAddress) {
+		this.residentAddress = residentAddress;
+	}
+
+	/**
+	 * @param skillType the skillType to set
+	 */
+	public void setSkillType(SkillType skillType) {
+		this.skillType = skillType;
+	}
+
+	/**
+	 * @param unionJoinedDate
+	 *            the unionJoinedDate to set
+	 */
+	public void setUnionJoinedDate(Date unionJoinedDate) {
+		this.unionJoinedDate = unionJoinedDate;
+	}
+
+	/**
+	 * @param unionJoinedPlace
+	 *            the unionJoinedPlace to set
+	 */
+	public void setUnionJoinedPlace(Address unionJoinedPlace) {
+		this.unionJoinedPlace = unionJoinedPlace;
+	}
+
 }

@@ -59,8 +59,7 @@ public class DataSourceSecurityFilter extends org.eclipse.scout.rt.server.common
           .query().isEmpty();
     }
     catch (Exception e) {
-      // TODO Auto-generated catch block
-      throw new ServletException(e.getMessage(), e);
+            throw new ServletException(e.getMessage(), e);
     }
   }
 }

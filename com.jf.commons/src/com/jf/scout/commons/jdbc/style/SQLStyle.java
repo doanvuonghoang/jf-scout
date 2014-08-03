@@ -14,7 +14,6 @@ public class SQLStyle extends DB2OracleModeSqlStyle {
      */
     @Override
     public void testConnection(Connection conn) throws SQLException {
-      // TODO Auto-generated method stub
-    }
+          }
 
   }

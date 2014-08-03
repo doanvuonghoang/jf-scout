@@ -21,11 +21,11 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
- *
+ * Học vị: tú tài, cử nhân, kỹ sư, bác sĩ, dược sĩ, ... tốt nghiệp đại học, thạc sĩ, tiến sĩ, tiến sĩ khoa học
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_QualificationTypes")
-public class QualificationType extends TypeBasedEntity {
+@DatabaseTable(tableName = "hrm_SkillTitles")
+public class SkillTitle extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
 
 }

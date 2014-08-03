@@ -21,10 +21,11 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
- *
+ * Bậc thợ
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_CL_DepartmentTypes")
-public class DepartmentType extends TypeBasedEntity {
+@DatabaseTable(tableName = "hrm_SkillLevels")
+public class SkillLevel extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
+
 }

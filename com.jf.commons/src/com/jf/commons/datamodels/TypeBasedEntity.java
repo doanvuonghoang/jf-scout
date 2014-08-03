@@ -11,12 +11,33 @@ public class TypeBasedEntity extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIELD_NAME = "name";
+	public static final String FIELD_CODE = "code";
+	
+	@DatabaseField(canBeNull = false, unique = true, width = 5, columnName = FIELD_CODE)
+	private String code;
 
 	@DatabaseField(canBeNull = false, unique = true, width = 200, columnName = FIELD_NAME)
 	private String name;
 
 	@DatabaseField(width = 4000)
 	private String description;
+	
+	@DatabaseField(canBeNull = false, defaultValue = "0")
+	private int showSequence;
+
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
 
 	/**
 	 * @return the name
@@ -52,6 +73,20 @@ public class TypeBasedEntity extends RecordHistEntity {
 		this.description = description;
 
 		this.propertyChange.firePropertyChange("description", old, description);
+	}
+
+	/**
+	 * @return the showSequence
+	 */
+	public int getShowSequence() {
+		return showSequence;
+	}
+
+	/**
+	 * @param showSequence the showSequence to set
+	 */
+	public void setShowSequence(int showSequence) {
+		this.showSequence = showSequence;
 	}
 
 	/**

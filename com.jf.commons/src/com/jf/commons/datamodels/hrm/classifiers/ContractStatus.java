@@ -21,10 +21,10 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
- *
+ * trạng thái hợp đồng: đang làm việc, hoãn, đóng
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_LabourAgreementStatuses")
+@DatabaseTable(tableName = "hrm_ContractStatuses")
 public class ContractStatus extends TypeBasedEntity {
 	private static final long serialVersionUID = 1L;
 

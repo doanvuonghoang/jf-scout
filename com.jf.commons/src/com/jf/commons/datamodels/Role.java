@@ -51,8 +51,7 @@ public class Role extends TrackableEntity implements Serializable {
     
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-    	// TODO Auto-generated method stub
-    	if(isNew()) return;
+    	    	if(isNew()) return;
     	
     	super.propertyChange(evt);
     	

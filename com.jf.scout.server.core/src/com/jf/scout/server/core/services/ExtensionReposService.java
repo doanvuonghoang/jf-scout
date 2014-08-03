@@ -39,8 +39,7 @@ public class ExtensionReposService extends AbstractService implements IExtension
    */
   @Override
   public void initializeService(ServiceRegistration registration) {
-    // TODO Auto-generated method stub
-    super.initializeService(registration);
+        super.initializeService(registration);
 
     // install service it-self
     try {
@@ -66,8 +65,7 @@ public class ExtensionReposService extends AbstractService implements IExtension
 
   @Override
   public boolean isInstalled(String extName) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    try {
+        try {
       return !getDao().queryBuilder().where()
           .eq(Extension.FIELD_EXT_CLASS_NAME, extName)
           .and().ne(Extension.FIELD_RECORD_STATUS, RecordStatus.DELETE)
@@ -82,13 +80,11 @@ public class ExtensionReposService extends AbstractService implements IExtension
 
   @Override
   public void install(Extension ext) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    try {
+        try {
       getDao().create(ext);
     }
     catch (Exception e) {
-      // TODO Auto-generated catch block
-      throw new VetoException(e.getMessage(), e);
+            throw new VetoException(e.getMessage(), e);
     }
   }
 
@@ -96,8 +92,7 @@ public class ExtensionReposService extends AbstractService implements IExtension
    * @param name
    */
   public void removeExtension(String name) throws Exception {
-    // TODO Auto-generated method stub
-    getDao().queryForEq(Extension.FIELD_EXT_CLASS_NAME, name).forEach((m) -> {
+        getDao().queryForEq(Extension.FIELD_EXT_CLASS_NAME, name).forEach((m) -> {
 
       try {
         dao.delete(m);
@@ -113,8 +108,7 @@ public class ExtensionReposService extends AbstractService implements IExtension
    */
   @Override
   public void doInstall() throws Exception {
-    // TODO Auto-generated method stub
-    TableUtils.createTable(getDao().getConnectionSource(), Extension.class);
+        TableUtils.createTable(getDao().getConnectionSource(), Extension.class);
 
     getDao().create(createExtensionModel(this));
   }
@@ -124,8 +118,7 @@ public class ExtensionReposService extends AbstractService implements IExtension
    * @return
    */
   private Extension createExtensionModel(IInstallable ext) {
-    // TODO Auto-generated method stub
-    Extension model = new Extension();
+        Extension model = new Extension();
     model.extClassName = ext.getClass().getName();
     model.author = ext.getClass().getAnnotation(Author.class).name();
     model.version = ext.getClass().getAnnotation(Version.class).version();
@@ -140,19 +133,16 @@ public class ExtensionReposService extends AbstractService implements IExtension
    */
   @Override
   public void doUnInstall() throws Exception {
-    // TODO Auto-generated method stub
-    TableUtils.dropTable(getDao().getConnectionSource(), Extension.class, true);
+        TableUtils.dropTable(getDao().getConnectionSource(), Extension.class, true);
   }
 
   @Override
   public void uninstall(String extName) throws ProcessingException {
-    //TODO [Hoàng] business logic here.
-    try {
+        try {
       getDao().updateBuilder().updateColumnValue(Extension.FIELD_RECORD_STATUS, RecordStatus.DELETE);
     }
     catch (SQLException e) {
-      // TODO Auto-generated catch block
-      logger.info(e.getMessage(), e);
+            logger.info(e.getMessage(), e);
 
       throw new VetoException(e.getMessage(), e);
     }

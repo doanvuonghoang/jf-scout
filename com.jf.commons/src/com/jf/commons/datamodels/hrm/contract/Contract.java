@@ -30,7 +30,7 @@ import com.jf.commons.datamodels.hrm.employee.Employee;
  *
  * @author Hoàng Doãn
  */
-@DatabaseTable(tableName = "hrm_LabourAgreements")
+@DatabaseTable(tableName = "hrm_Contracts")
 public class Contract extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
 
