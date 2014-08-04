@@ -134,7 +134,9 @@ public class TypeBasedEntity extends RecordHistEntity {
 	 */
 	protected <T extends TypeBasedEntity> void onModelCreated(T t,
 			String[] parts) {
-		t.setName(parts[0].trim());
-		t.setDescription(parts[1].trim());
+		t.setCode(parts[0].trim());
+		t.setName(parts[1].trim());
+		t.setDescription(parts[2].trim());
+		t.setShowSequence(Integer.valueOf(parts[3].trim()));
 	}
 }

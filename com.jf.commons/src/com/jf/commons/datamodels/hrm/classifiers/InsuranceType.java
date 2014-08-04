@@ -157,8 +157,8 @@ public class InsuranceType extends TypeBasedEntity {
 		super.onModelCreated(t, parts);
 		
 		InsuranceType m = (InsuranceType) t;
-		m.setRate(Double.parseDouble(parts[2]));
-		m.setYearAssc(Integer.parseInt(parts[3]));
-		m.setRequired(Boolean.parseBoolean(parts[4]));
+		m.setRate(Double.parseDouble(parts[4]));
+		m.setYearAssc(Integer.parseInt(parts[5]));
+		m.setRequired(Boolean.parseBoolean(parts[6]));
 	}
 }
