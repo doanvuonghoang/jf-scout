@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: jfscout.shared.core
+Bundle-SymbolicName: jfscout.shared.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: jfscout.shared.core.Activator
+Export-Package: jfscout.shared.core,
+ jfscout.shared.core.services,
+ jfscout.shared.core.services.common.text,
+ jfscout.shared.core.ui.forms
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.scout.rt.shared;visibility:=reexport,
+ jfcommons;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="Core" sequenceNumber="9">
+<locations>
+<location path="${eclipse_home}\" type="Directory"/>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.rap.feature.feature.group" version="2.3.0.20140610-0925"/>
+<unit id="org.eclipse.scout.rt.rap.source.feature.group" version="4.0.0.20140611-1401"/>
+<repository location="http://download.eclipse.org/releases/luna"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.scout.commons" version="4.0.0.20140604-0900"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.scout.commons" version="4.0.0.20140604-0900"/>
+</location>
+</locations>
+<launcherArgs>
+<vmArgs>-Xms256m -Xmx512m</vmArgs>
+</launcherArgs>
+</target>

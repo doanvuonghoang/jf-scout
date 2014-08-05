@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: My Application
+Bundle-SymbolicName: jfscout.ui.swing.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: jfscout.ui.swing.core.Activator
+Export-Package: jfscout.ui.swing.core;uses:="org.eclipse.scout.rt.ui.swing,org.eclipse.scout.rt.client.session,org.osgi.framework"
+Require-Bundle: org.eclipse.scout.rt.ui.swing,
+ jfscout.client.core;visibility:=reexport,
+ jfscout.shared.core,
+ org.eclipse.scout.net
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: jfscout.shared.hrm
+Bundle-SymbolicName: jfscout.shared.hrm;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: jfscout.shared.hrm.Activator
+Export-Package: jfscout.shared.hrm,
+ jfscout.shared.hrm.services.common.text
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.scout.rt.shared;visibility:=reexport,
+ jfscout.shared.core;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
