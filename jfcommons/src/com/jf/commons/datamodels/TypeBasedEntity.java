@@ -1,7 +1,8 @@
 package com.jf.commons.datamodels;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.io.InputStreamReader;
+
+import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.field.DatabaseField;
@@ -101,9 +102,10 @@ public class TypeBasedEntity extends RecordHistEntity {
 		TableUtils.createTableIfNotExists(dao.getConnectionSource(), cls);
 
 		// insert data
-		ResourceBundle rb = ResourceBundle.getBundle(cls.getSimpleName(),
-				Locale.getDefault(), cls.getClassLoader());
-		for (String entry : rb.getStringArray("entries")) {
+		PropertiesConfiguration cfg = new PropertiesConfiguration();
+		cfg.load(new InputStreamReader(cls.getResource(cls.getSimpleName() + ".properties").openStream(), "UTF-8"));
+		
+		for (String entry : cfg.getStringArray("entries")) {
 			dao.create(createModel(entry, cls));
 		}
 	}
@@ -117,7 +119,7 @@ public class TypeBasedEntity extends RecordHistEntity {
 	 */
 	protected <T extends TypeBasedEntity> T createModel(String entry,
 			Class<T> cls) throws Exception {
-		String[] parts = entry.split(",");
+		String[] parts = entry.split(":");
 
 		T m = cls.newInstance();
 		m.setNew(true);

@@ -4,8 +4,13 @@
    <extension
          name=""
          point="org.eclipse.scout.service.services">
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="jfscout.shared.hrm.services.IExtensionService">
+      </proxy>
    </extension>
    <extension
+         name=""
          point="org.eclipse.scout.rt.extension.client.desktopExtensions">
       <desktopExtension
             class="jfscout.client.hrm.ui.desktop.DesktopExtension"

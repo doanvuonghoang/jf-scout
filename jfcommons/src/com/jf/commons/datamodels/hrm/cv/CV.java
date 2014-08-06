@@ -46,7 +46,7 @@ public class CV extends RecordHistEntity {
     @DatabaseField(canBeNull = false, columnName = FIELD_FIRST_NAME)
     private String firstName;
     
-    @DatabaseField(canBeNull = false, columnName = FIELD_FIRST_NAME)
+    @DatabaseField(canBeNull = false, columnName = FIELD_LAST_NAME)
     private String lastName;
     
     @DatabaseField(canBeNull = false)

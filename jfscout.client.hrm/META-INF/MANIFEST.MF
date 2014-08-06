@@ -6,13 +6,15 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: jfscout.client.hrm.Activator
 Export-Package: jfscout.client.hrm,
  jfscout.client.hrm.ui.desktop,
- jfscout.client.hrm.ui.desktop.outlines
+ jfscout.client.hrm.ui.desktop.outlines,
+ jfscout.client.hrm.ui.desktop.pages
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.client;visibility:=reexport,
  org.eclipse.scout.rt.extension.client;visibility:=reexport,
  jfscout.shared.hrm,
  org.eclipse.scout.svg.client,
- jfscout.client.core;visibility:=reexport
+ jfscout.client.core;visibility:=reexport,
+ jfcommons;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.w3c.dom.svg;version="[1.1.0,2.0.0)"
 Bundle-ActivationPolicy: lazy

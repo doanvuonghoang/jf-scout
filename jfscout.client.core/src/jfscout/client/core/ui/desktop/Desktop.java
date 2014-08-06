@@ -116,7 +116,7 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
               executeInternalUninstall(ext);
               svc.uninstall(model.extClassName);
             }
-            else if (svc.isInstalled(model.extClassName)) return;
+            else if (svc.isInstalled(model.extClassName)) continue;
 
             executeInternalInstall(ext);
 

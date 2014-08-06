@@ -17,8 +17,10 @@
 
 package com.jf.commons.datamodels.hrm.classifiers;
 
+import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.util.ResourceBundle;
+
+import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
@@ -102,9 +104,10 @@ public class City extends RecordHistEntity implements Serializable {
 				.createTableIfNotExists(dao.getConnectionSource(), City.class);
 
 		// insert predefine data
-		ResourceBundle rb = ResourceBundle.getBundle("cities");
-		for(String c : rb.getStringArray("cities")) {
-			String[] city = c.split(",");
+		PropertiesConfiguration cfg = new PropertiesConfiguration();
+		cfg.load(new InputStreamReader(City.class.getResourceAsStream("cities.properties"), "UTF-8"));
+		for(String c : cfg.getStringArray("cities")) {
+			String[] city = c.split(":");
 			City m = new City();
 			m.setNew(true);
 

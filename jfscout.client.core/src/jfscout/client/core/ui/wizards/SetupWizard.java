@@ -25,6 +25,16 @@ public class SetupWizard extends AbstractWizard {
   }
 
   @Override
+  protected int getConfiguredDisplayHint() {
+    return DISPLAY_HINT_VIEW;
+  }
+
+  @Override
+  protected boolean getConfiguredModal() {
+    return true;
+  }
+
+  @Override
   protected String getConfiguredTitle() {
     return TEXTS.get("Setup");
   }

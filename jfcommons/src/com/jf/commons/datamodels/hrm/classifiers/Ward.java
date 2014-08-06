@@ -17,7 +17,9 @@
 
 package com.jf.commons.datamodels.hrm.classifiers;
 
-import java.util.ResourceBundle;
+import java.io.InputStreamReader;
+
+import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.field.DatabaseField;
@@ -97,9 +99,10 @@ public class Ward extends RecordHistEntity {
 				.createTableIfNotExists(dao.getConnectionSource(), Ward.class);
 
 		// insert wards
-		ResourceBundle rb = ResourceBundle.getBundle("wards");
-		for (String w : rb.getStringArray("wards")) {
-			String[] parts = w.split(",");
+		PropertiesConfiguration cfg = new PropertiesConfiguration();
+		cfg.load(new InputStreamReader(City.class.getResourceAsStream("wards.properties"), "UTF-8"));
+		for (String w : cfg.getStringArray("wards")) {
+			String[] parts = w.split(":");
 
 			Ward m = new Ward();
 			m.setNew(true);

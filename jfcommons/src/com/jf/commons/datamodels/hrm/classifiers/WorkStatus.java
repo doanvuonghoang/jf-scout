@@ -21,7 +21,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.TypeBasedEntity;
 
 /**
- *
+ * đề bạt, chính thức, thôi giữ
  * @author Hoàng Doãn
  */
 @DatabaseTable(tableName = "hrm_WorkStatuses")

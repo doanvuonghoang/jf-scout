@@ -17,8 +17,10 @@
 
 package com.jf.commons.datamodels.hrm.classifiers;
 
+import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.util.ResourceBundle;
+
+import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
@@ -91,9 +93,10 @@ public class District extends RecordHistEntity implements Serializable {
 				District.class);
 
 		// insert predefine data
-		ResourceBundle rb = ResourceBundle.getBundle("districts");
-		for (String d : rb.getStringArray("districts")) {
-			String[] district = d.split(",");
+		PropertiesConfiguration cfg = new PropertiesConfiguration();
+		cfg.load(new InputStreamReader(City.class.getResourceAsStream("districts.properties"), "UTF-8"));
+		for (String d : cfg.getStringArray("districts")) {
+			String[] district = d.split(":");
 
 			District m = new District();
 			m.setNew(true);
