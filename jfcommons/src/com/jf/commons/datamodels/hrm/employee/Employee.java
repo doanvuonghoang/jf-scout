@@ -25,7 +25,9 @@ import com.jf.commons.datamodels.RecordHistEntity;
 import com.jf.commons.datamodels.hrm.File;
 import com.jf.commons.datamodels.hrm.classifiers.EmployeeStatus;
 import com.jf.commons.datamodels.hrm.contract.Contract;
+import com.jf.commons.datamodels.hrm.cv.CV;
 import com.jf.commons.datamodels.hrm.insurance.Insurance;
+import com.jf.commons.datamodels.hrm.organization.Organization;
 import com.jf.commons.datamodels.hrm.training.Skill;
 
 /**
@@ -37,18 +39,25 @@ public class Employee extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
 	
     public static final String FIELD_CODE = "code";
+    public static final String FIELD_FULLNAME = "fullName";
+    public static final String FIELD_STATUS = "statusId";
+    public static final String FIELD_PHOTO = "photoId";
+    
 
     @DatabaseField(canBeNull = false, unique = true, columnName = FIELD_CODE)
     private String code;
     
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(canBeNull = false, columnName = FIELD_FULLNAME)
     private String fullName;
     
-    @DatabaseField(foreign = true)
+    @DatabaseField(foreign = true, columnName = FIELD_PHOTO)
     private File photo;
     
-    @DatabaseField(foreign = true, canBeNull = false)
+    @DatabaseField(foreign = true, canBeNull = false, columnName = FIELD_STATUS)
     private EmployeeStatus status;
+    
+    @ForeignCollectionField(eager = false)
+    private ForeignCollection<CV> cvs;
     
     @ForeignCollectionField(eager = false)
     private ForeignCollection<Insurance> insurances;
@@ -58,6 +67,9 @@ public class Employee extends RecordHistEntity {
     
     @ForeignCollectionField(eager = false)
     private ForeignCollection<Contract> contracts;
+    
+    @ForeignCollectionField(eager = false)
+    private ForeignCollection<Organization> organizations;
 
 	/**
 	 * @return the code
@@ -123,24 +135,10 @@ public class Employee extends RecordHistEntity {
 	}
 
 	/**
-	 * @param insurances the insurances to set
-	 */
-	public void setInsurances(ForeignCollection<Insurance> insurances) {
-		this.insurances = insurances;
-	}
-
-	/**
 	 * @return the skills
 	 */
 	public ForeignCollection<Skill> getSkills() {
 		return skills;
-	}
-
-	/**
-	 * @param skills the skills to set
-	 */
-	public void setSkills(ForeignCollection<Skill> skills) {
-		this.skills = skills;
 	}
 
 	/**
@@ -150,11 +148,12 @@ public class Employee extends RecordHistEntity {
 		return contracts;
 	}
 
-	/**
-	 * @param contracts the contracts to set
-	 */
-	public void setContracts(ForeignCollection<Contract> contracts) {
-		this.contracts = contracts;
+	public ForeignCollection<CV> getCvs() {
+		return cvs;
+	}
+
+	public ForeignCollection<Organization> getOrganizations() {
+		return organizations;
 	}
     
 }

@@ -5,6 +5,7 @@ Bundle-SymbolicName: jfscout.shared.hrm;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: jfscout.shared.hrm.Activator
 Export-Package: jfscout.shared.hrm,
+ jfscout.shared.hrm.codetypes,
  jfscout.shared.hrm.services,
  jfscout.shared.hrm.services.common.text,
  jfscout.shared.hrm.ui.desktop.pages

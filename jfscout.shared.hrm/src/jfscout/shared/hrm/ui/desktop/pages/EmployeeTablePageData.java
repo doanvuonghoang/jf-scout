@@ -3,6 +3,8 @@
  */
 package jfscout.shared.hrm.ui.desktop.pages;
 
+import java.util.Date;
+
 import javax.annotation.Generated;
 
 import org.eclipse.scout.rt.shared.data.basic.table.AbstractTableRowData;
@@ -60,7 +62,25 @@ public class EmployeeTablePageData extends AbstractTablePageData {
 
     private static final long serialVersionUID = 1L;
     public static final String id = "id";
+    public static final String code = "code";
+    public static final String fullName = "fullName";
+    public static final String photo = "photo";
+    public static final String status = "status";
+    public static final String department = "department";
+    public static final String gender = "gender";
+    public static final String birthdate = "birthdate";
+    public static final String birthplace = "birthplace";
+    public static final String pIN = "pIN";
     private Long m_id;
+    private String m_code;
+    private String m_fullName;
+    private Integer m_photo;
+    private Integer m_status;
+    private String m_department;
+    private String m_gender;
+    private Date m_birthdate;
+    private String m_birthplace;
+    private String m_pIN;
 
     public EmployeeTableRowData() {
     }
@@ -78,6 +98,141 @@ public class EmployeeTablePageData extends AbstractTablePageData {
      */
     public void setId(Long id) {
       m_id = id;
+    }
+
+    /**
+     * @return the Code
+     */
+    public String getCode() {
+      return m_code;
+    }
+
+    /**
+     * @param code
+     *          the Code to set
+     */
+    public void setCode(String code) {
+      m_code = code;
+    }
+
+    /**
+     * @return the FullName
+     */
+    public String getFullName() {
+      return m_fullName;
+    }
+
+    /**
+     * @param fullName
+     *          the FullName to set
+     */
+    public void setFullName(String fullName) {
+      m_fullName = fullName;
+    }
+
+    /**
+     * @return the Photo
+     */
+    public Integer getPhoto() {
+      return m_photo;
+    }
+
+    /**
+     * @param photo
+     *          the Photo to set
+     */
+    public void setPhoto(Integer photo) {
+      m_photo = photo;
+    }
+
+    /**
+     * @return the Status
+     */
+    public Integer getStatus() {
+      return m_status;
+    }
+
+    /**
+     * @param status
+     *          the Status to set
+     */
+    public void setStatus(Integer status) {
+      m_status = status;
+    }
+
+    /**
+     * @return the Department
+     */
+    public String getDepartment() {
+      return m_department;
+    }
+
+    /**
+     * @param department
+     *          the Department to set
+     */
+    public void setDepartment(String department) {
+      m_department = department;
+    }
+
+    /**
+     * @return the Gender
+     */
+    public String getGender() {
+      return m_gender;
+    }
+
+    /**
+     * @param gender
+     *          the Gender to set
+     */
+    public void setGender(String gender) {
+      m_gender = gender;
+    }
+
+    /**
+     * @return the Birthdate
+     */
+    public Date getBirthdate() {
+      return m_birthdate;
+    }
+
+    /**
+     * @param birthdate
+     *          the Birthdate to set
+     */
+    public void setBirthdate(Date birthdate) {
+      m_birthdate = birthdate;
+    }
+
+    /**
+     * @return the Birthplace
+     */
+    public String getBirthplace() {
+      return m_birthplace;
+    }
+
+    /**
+     * @param birthplace
+     *          the Birthplace to set
+     */
+    public void setBirthplace(String birthplace) {
+      m_birthplace = birthplace;
+    }
+
+    /**
+     * @return the PIN
+     */
+    public String getPIN() {
+      return m_pIN;
+    }
+
+    /**
+     * @param pIN
+     *          the PIN to set
+     */
+    public void setPIN(String pIN) {
+      m_pIN = pIN;
     }
   }
 }

@@ -9,6 +9,11 @@
             class="jfscout.server.hrm.services.ExtensionService"
             session="jfscout.server.core.ServerSession">
       </service>
+      <service
+            factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+            class="jfscout.server.hrm.services.EmployeeService"
+            session="jfscout.server.core.ServerSession">
+      </service>
    </extension>
 
 </plugin>

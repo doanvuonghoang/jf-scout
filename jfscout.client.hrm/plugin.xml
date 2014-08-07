@@ -8,6 +8,10 @@
             factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
             class="jfscout.shared.hrm.services.IExtensionService">
       </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="jfscout.shared.hrm.services.IEmployeeService">
+      </proxy>
    </extension>
    <extension
          name=""
