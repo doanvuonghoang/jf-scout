@@ -23,6 +23,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.table.TableUtils;
 import com.jf.commons.datamodels.RecordHistEntity;
@@ -107,9 +108,9 @@ public class Ward extends RecordHistEntity {
 			Ward m = new Ward();
 			m.setNew(true);
 			m.setName(parts[0].trim());
-			m.setDistrict(ddao.queryForEq(District.FIELD_NAME, parts[1].trim())
+			m.setDistrict(ddao.queryForEq(District.FIELD_NAME, new SelectArg(parts[1].trim()))
 					.get(0));
-			m.setCity(cdao.queryForEq(City.FIELD_NAME, parts[2].trim()).get(0));
+			m.setCity(cdao.queryForEq(City.FIELD_NAME, new SelectArg(parts[2].trim())).get(0));
 			m.setCreator("admin");
 
 			dao.create(m);

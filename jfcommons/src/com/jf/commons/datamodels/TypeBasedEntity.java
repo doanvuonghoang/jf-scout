@@ -103,6 +103,7 @@ public class TypeBasedEntity extends RecordHistEntity {
 
 		// insert data
 		PropertiesConfiguration cfg = new PropertiesConfiguration();
+		cfg.setDelimiterParsingDisabled(true);
 		cfg.load(new InputStreamReader(cls.getResource(cls.getSimpleName() + ".properties").openStream(), "UTF-8"));
 		
 		for (String entry : cfg.getStringArray("entries")) {

@@ -26,6 +26,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.table.TableUtils;
 import com.jf.commons.datamodels.RecordHistEntity;
@@ -102,7 +103,7 @@ public class District extends RecordHistEntity implements Serializable {
 			m.setNew(true);
 
 			m.setName(district[0].trim());
-			m.setCity(cdao.queryForEq(City.FIELD_NAME, district[1].trim()).get(
+			m.setCity(cdao.queryForEq(City.FIELD_NAME, new SelectArg(district[1].trim())).get(
 					0));
 			m.setCreator("admin");
 
