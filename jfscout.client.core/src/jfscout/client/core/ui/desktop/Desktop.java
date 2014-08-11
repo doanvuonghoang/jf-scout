@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import jfscout.client.core.ClientSession;
-import jfscout.client.core.ui.desktop.outlines.StandardOutline;
+import jfscout.client.core.ui.desktop.outlines.DashboardOutline;
 import jfscout.client.core.ui.wizards.SetupWizard;
 import jfscout.shared.core.Icons;
 import jfscout.shared.core.services.ICoreService;
@@ -48,7 +48,7 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
   @Override
   protected List<Class<? extends IOutline>> getConfiguredOutlines() {
     List<Class<? extends IOutline>> outlines = new ArrayList<Class<? extends IOutline>>();
-    outlines.add(StandardOutline.class);
+    outlines.add(DashboardOutline.class);
     return outlines;
   }
 
@@ -259,7 +259,7 @@ public class Desktop extends AbstractExtensibleDesktop implements IDesktop {
      *
      */
     public StandardOutlineViewButton() {
-      super(Desktop.this, StandardOutline.class);
+      super(Desktop.this, DashboardOutline.class);
     }
   }
 }

@@ -7,7 +7,8 @@ Bundle-Activator: jfscout.client.hrm.Activator
 Export-Package: jfscout.client.hrm,
  jfscout.client.hrm.ui.desktop,
  jfscout.client.hrm.ui.desktop.outlines,
- jfscout.client.hrm.ui.desktop.pages
+ jfscout.client.hrm.ui.desktop.pages,
+ jfscout.client.hrm.ui.forms
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.client;visibility:=reexport,
  org.eclipse.scout.rt.extension.client;visibility:=reexport,

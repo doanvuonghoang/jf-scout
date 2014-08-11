@@ -27,6 +27,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jf.commons.datamodels.RecordHistEntity;
 import com.jf.commons.datamodels.hrm.classifiers.DepartmentType;
+import com.jf.commons.datamodels.hrm.employee.Employee;
 
 /**
  *
@@ -38,6 +39,7 @@ public class Department extends RecordHistEntity implements Serializable {
 
 	public static final String FIELD_CODE = "code";
 	public static final String FIELD_NAME = "name";
+	public static final String FIELD_HEAD_OF_UNIT = "headOfUnit";
 
 	@DatabaseField(foreign = true)
 	private DepartmentType departmentType;
@@ -62,6 +64,9 @@ public class Department extends RecordHistEntity implements Serializable {
 
 	@DatabaseField(width = 200)
 	private String email;
+	
+	@DatabaseField(foreign = true, columnName = FIELD_HEAD_OF_UNIT)
+	private Employee headOfUnit;
 
 	/**
 	 * @return the departmentType
@@ -180,6 +185,14 @@ public class Department extends RecordHistEntity implements Serializable {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Employee getHeadOfUnit() {
+		return headOfUnit;
+	}
+
+	public void setHeadOfUnit(Employee headOfUnit) {
+		this.headOfUnit = headOfUnit;
 	}
 
 	/**

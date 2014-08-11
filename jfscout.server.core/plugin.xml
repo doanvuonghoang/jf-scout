@@ -59,6 +59,10 @@
             class="jfscout.server.core.services.common.sql.DBSqlService"
             session="jfscout.server.core.ServerSession">
       </service>
+      <service
+            class="org.eclipse.scout.rt.server.services.common.offline.OfflineDispatcherService"
+            createImmediately="false">
+      </service>
    </extension>
    <extension
          name=""

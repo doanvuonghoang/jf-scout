@@ -8,7 +8,8 @@ Export-Package: jfscout.shared.hrm,
  jfscout.shared.hrm.codetypes,
  jfscout.shared.hrm.services,
  jfscout.shared.hrm.services.common.text,
- jfscout.shared.hrm.ui.desktop.pages
+ jfscout.shared.hrm.ui.desktop.pages,
+ jfscout.shared.hrm.ui.forms
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.shared;visibility:=reexport,
  jfscout.shared.core;visibility:=reexport

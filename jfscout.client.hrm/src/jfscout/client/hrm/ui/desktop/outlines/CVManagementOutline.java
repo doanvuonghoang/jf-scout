@@ -7,12 +7,12 @@ import org.eclipse.scout.rt.extension.client.ui.desktop.outline.AbstractExtensib
 import org.eclipse.scout.rt.shared.TEXTS;
 
 /**
- * @author Hoàng
+ * @author Hoï¿½ng
  */
-public class DepartmentOutline extends AbstractExtensibleOutline {
+public class CVManagementOutline extends AbstractExtensibleOutline {
 
   @Override
   protected String getConfiguredTitle() {
-    return TEXTS.get("Department");
+    return TEXTS.get("CVManagement");
   }
 }

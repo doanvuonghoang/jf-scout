@@ -36,9 +36,10 @@ import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 import org.eclipse.scout.service.SERVICES;
 
 import com.jf.commons.datamodels.RecordStatus;
+import org.eclipse.scout.rt.client.ui.action.menu.IMenu;
 
 /**
- * @author Hoàng
+ * @author Hoï¿½ng
  */
 @PageData(UserTablePageData.class)
 public class UserTablePage extends AbstractPageWithTable<Table> {
@@ -118,6 +119,11 @@ public class UserTablePage extends AbstractPageWithTable<Table> {
     @Override
     protected String getConfiguredDefaultIconId() {
       return Icons.User;
+    }
+
+    @Override
+    protected Class<? extends IMenu> getConfiguredDefaultMenu() {
+      return UserTablePage.Table.EditUserMenu.class;
     }
 
     /**

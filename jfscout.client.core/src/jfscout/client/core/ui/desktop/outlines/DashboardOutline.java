@@ -1,18 +1,18 @@
 /**
  * 
  */
-package jfscout.client.hrm.ui.desktop.outlines;
+package jfscout.client.core.ui.desktop.outlines;
 
 import org.eclipse.scout.rt.extension.client.ui.desktop.outline.AbstractExtensibleOutline;
 import org.eclipse.scout.rt.shared.TEXTS;
 
 /**
- * @author Hoàng
+ * @author Hoï¿½ng
  */
-public class SettingOutline extends AbstractExtensibleOutline {
+public class DashboardOutline extends AbstractExtensibleOutline {
 
   @Override
   protected String getConfiguredTitle() {
-    return TEXTS.get("Setting");
+    return TEXTS.get("Dashboard");
   }
 }

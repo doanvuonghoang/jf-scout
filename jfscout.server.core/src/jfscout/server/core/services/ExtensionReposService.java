@@ -27,7 +27,7 @@ import com.jf.commons.datamodels.RecordStatus;
 import com.jf.scout.commons.IInstallable;
 
 /**
- * @author Hoàng
+ * @author Hoï¿½ng
  */
 @Author(name = "Hoang Doan")
 @Version(version = "1.0.0")
@@ -73,7 +73,7 @@ public class ExtensionReposService extends AbstractService implements IExtension
           .and().eq(Extension.FIELD_DEBUG, false).query().isEmpty();
     }
     catch (SQLException ex) {
-      logger.info(ex.getMessage(), ex);
+      logger.info(ex.getMessage());
     }
 
     return false;

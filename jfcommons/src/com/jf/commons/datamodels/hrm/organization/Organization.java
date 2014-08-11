@@ -36,23 +36,30 @@ import com.jf.commons.datamodels.hrm.employee.Employee;
 @DatabaseTable(tableName = "hrm_Organizations")
 public class Organization extends RecordHistEntity {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String FIELD_EMPLOYEE = "employeeId";
+	public static final String FIELD_DEPARTMENT= "departmentId";
+	public static final String FIELD_WORK_POSITION = "workPosistionId";
+	public static final String FIELD_WORK_STATUS = "workStatusId";
+	public static final String FIELD_JOB_TITLE = "jobTitleId";
+	public static final String FIELD_JOB_TYPE = "jobTypeId";
 
-	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true)
+	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true, columnName = FIELD_DEPARTMENT)
 	private Department department;
 
-	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true)
+	@DatabaseField(foreign = true, canBeNull = false, uniqueCombo = true, columnName = FIELD_EMPLOYEE)
 	private Employee employee;
 
 	/**
 	 * chức vụ
 	 */
-	@DatabaseField(foreign = true)
+	@DatabaseField(foreign = true, columnName = FIELD_WORK_POSITION)
 	private WorkPosition position;
 
 	/**
 	 * Trạng thái: đề bạt, chính thức, thôi giữ?
 	 */
-	@DatabaseField(foreign = true, uniqueCombo = true)
+	@DatabaseField(foreign = true, uniqueCombo = true, columnName = FIELD_WORK_STATUS)
 	private WorkStatus status;
 
 	@DatabaseField
@@ -65,15 +72,15 @@ public class Organization extends RecordHistEntity {
 	private Date statusChangedTo;
 
 	/**
-	 * Chức danh
+	 * Chức danh nghề
 	 */
-	@DatabaseField(foreign = true)
+	@DatabaseField(foreign = true, columnName = FIELD_JOB_TITLE)
 	private JobTitle title;
 	
 	/**
 	 * Công việc: quản lý kinh tế, kỹ thuật, việc khác?
 	 */
-	@DatabaseField(foreign = true)
+	@DatabaseField(foreign = true, columnName = FIELD_JOB_TYPE)
 	private JobType type;
 
 	/**

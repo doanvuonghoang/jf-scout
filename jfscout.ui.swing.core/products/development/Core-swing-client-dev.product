@@ -3,6 +3,7 @@
 
 <product name="Core Client" id="jfscout.ui.swing.core.product" application="jfscout.ui.swing.core.app" useFeatures="false" includeLaunchers="true">
 
+
    <configIni use="default">
       <linux>/jfscout.ui.swing.core/products/development/config.ini</linux>
       <macosx>/jfscout.ui.swing.core/products/development/config.ini</macosx>
@@ -20,6 +21,7 @@
 
    <windowImages/>
 
+
    <launcher name="Core">
       <solaris/>
       <win useIco="false">
@@ -27,19 +29,18 @@
       </win>
    </launcher>
 
+
    <vm>
    </vm>
 
    <plugins>
+      <plugin id="javax.annotation"/>
+      <plugin id="javax.inject"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.xml"/>
       <plugin id="jfcommons"/>
-      <plugin id="jfscout.client.administration"/>
       <plugin id="jfscout.client.core"/>
-      <plugin id="jfscout.client.hrm"/>
-      <plugin id="jfscout.shared.administration"/>
       <plugin id="jfscout.shared.core"/>
-      <plugin id="jfscout.shared.hrm"/>
       <plugin id="jfscout.ui.swing.core"/>
       <plugin id="org.apache.batik.bridge"/>
       <plugin id="org.apache.batik.css"/>
@@ -54,6 +55,9 @@
       <plugin id="org.apache.batik.util.gui"/>
       <plugin id="org.apache.batik.xml"/>
       <plugin id="org.apache.derby.jdbc_1091.fragment" fragment="true"/>
+      <plugin id="org.apache.xerces"/>
+      <plugin id="org.apache.xml.resolver"/>
+      <plugin id="org.apache.xml.serializer"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.net"/>
@@ -71,6 +75,7 @@
       <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.scout.commons"/>
+      <plugin id="org.eclipse.scout.jaxws216"/>
       <plugin id="org.eclipse.scout.net"/>
       <plugin id="org.eclipse.scout.org.w3c.dom.svg.fragment" fragment="true"/>
       <plugin id="org.eclipse.scout.rt.client"/>

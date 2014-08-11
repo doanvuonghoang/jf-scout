@@ -7,12 +7,12 @@ import org.eclipse.scout.rt.extension.client.ui.desktop.outline.AbstractExtensib
 import org.eclipse.scout.rt.shared.TEXTS;
 
 /**
- * @author Hoàng
+ * @author Hoï¿½ng
  */
-public class HRMOutline extends AbstractExtensibleOutline {
+public class LeaveManagementOutline extends AbstractExtensibleOutline {
 
   @Override
   protected String getConfiguredTitle() {
-    return TEXTS.get("HRM");
+    return TEXTS.get("LeaveManagement");
   }
 }

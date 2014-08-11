@@ -36,9 +36,10 @@ import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 import org.eclipse.scout.service.SERVICES;
 
 import com.jf.commons.datamodels.RecordStatus;
+import org.eclipse.scout.rt.client.ui.action.menu.IMenu;
 
 /**
- * @author Hoàng
+ * @author Hoï¿½ng
  */
 @PageData(RoleTablePageData.class)
 public class RoleTablePage extends AbstractExtensiblePageWithTable<Table> {
@@ -113,6 +114,11 @@ public class RoleTablePage extends AbstractExtensiblePageWithTable<Table> {
     @Override
     protected String getConfiguredDefaultIconId() {
       return Icons.Role;
+    }
+
+    @Override
+    protected Class<? extends IMenu> getConfiguredDefaultMenu() {
+      return RoleTablePage.Table.EditRoleMenu.class;
     }
 
     /**
