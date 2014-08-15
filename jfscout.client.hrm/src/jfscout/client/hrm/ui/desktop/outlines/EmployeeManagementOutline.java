@@ -10,11 +10,17 @@ import jfscout.client.hrm.ui.desktop.pages.EmployeeListTablePage;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
 import jfscout.client.hrm.ui.desktop.pages.EmployeeReportTablePage;
+import jfscout.shared.hrm.Icons;
 
 /**
  * @author Ho�ng
  */
 public class EmployeeManagementOutline extends AbstractExtensibleOutline {
+
+  @Override
+  protected String getConfiguredIconId() {
+    return Icons.EmployeeManagement;
+  }
 
   @Override
   protected String getConfiguredTitle() {

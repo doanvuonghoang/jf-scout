@@ -1,22 +1,25 @@
 /**
- * 
+ *
  */
 package jfscout.client.hrm.ui.desktop.pages;
 
 import jfscout.client.hrm.ui.desktop.pages.EmployeeListTablePage.Table;
+import jfscout.client.hrm.ui.forms.EmployeeListSearchForm;
 import jfscout.shared.hrm.Icons;
+import jfscout.shared.hrm.services.IEmployeeService;
 import jfscout.shared.hrm.ui.desktop.pages.EmployeeListTablePageData;
 
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.annotations.PageData;
+import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractLongColumn;
-import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractSmartColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
+import org.eclipse.scout.rt.client.ui.desktop.outline.pages.ISearchForm;
 import org.eclipse.scout.rt.extension.client.ui.basic.table.AbstractExtensibleTable;
 import org.eclipse.scout.rt.extension.client.ui.desktop.outline.pages.AbstractExtensiblePageWithTable;
 import org.eclipse.scout.rt.shared.TEXTS;
-import jfscout.client.hrm.ui.forms.EmployeeListSearchForm;
-import org.eclipse.scout.rt.client.ui.desktop.outline.pages.ISearchForm;
+import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
+import org.eclipse.scout.service.SERVICES;
 
 /**
  * @author Ho�ng
@@ -34,6 +37,12 @@ public class EmployeeListTablePage extends AbstractExtensiblePageWithTable<Table
     return TEXTS.get("EmployeeList");
   }
 
+  @Override
+  protected Object[][] execLoadTableData(SearchFilter filter) throws ProcessingException {
+    // load data from service
+    return SERVICES.getService(IEmployeeService.class).loadEmployeeTableData();
+  }
+
   @Order(10.0)
   public class Table extends AbstractExtensibleTable {
 
@@ -42,6 +51,18 @@ public class EmployeeListTablePage extends AbstractExtensiblePageWithTable<Table
      */
     public StatusColumn getStatusColumn() {
       return getColumnSet().getColumnByClass(StatusColumn.class);
+    }
+
+    @Override
+    protected boolean getConfiguredAutoResizeColumns() {
+      return true;
+    }
+
+    /**
+     * @return the CodeColumn
+     */
+    public CodeColumn getCodeColumn() {
+      return getColumnSet().getColumnByClass(EmployeeListTablePage.Table.CodeColumn.class);
     }
 
     /**
@@ -63,13 +84,6 @@ public class EmployeeListTablePage extends AbstractExtensiblePageWithTable<Table
      */
     public JobTitleColumn getJobTitleColumn() {
       return getColumnSet().getColumnByClass(EmployeeListTablePage.Table.JobTitleColumn.class);
-    }
-
-    /**
-     * @return the CodeColumn
-     */
-    public CodeColumn getCodeColumn() {
-      return getColumnSet().getColumnByClass(CodeColumn.class);
     }
 
     /**
@@ -111,20 +125,6 @@ public class EmployeeListTablePage extends AbstractExtensiblePageWithTable<Table
     }
 
     @Order(20.0)
-    public class FullNameColumn extends AbstractStringColumn {
-
-      @Override
-      protected String getConfiguredHeaderText() {
-        return TEXTS.get("FullName");
-      }
-
-      @Override
-      protected int getConfiguredWidth() {
-        return 400;
-      }
-    }
-
-    @Order(30.0)
     public class CodeColumn extends AbstractStringColumn {
 
       @Override
@@ -138,8 +138,22 @@ public class EmployeeListTablePage extends AbstractExtensiblePageWithTable<Table
       }
     }
 
+    @Order(30.0)
+    public class FullNameColumn extends AbstractStringColumn {
+
+      @Override
+      protected String getConfiguredHeaderText() {
+        return TEXTS.get("FullName");
+      }
+
+      @Override
+      protected int getConfiguredWidth() {
+        return 400;
+      }
+    }
+
     @Order(40.0)
-    public class StatusColumn extends AbstractSmartColumn<Long> {
+    public class StatusColumn extends AbstractStringColumn {
 
       @Override
       protected String getConfiguredHeaderText() {
@@ -148,7 +162,7 @@ public class EmployeeListTablePage extends AbstractExtensiblePageWithTable<Table
     }
 
     @Order(50.0)
-    public class JobTitleColumn extends AbstractSmartColumn<Long> {
+    public class JobTitleColumn extends AbstractStringColumn {
 
       @Override
       protected String getConfiguredHeaderText() {
@@ -157,7 +171,7 @@ public class EmployeeListTablePage extends AbstractExtensiblePageWithTable<Table
     }
 
     @Order(60.0)
-    public class DepartmentColumn extends AbstractSmartColumn<Long> {
+    public class DepartmentColumn extends AbstractStringColumn {
 
       @Override
       protected String getConfiguredHeaderText() {

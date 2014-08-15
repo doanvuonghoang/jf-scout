@@ -17,7 +17,8 @@ import org.eclipse.scout.service.AbstractService;
 import org.eclipse.scout.service.SERVICES;
 
 import com.j256.ormlite.dao.Dao;
-import com.jf.commons.datamodels.RecordStatus;
+import com.j256.ormlite.field.DataType;
+import com.jf.commons.datamodels.hrm.Utils;
 import com.jf.commons.datamodels.hrm.employee.Employee;
 
 /**
@@ -28,34 +29,22 @@ public class EmployeeService extends AbstractService implements IEmployeeService
 
   @Override
   public Object[][] loadEmployeeTableData() throws ProcessingException {
-    //TODO [Hoàng] business logic here.
+    //
     Dao<Employee, Long> dao = SERVICES.getService(IDatabaseService.class).getDao(Employee.class);
     try {
-      List<Employee> list = dao.queryBuilder()
-          .where()
-          //          .eq(Employee.FIELD_STATUS, EmployeeStatusCodeType.WorkingCode.ID)
-          .ne(Employee.FIELD_RECORD_STATUS, RecordStatus.DELETE)
-          .query();
-
-      Object[][] result = new Object[list.size()][];
+      List<Object[]> results = dao.queryRaw("select * from " + Utils.VIEW_EMPLOYEE_SLIST_VW,
+          new DataType[]{DataType.LONG, DataType.STRING, DataType.STRING, DataType.STRING, DataType.STRING, DataType.STRING}).getResults();
+      Object[][] _r = new Object[results.size()][];
       int c = 0;
-      for (Employee e : list) {
-        // get departments
-
-        result[c] = new Object[]{
-            e.getId(),
-            e.getCode(),
-            e.getFullName(),
-            e.getPhoto().getId(),
-            e.getStatus().getId(),
-
-        };
+      for (Object[] e : results) {
+        _r[c] = e;
         c++;
       }
+
+      return _r;
     }
     catch (SQLException e) {
       throw new VetoException(e.getMessage(), e);
     }
-    return null;
   }
 }
