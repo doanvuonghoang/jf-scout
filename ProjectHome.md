@@ -1,0 +1,1 @@
+Use Eclipse Scout to create application
